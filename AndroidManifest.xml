@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.velta.payment">
+
+    <!-- ========================================== -->
+    <!-- VELTA ANDROID - NFC PAYMENT PERMISSIONS   -->
+    <!-- ========================================== -->
+
+    <!-- Required: NFC Read/Write Capability -->
+    <uses-permission android:name="android.permission.NFC" />
+
+    <!-- Required: Biometric Authentication (Fingerprint/Face/PIN) -->
+    <uses-permission android:name="android.permission.USE_BIOMETRIC" />
+
+    <!-- Required: Internet for Backend Communication -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- Optional: Camera for QR Code Fallback -->
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <!-- Optional: Location for Fraud Detection -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <!-- Required Hardware Feature: Device Must Have NFC -->
+    <uses-feature
+        android:name="android.hardware.nfc"
+        android:required="true" />
+
+    <!-- Optional: Biometric Hardware -->
+    <uses-feature
+        android:name="android.hardware.fingerprint"
+        android:required="false" />
+
+    <!-- ========================================== -->
+    <!-- APPLICATION CONFIGURATION                 -->
+    <!-- ========================================== -->
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.VeltaPayment"
+        android:networkSecurityConfig="@xml/network_security_config">
+
+        <!-- Main NFC Payment Activity -->
+        <activity
+            android:name=".VeltaNFCPaymentActivity"
+            android:exported="true"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            
+            <!-- NFC Tag Discovery Intent Filter -->
+            <intent-filter>
+                <action android:name="android.nfc.action.TECH_DISCOVERED" />
+            </intent-filter>
+            <meta-data
+                android:name="android.nfc.action.TECH_DISCOVERED"
+                android:resource="@xml/nfc_tech_filter" />
+
+            <!-- NFC NDEF Discovery Intent Filter -->
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+                <data android:mimeType="application/com.velta.payment" />
+            </intent-filter>
+        </activity>
+
+        <!-- Wallet Activity (optional) -->
+        <activity
+            android:name=".WalletActivity"
+            android:exported="false" />
+
+        <!-- Transaction History Activity (optional) -->
+        <activity
+            android:name=".TransactionHistoryActivity"
+            android:exported="false" />
+
+        <!-- Merchant Portal Activity (optional) -->
+        <activity
+            android:name=".MerchantPortalActivity"
+            android:exported="false" />
+
+    </application>
+
+    <!-- ========================================== -->
+    <!-- MINIMUM AND TARGET SDK VERSIONS           -->
+    <!-- ========================================== -->
+
+    <!-- Minimum: Android 4.4 (API 19) - First NFC Support -->
+    <!-- Target: Android 13+ (API 33+) - Latest Features -->
+
+</manifest>
