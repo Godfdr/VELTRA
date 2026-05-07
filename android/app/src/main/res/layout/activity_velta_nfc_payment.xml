@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@color/white">
+
+    <!-- Header -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="VELTA Payment"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="@color/velta_primary"
+        android:layout_marginBottom="8dp" />
+
+    <!-- NFC Status -->
+    <TextView
+        android:id="@+id/nfcStatusText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="NFC: 🟢 ACTIVE"
+        android:textSize="16sp"
+        android:textColor="@color/velta_primary"
+        android:layout_marginBottom="24dp" />
+
+    <!-- Divider -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_light"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Amount Input -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Amount (USD)"
+        android:textStyle="bold"
+        android:textColor="@color/gray_dark"
+        android:layout_marginTop="8dp" />
+
+    <EditText
+        android:id="@+id/amountInput"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:inputType="numberDecimal"
+        android:hint="Enter amount"
+        android:hint="150.00"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/edittext_background"
+        android:textColor="@color/black"
+        android:textColorHint="@color/gray_light" />
+
+    <!-- Recipient Input -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Recipient"
+        android:textStyle="bold"
+        android:textColor="@color/gray_dark"
+        android:layout_marginTop="8dp" />
+
+    <EditText
+        android:id="@+id/recipientInput"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="Select recipient"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/edittext_background"
+        android:textColor="@color/black"
+        android:textColorHint="@color/gray_light" />
+
+    <!-- Description Input -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Description (Optional)"
+        android:textStyle="bold"
+        android:textColor="@color/gray_dark"
+        android:layout_marginTop="8dp" />
+
+    <EditText
+        android:id="@+id/descriptionInput"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="Payment description"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/edittext_background"
+        android:textColor="@color/black"
+        android:textColorHint="@color/gray_light" />
+
+    <!-- Pay Button -->
+    <Button
+        android:id="@+id/payButton"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text="💳 TAP TO PAY"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:background="@color/velta_primary"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Progress Bar -->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_marginVertical="16dp" />
+
+    <!-- Result Text -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="16dp">
+
+        <TextView
+            android:id="@+id/resultText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ready for payment"
+            android:textSize="14sp"
+            android:textColor="@color/gray_dark"
+            android:padding="16dp"
+            android:background="@color/gray_light" />
+
+    </ScrollView>
+
+</LinearLayout>

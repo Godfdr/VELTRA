@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">VELTA Payment</string>
+    <string name="tap_to_pay">Tap to Pay</string>
+    <string name="confirm_identity">Confirm Identity</string>
+    <string name="nfc_scanning">Hold Android phone BACK to payment terminal</string>
+    <string name="payment_successful">Payment Successful</string>
+    <string name="payment_failed">Payment Failed</string>
+    <string name="cancel">Cancel</string>
+    <string name="retry">Retry</string>
+    <string name="amount_label">Amount (USD)</string>
+    <string name="recipient_label">Recipient</string>
+    <string name="description_label">Description</string>
+</resources>

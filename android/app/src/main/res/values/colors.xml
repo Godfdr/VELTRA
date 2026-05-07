@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="velta_primary">#00D4FF</color>
+    <color name="velta_secondary">#00A8FF</color>
+    <color name="velta_accent">#FF6B35</color>
+    <color name="velta_success">#00D084</color>
+    <color name="velta_danger">#FF4757</color>
+    <color name="velta_warning">#FFA502</color>
+    
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="gray_light">#F5F5F5</color>
+    <color name="gray_dark">#333333</color>
+</resources>

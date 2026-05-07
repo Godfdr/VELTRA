@@ -1,0 +1,51 @@
+# Gradle files
+.gradle/
+build/
+gradle/wrapper/gradle-wrapper.jar
+
+# Local configuration file
+local.properties
+
+# IDE files
+.idea/
+*.iml
+*.iws
+*.ipr
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# Android Studio
+.gradle
+.idea/
+local.properties
+*.iml
+
+# OS files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Build files
+build/
+dist/
+*.apk
+*.ap_
+*.dex
+*.class
+bin/
+gen/
+out/
+
+# Signing files
+*.keystore
+*.jks
+
+# Misc files
+*.log
+.metadata
