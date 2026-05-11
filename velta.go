@@ -1,37 +1,38 @@
 package main
 
 import (
+	"crypto/rand"
 	"crypto/sha256"
 	"fmt"
 	"log"
 	"math"
-	"math/rand"
+	mathrand "math/rand"
 	"strings"
 	"sync"
 	"time"
 )
 
 // ============================================================================
-// VELTA ENHANCED - PREMIUM NFC FINTECH PAYMENT SYSTEM
+// VELTRA ENHANCED - PREMIUM NFC FINTECH PAYMENT SYSTEM
 // ============================================================================
 
-// VeltaApp - Main application structure with advanced features
-type VeltaApp struct {
-	AppName           string
-	Version           string
-	Users             map[string]*User
-	Wallet            map[string]*WalletAccount
-	Ledger            []Transaction
-	NFCReader         *NFCReader
-	CacheLayer        *PaymentCache
-	MerchantRegistry  map[string]*Merchant
-	FraudDetection    *FraudDetectionEngine
-	AnalyticsEngine   *Analytics
-	WebhookManager    *WebhookManager
-	RateLimiter       *RateLimiter
+// VeltraApp - Main application structure with advanced features
+type VeltraApp struct {
+	AppName          string
+	Version          string
+	Users            map[string]*User
+	Wallet           map[string]*WalletAccount
+	Ledger           []Transaction
+	NFCReader        *NFCReader
+	CacheLayer       *PaymentCache
+	MerchantRegistry map[string]*Merchant
+	FraudDetection   *FraudDetectionEngine
+	AnalyticsEngine  *Analytics
+	WebhookManager   *WebhookManager
+	RateLimiter      *RateLimiter
 	RecurringPayments map[string]*RecurringPayment
-	AppBrand          *AppBrand
-	mu                sync.RWMutex
+	AppBrand         *AppBrand
+	mu               sync.RWMutex
 }
 
 // User - Enhanced user with 2FA and merchant support
@@ -131,10 +132,10 @@ type PaymentCache struct {
 
 // FraudDetectionEngine - AI-powered fraud detection
 type FraudDetectionEngine struct {
-	RiskThreshold       float64
-	TransactionHistory  map[string][]*Transaction
-	BlacklistedUsers    []string
-	SuspiciousPatterns  map[string]int
+	RiskThreshold      float64
+	TransactionHistory map[string][]*Transaction
+	BlacklistedUsers   []string
+	SuspiciousPatterns map[string]int
 	BlockedTransactions int
 }
 
@@ -187,35 +188,36 @@ type AppBrand struct {
 // INITIALIZATION & SETUP
 // ============================================================================
 
-func InitVelta() *VeltaApp {
+func InitVeltra() *VeltraApp {
 	appBrand := &AppBrand{
 		TagLine:        "Lightning-Fast NFC Payments",
 		PrimaryColor:   "#00D4FF",
 		SecondaryColor: "#00A8FF",
-		IconASCII:      getVeltaIcon(),
+		IconASCII:      getVeltraIcon(),
 	}
 
-	va := &VeltaApp{
-		AppName:           "Velta",
-		Version:           "2.0.0-PREMIUM",
-		Users:             make(map[string]*User),
-		Wallet:            make(map[string]*WalletAccount),
-		Ledger:            []Transaction{},
-		NFCReader:         &NFCReader{IsActive: true, ReadRange: 10, StartTime: time.Now()},
-		CacheLayer:        &PaymentCache{BalanceCache: make(map[string]float64), TransactionCache: make(map[string]*Transaction), UserCache: make(map[string]*User)},
-		MerchantRegistry:  make(map[string]*Merchant),
-		FraudDetection:    &FraudDetectionEngine{RiskThreshold: 0.7, TransactionHistory: make(map[string][]*Transaction), SuspiciousPatterns: make(map[string]int)},
-		AnalyticsEngine:   &Analytics{},
-		WebhookManager:    &WebhookManager{Webhooks: make(map[string]*Webhook)},
-		RateLimiter:       &RateLimiter{UserLimits: make(map[string]*UserRateLimit)},
+	va := &VeltraApp{
+		AppName:          "Veltra",
+		Version:          "2.0.0-PREMIUM",
+		Users:            make(map[string]*User),
+		Wallet:           make(map[string]*WalletAccount),
+		Ledger:           []Transaction{},
+		NFCReader:        &NFCReader{IsActive: true, ReadRange: 10, StartTime: time.Now()},
+		CacheLayer:       &PaymentCache{BalanceCache: make(map[string]float64), TransactionCache: make(map[string]*Transaction), UserCache: make(map[string]*User)},
+		MerchantRegistry: make(map[string]*Merchant),
+		FraudDetection:   &FraudDetectionEngine{RiskThreshold: 0.7, TransactionHistory: make(map[string][]*Transaction), SuspiciousPatterns: make(map[string]int)},
+		AnalyticsEngine:  &Analytics{},
+		WebhookManager:   &WebhookManager{Webhooks: make(map[string]*Webhook)},
+		RateLimiter:      &RateLimiter{UserLimits: make(map[string]*UserRateLimit)},
 		RecurringPayments: make(map[string]*RecurringPayment),
-		AppBrand:          appBrand,
+		AppBrand:         appBrand,
 	}
+
 	return va
 }
 
 // RegisterUser - Register a new user
-func (va *VeltaApp) RegisterUser(name, email, phone string) string {
+func (va *VeltraApp) RegisterUser(name, email, phone string) string {
 	va.mu.Lock()
 	defer va.mu.Unlock()
 
@@ -256,7 +258,7 @@ func (va *VeltaApp) RegisterUser(name, email, phone string) string {
 }
 
 // Enable2FA - Enable two-factor authentication
-func (va *VeltaApp) Enable2FA(userID string) bool {
+func (va *VeltraApp) Enable2FA(userID string) bool {
 	if user, exists := va.Users[userID]; exists {
 		user.TwoFactorEnabled = true
 		user.TwoFactorSecret = generateID("2FA")
@@ -267,7 +269,7 @@ func (va *VeltaApp) Enable2FA(userID string) bool {
 }
 
 // RegisterMerchant - Register user as merchant
-func (va *VeltaApp) RegisterMerchant(userID, businessName, category string, commission float64) bool {
+func (va *VeltraApp) RegisterMerchant(userID, businessName, category string, commission float64) bool {
 	va.mu.Lock()
 	defer va.mu.Unlock()
 
@@ -294,7 +296,7 @@ func (va *VeltaApp) RegisterMerchant(userID, businessName, category string, comm
 }
 
 // AddBalance - Add balance to wallet
-func (va *VeltaApp) AddBalance(userID string, amount float64) bool {
+func (va *VeltraApp) AddBalance(userID string, amount float64) bool {
 	va.mu.Lock()
 	defer va.mu.Unlock()
 
@@ -309,7 +311,7 @@ func (va *VeltaApp) AddBalance(userID string, amount float64) bool {
 }
 
 // ProcessPayment - Ultra-fast payment processing with fraud detection
-func (va *VeltaApp) ProcessPayment(fromUserID, toUserID string, amount float64, nfcTagID string) bool {
+func (va *VeltraApp) ProcessPayment(fromUserID, toUserID string, amount float64, nfcTagID string) bool {
 	startTime := time.Now()
 
 	va.mu.Lock()
@@ -322,7 +324,6 @@ func (va *VeltaApp) ProcessPayment(fromUserID, toUserID string, amount float64, 
 
 	fromUser, fromExists := va.Users[fromUserID]
 	toUser, toExists := va.Users[toUserID]
-
 	if !fromExists || !toExists {
 		va.mu.Unlock()
 		log.Printf("[✗] User not found\n")
@@ -380,17 +381,15 @@ func (va *VeltaApp) ProcessPayment(fromUserID, toUserID string, amount float64, 
 	}
 
 	va.triggerWebhook("payment.completed", &transaction)
-
 	va.mu.Unlock()
 
 	log.Printf("[⚡] PAYMENT | %s → %s | $%.2f | ⏱ %dms\n",
 		fromUser.Name, toUser.Name, amount, transaction.ProcessingTimeMs)
-
 	return true
 }
 
 // SetupRecurringPayment - Create recurring payment
-func (va *VeltaApp) SetupRecurringPayment(fromUserID, toUserID string, amount float64, frequency string) string {
+func (va *VeltraApp) SetupRecurringPayment(fromUserID, toUserID string, amount float64, frequency string) string {
 	va.mu.Lock()
 	defer va.mu.Unlock()
 
@@ -410,12 +409,11 @@ func (va *VeltaApp) SetupRecurringPayment(fromUserID, toUserID string, amount fl
 
 	va.RecurringPayments[recurringID] = recurring
 	log.Printf("[✓] Recurring Payment Setup: %s → %s | Frequency: %s\n", fromUserID, toUserID, frequency)
-
 	return recurringID
 }
 
 // ProcessQRCodePayment - QR code payment alternative
-func (va *VeltaApp) ProcessQRCodePayment(fromUserID, toUserID string, amount float64) bool {
+func (va *VeltraApp) ProcessQRCodePayment(fromUserID, toUserID string, amount float64) bool {
 	va.mu.Lock()
 	toUser, exists := va.Users[toUserID]
 	if !exists {
@@ -451,7 +449,9 @@ func (fd *FraudDetectionEngine) calculateRisk(userID string, amount float64) flo
 		}
 	}
 
-	if rand.Float64() < 0.05 {
+	// FIX: Use crypto/rand for unpredictable jitter instead of math/rand
+	b := make([]byte, 1)
+	if _, err := rand.Read(b); err == nil && float64(b[0])/255.0 < 0.05 {
 		riskScore += 0.1
 	}
 
@@ -462,7 +462,7 @@ func (fd *FraudDetectionEngine) calculateRisk(userID string, amount float64) flo
 // RATE LIMITING
 // ============================================================================
 
-func (va *VeltaApp) checkRateLimit(userID string) bool {
+func (va *VeltraApp) checkRateLimit(userID string) bool {
 	va.RateLimiter.mu.Lock()
 	defer va.RateLimiter.mu.Unlock()
 
@@ -488,7 +488,7 @@ func (va *VeltaApp) checkRateLimit(userID string) bool {
 // WEBHOOK SUPPORT
 // ============================================================================
 
-func (va *VeltaApp) registerWebhook(url string, events []string) string {
+func (va *VeltraApp) registerWebhook(url string, events []string) string {
 	va.WebhookManager.mu.Lock()
 	defer va.WebhookManager.mu.Unlock()
 
@@ -506,7 +506,7 @@ func (va *VeltaApp) registerWebhook(url string, events []string) string {
 	return webhookID
 }
 
-func (va *VeltaApp) triggerWebhook(event string, data interface{}) {
+func (va *VeltraApp) triggerWebhook(event string, data interface{}) {
 	va.WebhookManager.mu.RLock()
 	defer va.WebhookManager.mu.RUnlock()
 
@@ -526,32 +526,38 @@ func (va *VeltaApp) triggerWebhook(event string, data interface{}) {
 // DISPLAY & REPORTING
 // ============================================================================
 
-func (va *VeltaApp) DisplayPremiumDashboard() {
+func (va *VeltraApp) DisplayPremiumDashboard() {
 	va.mu.RLock()
 	defer va.mu.RUnlock()
 
+	// FIX: Division-by-zero guard for cache hit rate
+	totalCacheOps := va.CacheLayer.HitCount + va.CacheLayer.MissCount
+	cacheHitRate := 0.0
+	if totalCacheOps > 0 {
+		cacheHitRate = float64(va.CacheLayer.HitCount) * 100.0 / float64(totalCacheOps)
+	}
+
 	fmt.Println("\n" + strings.Repeat("═", 80))
 	fmt.Println(va.AppBrand.IconASCII)
-	fmt.Println("VELTA PREMIUM DASHBOARD - Version " + va.Version)
+	fmt.Println("VELTRA PREMIUM DASHBOARD - Version " + va.Version)
 	fmt.Println(strings.Repeat("═", 80))
 
 	fmt.Printf("\n📊 ANALYTICS:\n")
-	fmt.Printf("   Transactions: %d | Revenue: $%.2f | Rejected: %d\n",
+	fmt.Printf("  Transactions: %d | Revenue: $%.2f | Rejected: %d\n",
 		va.AnalyticsEngine.TotalTransactions, va.AnalyticsEngine.TotalRevenue, va.AnalyticsEngine.RejectedTransactions)
 
 	fmt.Printf("\n🛡️ SECURITY:\n")
-	fmt.Printf("   Blocked: %d | Cache Hit Rate: %.2f%%\n",
-		va.FraudDetection.BlockedTransactions,
-		float64(va.CacheLayer.HitCount)*100/float64(va.CacheLayer.HitCount+va.CacheLayer.MissCount+1))
+	fmt.Printf("  Blocked: %d | Cache Hit Rate: %.2f%%\n",
+		va.FraudDetection.BlockedTransactions, cacheHitRate)
 
 	fmt.Printf("\n💼 ECOSYSTEM:\n")
-	fmt.Printf("   Merchants: %d | Users: %d | Recurring: %d\n",
+	fmt.Printf("  Merchants: %d | Users: %d | Recurring: %d\n",
 		len(va.MerchantRegistry), len(va.Users), len(va.RecurringPayments))
 
 	fmt.Println("\n" + strings.Repeat("═", 80))
 }
 
-func (va *VeltaApp) DisplayWalletStatus(userID string) {
+func (va *VeltraApp) DisplayWalletStatus(userID string) {
 	va.mu.RLock()
 	user, userExists := va.Users[userID]
 	wallet, walletExists := va.Wallet[userID]
@@ -563,13 +569,13 @@ func (va *VeltaApp) DisplayWalletStatus(userID string) {
 	}
 
 	fmt.Printf("\n┌──────────────────────────────┐\n")
-	fmt.Printf("│   VELTA WALLET STATUS        │\n")
+	fmt.Printf("│    VELTRA WALLET STATUS      │\n")
 	fmt.Printf("├──────────────────────────────┤\n")
-	fmt.Printf("│ Name:     %-21s │\n", user.Name)
-	fmt.Printf("│ Balance:  $%-20.2f │\n", wallet.Balance)
-	fmt.Printf("│ 2FA:      %-21t │\n", user.TwoFactorEnabled)
-	fmt.Printf("│ Merchant: %-21t │\n", user.IsMerchant)
-	fmt.Printf("│ Txns:     %-21d │\n", user.TransactionCount)
+	fmt.Printf("│ Name:     %-19s │\n", user.Name)
+	fmt.Printf("│ Balance:  $%-19.2f │\n", wallet.Balance)
+	fmt.Printf("│ 2FA:      %-19t │\n", user.TwoFactorEnabled)
+	fmt.Printf("│ Merchant: %-19t │\n", user.IsMerchant)
+	fmt.Printf("│ Txns:     %-19d │\n", user.TransactionCount)
 	fmt.Printf("└──────────────────────────────┘\n")
 }
 
@@ -577,33 +583,41 @@ func (va *VeltaApp) DisplayWalletStatus(userID string) {
 // UTILITY FUNCTIONS
 // ============================================================================
 
+// FIX: generateID no longer uses deprecated rand.Seed; uses crypto/rand for
+// entropy so IDs are safe to generate concurrently without data races.
 func generateID(prefix string) string {
-	rand.Seed(time.Now().UnixNano())
-	hash := sha256.Sum256([]byte(fmt.Sprintf("%s-%d-%d", prefix, time.Now().UnixNano(), rand.Intn(10000))))
-	hashStr := fmt.Sprintf("%x", hash)
-	return prefix + "-" + hashStr[:12]
+	b := make([]byte, 8)
+	if _, err := rand.Read(b); err != nil {
+		// Fallback: time-based with global math/rand (still no Seed call)
+		b = []byte(fmt.Sprintf("%d%d", time.Now().UnixNano(), mathrand.Int63()))
+	}
+	hash := sha256.Sum256(append([]byte(fmt.Sprintf("%s-%d-", prefix, time.Now().UnixNano())), b...))
+	return prefix + "-" + fmt.Sprintf("%x", hash)[:12]
 }
 
 func generateQRCode(userID string) string {
+	if len(userID) < 8 {
+		return "QR-" + strings.ToUpper(userID)
+	}
 	return "QR-" + strings.ToUpper(userID[:8])
 }
 
-func getVeltaIcon() string {
+func getVeltraIcon() string {
 	return `
-	╔═══════════════════════════════════════╗
-	║                                       ║
-	║    ██╗   ██╗███████╗██╗  ████████╗   ║
-	║    ██║   ██║██╔════╝██║  ╚══██╔══╝   ║
-	║    ██║   ██║█████╗  ██║     ██║      ║
-	║    ╚██╗ ██╔╝██╔══╝  ██║     ██║      ║
-	║     ╚████╔╝███████╗███████╗██║      ║
-	║      ╚═══╝ ╚══════╝╚══════╝╚═╝      ║
-	║                                       ║
-	║    NFC Payment Revolution             ║
-	║    Lightning-Fast Transactions        ║
-	║                                       ║
-	╚═══════════════════════════════════════╝
-	`
+╔══════════════════════════════════════════╗
+║                                          ║
+║  ██╗   ██╗███████╗██╗  ████████╗██████╗  ║
+║  ██║   ██║██╔════╝██║  ╚══██╔══╝██╔══██╗ ║
+║  ██║   ██║█████╗  ██║     ██║   ██████╔╝ ║
+║  ╚██╗ ██╔╝██╔══╝  ██║     ██║   ██╔══██╗ ║
+║   ╚████╔╝ ███████╗███████╗██║   ██║  ██║ ║
+║    ╚═══╝  ╚══════╝╚══════╝╚═╝   ╚═╝  ╚═╝ ║
+║                                          ║
+║       NFC Payment Revolution             ║
+║       Lightning-Fast Transactions        ║
+║                                          ║
+╚══════════════════════════════════════════╝
+`
 }
 
 // ============================================================================
@@ -611,149 +625,101 @@ func getVeltaIcon() string {
 // ============================================================================
 
 func main() {
-	velta := InitVelta()
+	veltra := InitVeltra()
 
-	fmt.Println(velta.AppBrand.IconASCII)
-	fmt.Println("\n🚀 VELTA PREMIUM - NFC Fintech Payment App")
+	fmt.Println(veltra.AppBrand.IconASCII)
+	fmt.Println("\n🚀 VELTRA PREMIUM - NFC Fintech Payment App")
 	fmt.Println(strings.Repeat("═", 80))
 
 	// Register users
 	fmt.Println("\n[📝] Registering Users...")
-	alice := velta.RegisterUser("Alice Johnson", "alice@velta.io", "+1-555-0101")
-	bob := velta.RegisterUser("Bob Smith", "bob@velta.io", "+1-555-0102")
-	carol := velta.RegisterUser("Carol Davis", "carol@velta.io", "+1-555-0103")
-	merchant := velta.RegisterUser("Tech Store", "techstore@velta.io", "+1-555-0104")
+	alice := veltra.RegisterUser("Alice Johnson", "alice@veltra.io", "+1-555-0101")
+	bob := veltra.RegisterUser("Bob Smith", "bob@veltra.io", "+1-555-0102")
+	carol := veltra.RegisterUser("Carol Davis", "carol@veltra.io", "+1-555-0103")
+	merchant := veltra.RegisterUser("Tech Store", "techstore@veltra.io", "+1-555-0104")
 
 	// Enable 2FA
 	fmt.Println("\n[🔐] Enabling 2FA...")
-	velta.Enable2FA(alice)
-	velta.Enable2FA(bob)
+	veltra.Enable2FA(alice)
+	veltra.Enable2FA(bob)
 
 	// Register merchant
 	fmt.Println("\n[💼] Registering Merchant...")
-	velta.RegisterMerchant(merchant, "Tech Store", "Electronics", 2.5)
+	veltra.RegisterMerchant(merchant, "Tech Store", "Electronics", 2.5)
 
 	// Add balances
 	fmt.Println("\n[💰] Adding Balances...")
-	velta.AddBalance(alice, 1000.00)
-	velta.AddBalance(bob, 750.00)
-	velta.AddBalance(carol, 500.00)
-	velta.AddBalance(merchant, 5000.00)
+	veltra.AddBalance(alice, 1000.00)
+	veltra.AddBalance(bob, 750.00)
+	veltra.AddBalance(carol, 500.00)
+	veltra.AddBalance(merchant, 5000.00)
 
 	// Setup recurring
 	fmt.Println("\n[🔁] Setting Up Recurring Payments...")
-	velta.SetupRecurringPayment(bob, carol, 50.00, "MONTHLY")
+	veltra.SetupRecurringPayment(bob, carol, 50.00, "MONTHLY")
 
 	// Register webhook
 	fmt.Println("\n[🪝] Registering Webhooks...")
-	velta.registerWebhook("https://api.velta.io/webhooks", []string{"payment.completed", "payment.failed"})
+	veltra.registerWebhook("https://api.veltra.io/webhooks", []string{"payment.completed", "payment.failed"})
 
 	// Display dashboard
-	velta.DisplayPremiumDashboard()
+	veltra.DisplayPremiumDashboard()
 
 	// Process payments
 	fmt.Println("\n" + strings.Repeat("═", 80))
 	fmt.Println("⚡ PROCESSING NFC PAYMENTS")
 	fmt.Println(strings.Repeat("═", 80))
 
-	aliceUser := velta.Users[alice]
-	velta.ProcessPayment(alice, bob, 150.00, aliceUser.NFCTagID)
-	velta.ProcessPayment(bob, carol, 75.00, velta.Users[bob].NFCTagID)
-	velta.ProcessPayment(carol, merchant, 100.00, velta.Users[carol].NFCTagID)
+	aliceUser := veltra.Users[alice]
+	veltra.ProcessPayment(alice, bob, 150.00, aliceUser.NFCTagID)
+	veltra.ProcessPayment(bob, carol, 75.00, veltra.Users[bob].NFCTagID)
+	veltra.ProcessPayment(carol, merchant, 100.00, veltra.Users[carol].NFCTagID)
 
 	// QR payment
 	fmt.Println("\n[QR] Processing QR Code Payment...")
-	velta.ProcessQRCodePayment(alice, merchant, 50.00)
+	veltra.ProcessQRCodePayment(alice, merchant, 50.00)
 
 	// Display final status
 	fmt.Println("\n" + strings.Repeat("═", 80))
 	fmt.Println("💳 FINAL WALLET STATUS")
 	fmt.Println(strings.Repeat("═", 80))
-	velta.DisplayWalletStatus(alice)
-	velta.DisplayWalletStatus(bob)
-	velta.DisplayWalletStatus(carol)
-	velta.DisplayWalletStatus(merchant)
+	veltra.DisplayWalletStatus(alice)
+	veltra.DisplayWalletStatus(bob)
+	veltra.DisplayWalletStatus(carol)
+	veltra.DisplayWalletStatus(merchant)
 
-	// Display features
 	displayPremiumFeatures()
 }
 
 func displayPremiumFeatures() {
 	info := `
 ╔════════════════════════════════════════════════════════════════════════════╗
-║                    VELTA PREMIUM - WHAT MAKES IT STANDOUT                 ║
+║          VELTRA PREMIUM - WHAT MAKES IT STAND OUT                         ║
 ╚════════════════════════════════════════════════════════════════════════════╝
 
 ⚡ LIGHTNING-FAST TRANSACTIONS:
-   ✓ Multi-threaded goroutine processing (concurrency at scale)
-   ✓ Redis-like in-memory caching for O(1) balance lookups
-   ✓ Fractional millisecond processing (< 5ms per transaction)
-   ✓ Async webhook triggers (non-blocking)
-
-🎨 PREMIUM APP ICON & BRANDING:
-   ✓ Custom ASCII art logo (displayed on startup)
-   ✓ Professional color scheme (#00D4FF, #00A8FF)
-   ✓ Mobile-first UI/UX design language
-   ✓ Responsive dashboard with real-time metrics
+  ✓ Multi-threaded goroutine processing (concurrency at scale)
+  ✓ Redis-like in-memory caching for O(1) balance lookups
+  ✓ Fractional millisecond processing (< 5ms per transaction)
+  ✓ Async webhook triggers (non-blocking)
 
 🔐 SECURITY & COMPLIANCE:
-   ✓ Two-Factor Authentication (2FA) support
-   ✓ AI-powered fraud detection engine
-   ✓ Risk scoring algorithm (0.0-1.0 scale)
-   ✓ Real-time transaction blocking
-   ✓ SHA-256 encryption for security
+  ✓ Two-Factor Authentication (2FA) support
+  ✓ AI-powered fraud detection engine
+  ✓ Risk scoring algorithm (0.0-1.0 scale)
+  ✓ Real-time transaction blocking
+  ✓ Cryptographically secure ID generation (crypto/rand)
 
 💳 ADVANCED PAYMENT FEATURES:
-   ✓ NFC contactless payments (primary)
-   ✓ QR code payments (backup method)
-   ✓ Recurring/subscription payments
-   ✓ Merchant accounts with commission
-   ✓ Daily spending limits per user
-   ✓ Multi-currency support (USD ready)
-
-📊 BACKEND ARCHITECTURE:
-   ✓ Stateless design (horizontal scaling)
-   ✓ Microservices-ready architecture
-   ✓ Event-driven webhook system
-   ✓ Rate limiting (100+ requests/hour)
-   ✓ Real-time analytics engine
-   ✓ Distributed transaction processing
-
-🌐 MULTI-LANGUAGE TECH STACK:
-   Go (Backend): Payment processing, fraud detection, analytics
-   Swift (iOS): Native NFC API, biometrics, push notifications
-   Kotlin (Android): NFC Forum, biometric auth, secure storage
-   React/Vue (Web): Dashboard, merchant portal, analytics
-   Python (ML): Fraud detection models, behavioral analysis
-   Node.js (Real-time): WebSocket notifications, live feeds
-   PostgreSQL: Ledger, accounts, audit logs
-   Redis: Balance caching, sessions, rate limits
-
-🏢 REAL-WORLD APPLICATIONS:
-   [🛍️] Retail & Commerce: POS integration, loyalty rewards
-   [🚕] Transportation: Ride-sharing, transit fares, parking
-   [🏥] Healthcare: Hospital billing, prescriptions, co-pays
-   [🏠] Smart Home: Access fees, vending machines, utilities
-   [👥] Social: P2P transfers, group splitting, fundraising
-   [🎓] Education: Campus cards, tuition, disbursements
-   [📊] Enterprise: Expense management, vendor payments
-
-🎯 COMPETITIVE ADVANTAGES:
-   1. Fastest Processing: < 5ms average (vs 10-50ms competitors)
-   2. 2FA Built-in: Enhanced security from day one
-   3. Merchant Ready: Easy business integration
-   4. Fraud Detection: Real-time AI blocking
-   5. Webhook Support: Custom integrations
-   6. Rate Limiting: DoS protection built-in
-   7. Analytics: Real-time metrics
-   8. Scalable: 10,000+ concurrent users
-   9. Production Ready: Enterprise-grade code
-  10. Cost Effective: Go efficiency = lower infrastructure
+  ✓ NFC contactless payments (primary)
+  ✓ QR code payments (backup method)
+  ✓ Recurring/subscription payments
+  ✓ Merchant accounts with commission
+  ✓ Daily spending limits per user
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-Built with ❤️ using Go, designed for the future of financial technology.
-VELTA - Redefining NFC Payments.
+Built with ❤️ using Go — designed for the future of financial technology.
+VELTRA - Redefining NFC Payments.
 `
 	fmt.Println(info)
 }
