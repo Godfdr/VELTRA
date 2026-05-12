@@ -1,14 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="velta_primary">#00D4FF</color>
-    <color name="velta_secondary">#00A8FF</color>
-    <color name="velta_accent">#FF6B35</color>
-    <color name="velta_success">#00D084</color>
-    <color name="velta_danger">#FF4757</color>
-    <color name="velta_warning">#FFA502</color>
-    
+    <!-- Veltra Brand Colors -->
+    <color name="veltra_primary">#00D4FF</color>
+    <color name="veltra_secondary">#7000FF</color>
+    <color name="veltra_accent">#00D4FF</color>
+
+    <!-- Status Colors -->
+    <color name="veltra_success">#00D084</color>
+    <color name="veltra_danger">#FF4757</color>
+    <color name="veltra_warning">#FFA502</color>
+
+    <!-- UI Background & Surfaces -->
+    <color name="background_dark">#0D0F1A</color>
+    <color name="surface_dark">#1A1D2D</color>
+    <color name="surface_lighter">#25293D</color>
+
+    <!-- Text Colors -->
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#9CA3AF</color>
+    <color name="text_muted">#6B7280</color>
+
+    <!-- Standard Colors -->
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
-    <color name="gray_light">#F5F5F5</color>
-    <color name="gray_dark">#333333</color>
+    <color name="transparent">#00000000</color>
 </resources>

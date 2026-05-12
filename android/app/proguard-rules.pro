@@ -25,4 +25,31 @@
 -keep class androidx.biometric.** { *; }
 
 # Keep custom classes
--keep class com.velta.payment.** { *; }
+-keep class com.veltra.payment.** { *; }
+
+# OkHttp & Okio (required for network requests to work post-minification)
+-dontwarn okhttp3.**
+-dontwarn okio.**
+-keep class okhttp3.** { *; }
+-keep interface okhttp3.** { *; }
+
+# Gson (prevent stripping of serialized model fields)
+-keepattributes Signature
+-keepattributes *Annotation*
+-dontwarn sun.misc.**
+-keep class com.google.gson.** { *; }
+-keep class * implements com.google.gson.TypeAdapterFactory
+-keep class * implements com.google.gson.JsonSerializer
+-keep class * implements com.google.gson.JsonDeserializer
+
+# Kotlin Coroutines
+-keepnames class kotlinx.coroutines.internal.MainDispatcherFactory {}
+-keepnames class kotlinx.coroutines.CoroutineExceptionHandler {}
+-dontwarn kotlinx.coroutines.**
+
+# AndroidX Security (EncryptedSharedPreferences / EncryptedFile)
+-keep class androidx.security.crypto.** { *; }
+
+# Lifecycle ViewModel
+-keep class * extends androidx.lifecycle.ViewModel { *; }
+-keepclassmembers class * extends androidx.lifecycle.ViewModel { <init>(...); }

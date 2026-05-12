@@ -2,10 +2,10 @@
 <network-security-config>
     <!-- Default policy for all domains -->
     <domain-config cleartextTrafficAllowed="false">
-        <!-- VELTA API Domains with certificate pinning -->
-        <domain includeSubdomains="true">api.velta.io</domain>
-        <domain includeSubdomains="true">staging-api.velta.io</domain>
-        <domain includeSubdomains="true">payments.velta.io</domain>
+        <!-- VELTRA API Domains with certificate pinning -->
+        <domain includeSubdomains="true">api.veltra.io</domain>
+        <domain includeSubdomains="true">staging-api.veltra.io</domain>
+        <domain includeSubdomains="true">payments.veltra.io</domain>
 
         <!-- Payment Gateway Domains -->
         <domain includeSubdomains="true">stripe.com</domain>

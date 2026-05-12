@@ -1,14 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">VELTA Payment</string>
-    <string name="tap_to_pay">Tap to Pay</string>
+    <string name="app_name">Veltra Payment</string>
+    <string name="app_name_lowercase">veltra</string>
+    <string name="tap_to_pay">Tap &amp; Pay</string>
     <string name="confirm_identity">Confirm Identity</string>
     <string name="nfc_scanning">Hold Android phone BACK to payment terminal</string>
-    <string name="payment_successful">Payment Successful</string>
+    <string name="payment_successful">Payment Successful!</string>
     <string name="payment_failed">Payment Failed</string>
     <string name="cancel">Cancel</string>
     <string name="retry">Retry</string>
-    <string name="amount_label">Amount (USD)</string>
+    <string name="amount_label">Amount</string>
     <string name="recipient_label">Recipient</string>
     <string name="description_label">Description</string>
+
+    <!-- Home Screen -->
+    <string name="hello_tola">Hello, Tola 👋</string>
+    <string name="total_balance">Total Balance</string>
+    <string name="fund_wallet">+ Fund Wallet</string>
+    <string name="send_money">Send Money</string>
+    <string name="receive">Receive</string>
+    <string name="buy_airtime">Buy Airtime</string>
+    <string name="cashback_promo">Get 5% cashback</string>
+    <string name="cashback_sub">When you pay on transport</string>
+    <string name="recent_transactions">Recent Transactions</string>
+    <string name="see_all">See all</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Home</string>
+    <string name="nav_wallet">Wallet</string>
+    <string name="nav_cards">Cards</string>
+    <string name="nav_profile">Profile</string>
+
+    <!-- Send Money -->
+    <string name="to_contact">To Contact</string>
+    <string name="to_bank">To Bank</string>
+    <string name="to_veltra">To Veltra</string>
+    <string name="search_contact">Search contact...</string>
+    <string name="frequently_contacted">Frequently contacted</string>
+    <string name="all_contacts">All Contacts</string>
+    <string name="continue_btn">Continue</string>
+    <string name="add_note">Add a note (optional)</string>
+
+    <!-- Success Screen -->
+    <string name="sent_to">Sent to %1$s</string>
+    <string name="date_time_label">Date &amp; Time</string>
+    <string name="reference_label">Reference</string>
+    <string name="payment_method_label">Payment Method</string>
+    <string name="new_balance_label">New Balance</string>
+    <string name="share_receipt">Share Receipt</string>
+    <string name="done">Done</string>
+
+    <!-- Cards Screen -->
+    <string name="my_cards">My Cards</string>
+    <string name="add_card">+ Add Card</string>
+    <string name="card_settings">Card Settings</string>
+    <string name="manage_card">Manage your card</string>
+    <string name="transaction_limits">Transaction Limits</string>
+    <string name="set_limits">Set daily limits</string>
+
+    <!-- Wallets Screen -->
+    <string name="wallets">Wallets</string>
+    <string name="create_new_wallet">Create New Wallet</string>
+    <string name="organize_money">Organize your money better</string>
+
+    <!-- Profile Screen -->
+    <string name="personal_info">Personal Information</string>
+    <string name="security_label">Security</string>
+    <string name="security_sub">Change PIN, Biometrics</string>
+    <string name="notifications_label">Notifications</string>
+    <string name="manage_alerts">Manage alerts</string>
+    <string name="help_support">Help &amp; Support</string>
+    <string name="about_veltra">About Veltra</string>
+    <string name="logout">Log Out</string>
 </resources>

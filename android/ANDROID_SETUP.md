@@ -1,4 +1,4 @@
-# VELTA Android Setup Guide
+# veltra Android Setup Guide
 
 ## ✅ Project Structure
 
@@ -7,11 +7,11 @@ android/
 ├── app/
 │   ├── src/main/
 │   │   ├── AndroidManifest.xml          ← App permissions & activities
-│   │   ├── java/com/velta/payment/
-│   │   │   └── VeltaNFCPaymentActivity.kt  ← Main payment activity
+│   │   ├── java/com/veltra/payment/
+│   │   │   └── veltraNFCPaymentActivity.kt  ← Main payment activity
 │   │   └── res/
 │   │       ├── layout/
-│   │       │   └── activity_velta_nfc_payment.xml  ← UI layout
+│   │       │   └── activity_veltra_nfc_payment.xml  ← UI layout
 │   │       ├── values/
 │   │       │   ├── colors.xml
 │   │       │   ├── strings.xml
@@ -101,7 +101,7 @@ gradlew.bat build
 adb install -r app/build/outputs/apk/debug/app-debug.apk
 
 # 4. Launch app
-adb shell am start -n com.velta.payment/.VeltaNFCPaymentActivity
+adb shell am start -n com.veltra.payment/.veltraNFCPaymentActivity
 ```
 
 **Emulator:**
@@ -119,7 +119,7 @@ emulator -avd veltra-test -feature NFC
 
 ## 🔧 Key Components
 
-### VeltaNFCPaymentActivity.kt
+### veltraNFCPaymentActivity.kt
 - **Main payment activity** with NFC support
 - **Biometric authentication** (Fingerprint/Face)
 - **AES-256 encryption** for payment data
@@ -209,7 +209,7 @@ android.permission.ACCESS_FINE_LOCATION
 adb devices
 
 # Clear previous installation
-adb uninstall com.velta.payment
+adb uninstall com.veltra.payment
 
 # Reinstall
 adb install -r app/build/outputs/apk/debug/app-debug.apk

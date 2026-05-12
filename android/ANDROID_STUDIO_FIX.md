@@ -1,4 +1,4 @@
-# Android Studio - VELTA App Build & Run Guide
+# Android Studio - veltra App Build & Run Guide
 
 ## 🔧 Fixed Issues
 
@@ -234,4 +234,4 @@ If you still see errors, please share:
 
 ---
 
-**Your VELTA Android app should now build and run without Kotlin/JVM errors! 🚀**
+**Your veltra Android app should now build and run without Kotlin/JVM errors! 🚀**

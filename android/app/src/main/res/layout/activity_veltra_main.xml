@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_dark">
+
+    <!-- Top Header -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <View
+            android:id="@+id/profileImage"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/quick_action_background"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/welcomeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hello_tola"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginStart="12dp"
+            app:layout_constraintStart_toEndOf="@id/profileImage"
+            app:layout_constraintTop_toTopOf="@id/profileImage"
+            app:layout_bottom_toBottomOf="@id/profileImage" />
+
+        <ImageView
+            android:id="@+id/notificationIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@android:drawable/ic_popup_reminder"
+            android:contentDescription="Notifications"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/profileImage"
+            app:layout_bottom_toBottomOf="@id/profileImage"
+            app:tint="@color/white" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Wallet Balance Card -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/walletCard"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_marginHorizontal="20dp"
+        android:background="@drawable/wallet_card_gradient"
+        android:padding="20dp"
+        app:layout_constraintTop_toBottomOf="@id/header">
+
+        <TextView
+            android:id="@+id/balanceLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/total_balance"
+            android:textColor="@color/white"
+            android:alpha="0.8"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/balanceValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="₦ 25,600.50"
+            android:textColor="@color/white"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/balanceLabel" />
+
+        <TextView
+            android:id="@+id/fundWalletBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fund_wallet"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:background="@drawable/quick_action_background"
+            android:backgroundTint="#20FFFFFF"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="6dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/balanceValue" />
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@android:drawable/ic_menu_view"
+            android:contentDescription="Show Balance"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Quick Actions Grid -->
+    <LinearLayout
+        android:id="@+id/quickActions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="24dp"
+        android:weightSum="4"
+        android:baselineAligned="false"
+        app:layout_constraintTop_toBottomOf="@id/walletCard">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+            <View android:layout_width="50dp" android:layout_height="50dp" android:background="@drawable/quick_action_background" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/tap_to_pay" android:textColor="@color/text_secondary" android:textSize="11sp" android:layout_marginTop="8dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+            <View android:layout_width="50dp" android:layout_height="50dp" android:background="@drawable/quick_action_background" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/send_money" android:textColor="@color/text_secondary" android:textSize="11sp" android:layout_marginTop="8dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+            <View android:layout_width="50dp" android:layout_height="50dp" android:background="@drawable/quick_action_background" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/receive" android:textColor="@color/text_secondary" android:textSize="11sp" android:layout_marginTop="8dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+            <View android:layout_width="50dp" android:layout_height="50dp" android:background="@drawable/quick_action_background" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/buy_airtime" android:textColor="@color/text_secondary" android:textSize="11sp" android:layout_marginTop="8dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Cashback Banner -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/promoBanner"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/quick_action_background"
+        android:backgroundTint="#107000FF"
+        app:layout_constraintTop_toBottomOf="@id/quickActions">
+
+        <TextView
+            android:id="@+id/cashbackText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cashback_promo"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cashback_sub"
+            android:textColor="@color/text_secondary"
+            android:textSize="12sp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cashbackText" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Recent Transactions -->
+    <TextView
+        android:id="@+id/transactionsLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/recent_transactions"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/promoBanner" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/see_all"
+        android:textColor="@color/veltra_primary"
+        android:textSize="12sp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/transactionsLabel"
+        app:layout_bottom_toBottomOf="@id/transactionsLabel" />
+
+    <!-- Transactions List (Simplified) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_marginTop="12dp"
+        android:paddingHorizontal="20dp"
+        app:layout_constraintTop_toBottomOf="@id/transactionsLabel"
+        app:layout_constraintBottom_toTopOf="@id/bottomNav">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp">
+            <View android:id="@+id/t1_icon" android:layout_width="40dp" android:layout_height="40dp" android:background="@drawable/quick_action_background" />
+            <TextView android:id="@+id/t1_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="BRT Ride" android:textColor="@color/white" android:layout_toEndOf="@id/t1_icon" android:layout_marginStart="12dp" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Today, 8:15 AM" android:textColor="@color/text_secondary" android:textSize="11sp" android:layout_below="@id/t1_name" android:layout_toEndOf="@id/t1_icon" android:layout_marginStart="12dp" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="- ₦ 200.00" android:textColor="@color/white" android:layout_alignParentEnd="true" android:layout_centerVertical="true" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp">
+            <View android:id="@+id/t2_icon" android:layout_width="40dp" android:layout_height="40dp" android:background="@drawable/quick_action_background" />
+            <TextView android:id="@+id/t2_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Market Square" android:textColor="@color/white" android:layout_toEndOf="@id/t2_icon" android:layout_marginStart="12dp" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Yesterday, 2:30 PM" android:textColor="@color/text_secondary" android:textSize="11sp" android:layout_below="@id/t2_name" android:layout_toEndOf="@id/t2_icon" android:layout_marginStart="12dp" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="- ₦ 1,550.00" android:textColor="@color/white" android:layout_alignParentEnd="true" android:layout_centerVertical="true" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <!-- Bottom Navigation -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bottomNav"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/surface_dark"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="5"
+            android:baselineAligned="false">
+
+            <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:orientation="vertical">
+                <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@android:drawable/ic_menu_today" app:tint="@color/veltra_primary" android:contentDescription="@string/nav_home" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/nav_home" android:textColor="@color/veltra_primary" android:textSize="11sp" />
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:orientation="vertical">
+                <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@android:drawable/ic_dialog_info" app:tint="@color/text_muted" android:contentDescription="@string/nav_wallet" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/nav_wallet" android:textColor="@color/text_muted" android:textSize="11sp" />
+            </LinearLayout>
+
+            <View android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" />
+
+            <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:orientation="vertical">
+                <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@android:drawable/ic_menu_manage" app:tint="@color/text_muted" android:contentDescription="@string/nav_cards" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/nav_cards" android:textColor="@color/text_muted" android:textSize="11sp" />
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:orientation="vertical">
+                <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@android:drawable/ic_menu_myplaces" app:tint="@color/text_muted" android:contentDescription="@string/nav_profile" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/nav_profile" android:textColor="@color/text_muted" android:textSize="11sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Floating Pay Button -->
+        <FrameLayout
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:background="@drawable/pay_button_background"
+            android:elevation="8dp"
+            android:layout_marginBottom="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_gravity="center"
+                android:src="@android:drawable/ic_menu_share"
+                app:tint="@color/white"
+                android:contentDescription="Pay" />
+
+        </FrameLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

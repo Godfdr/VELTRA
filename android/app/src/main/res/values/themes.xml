@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.VELTA" parent="Theme.AppCompat.DayNight.DarkActionBar">
-        <item name="colorPrimary">@color/velta_primary</item>
-        <item name="colorPrimaryVariant">@color/velta_secondary</item>
-        <item name="colorSecondary">@color/velta_accent</item>
-        <item name="colorSecondaryVariant">@color/velta_accent</item>
-        <item name="colorError">@color/velta_danger</item>
+    <style name="Theme.VELTRA" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/veltra_primary</item>
+        <item name="colorPrimaryVariant">@color/veltra_secondary</item>
         <item name="colorOnPrimary">@color/white</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <item name="colorOnBackground">@color/black</item>
-        <item name="colorOnSurface">@color/black</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/veltra_secondary</item>
+        <item name="colorSecondaryVariant">@color/veltra_secondary</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/background_dark</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <!-- Background color. -->
+        <item name="android:windowBackground">@color/background_dark</item>
     </style>
 </resources>
