@@ -15,20 +15,16 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
-    <!-- NFC Feature -->
-    <uses-feature
-        android:name="android.hardware.nfc"
-        android:required="true" />
-
-    <!-- Biometric Feature -->
-    <uses-feature
-        android:name="android.hardware.fingerprint"
-        android:required="false" />
+    <!-- Hardware Features -->
+    <uses-feature android:name="android.hardware.nfc" android:required="true" />
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+    <uses-feature android:name="android.hardware.fingerprint" android:required="false" />
 
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
+        android:icon="@drawable/ic_veltra_logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.VELTRA"
@@ -46,19 +42,16 @@
             </intent-filter>
         </activity>
 
-        <!-- Main Dashboard -->
-        <activity
-            android:name=".VeltraMainActivity"
-            android:exported="false"
-            android:label="@string/app_name" />
+        <!-- Dashboard -->
+        <activity android:name=".VeltraMainActivity" />
 
-        <!-- NFC Payment Activity -->
-        <activity
-            android:name=".VeltraNFCPaymentActivity"
-            android:exported="true"
-            android:label="@string/app_name">
-
-            <!-- NFC Intent Filter for TECH_DISCOVERED -->
+        <!-- Payment & Send Money -->
+        <activity android:name=".VeltraSendMoneyStep1Activity" />
+        <activity android:name=".VeltraSendMoneyStep2Activity" />
+        <activity android:name=".VeltraPaymentSuccessActivity" />
+        <activity android:name=".VeltraReceiveActivity" />
+        <activity android:name=".VeltraNFCPaymentActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.nfc.action.TECH_DISCOVERED" />
             </intent-filter>
@@ -66,6 +59,22 @@
                 android:name="android.nfc.action.TECH_DISCOVERED"
                 android:resource="@xml/nfc_tech_filter" />
         </activity>
+
+        <!-- Pockets & Wallets -->
+        <activity android:name=".VeltraWalletsActivity" />
+        <activity android:name=".VeltraOfflineWalletActivity" />
+        <activity android:name=".VeltraTapAndPayActivity" />
+        <activity android:name=".VeltraCardsActivity" />
+
+        <!-- Bills & Services -->
+        <activity android:name=".VeltraPayBillsActivity" />
+        <activity android:name=".VeltraTransactionDetailsActivity" />
+
+        <!-- User & Admin -->
+        <activity android:name=".VeltraProfileActivity" />
+        <activity android:name=".VeltraTopUpMethodActivity" />
+        <activity android:name=".VeltraAgentTopupActivity" />
+        <activity android:name=".VeltraAdminDashboardActivity" />
 
     </application>
 

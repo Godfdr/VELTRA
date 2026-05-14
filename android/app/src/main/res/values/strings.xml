@@ -62,6 +62,16 @@
     <string name="wallets">Wallets</string>
     <string name="create_new_wallet">Create New Wallet</string>
     <string name="organize_money">Organize your money better</string>
+    <string name="main_wallet">Main Wallet</string>
+    <string name="primary_spending">Primary spending account</string>
+    <string name="transport_wallet">Transport Wallet</string>
+    <string name="transport_desc">For commutes and rides</string>
+    <string name="savings_pocket">Savings Pocket</string>
+    <string name="savings_desc">Emergency and long-term funds</string>
+    <string name="food_wallet">Food Wallet</string>
+    <string name="food_desc">Dining and groceries</string>
+    <string name="offline_wallet_pocket">Offline Wallet</string>
+    <string name="offline_desc">Pay without internet connection</string>
 
     <!-- Profile Screen -->
     <string name="personal_info">Personal Information</string>
@@ -72,4 +82,17 @@
     <string name="help_support">Help &amp; Support</string>
     <string name="about_veltra">About Veltra</string>
     <string name="logout">Log Out</string>
+
+    <!-- Agent Top Up -->
+    <string name="agent_topup">Agent Top Up</string>
+    <string name="find_agents">Find Agents Near You</string>
+    <string name="enter_location">Enter your location</string>
+    <string name="nearby_agents">Nearby Agents</string>
+    <string name="show_qr_to_agent">Show this QR code to the agent to top up</string>
+    <string name="agent_distance">%1$s (%2$s km away)</string>
+
+    <!-- Offline Wallet -->
+    <string name="offline_wallet">Offline Wallet</string>
+    <string name="offline_sync">Syncing Offline Transactions...</string>
+    <string name="offline_ready">Ready for offline payment</string>
 </resources>
