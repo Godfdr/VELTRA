@@ -6,34 +6,39 @@
     android:viewportWidth="200"
     android:viewportHeight="200">
 
-    <!-- Left side of the V logo (Cyan/Teal Gradient) -->
+    <!-- Shadow/Background flap of the V -->
     <path
-        android:pathData="M51.5,49.5 C48.5,49.5 46.5,52.5 47.5,55.5 L88.5,148.5 C89.5,151.5 92.5,153.5 95.5,153.5 L115.5,153.5 C118.5,153.5 120.5,150.5 119.5,147.5 L105.5,115.5 L75.5,49.5 L51.5,49.5 Z">
+        android:pathData="M110,165 L155,60 C157,55 155,50 150,50 L125,50 L95,120 L110,165 Z"
+        android:fillColor="#1A000000" />
+
+    <!-- Left Flap (Cyan to Blue Gradient) -->
+    <path
+        android:pathData="M55,50 C50,50 48,55 50,60 L95,160 C97,165 103,165 105,160 L120,120 L85,50 L55,50 Z">
         <aapt:attr name="android:fillColor">
             <gradient
-                android:startX="47.5"
+                android:startX="50"
                 android:startY="50"
                 android:endX="100"
-                android:endY="150"
+                android:endY="160"
                 android:type="linear">
                 <item android:offset="0" android:color="#00E5FF" />
-                <item android:offset="1" android:color="#0091EA" />
+                <item android:offset="1" android:color="#007BFF" />
             </gradient>
         </aapt:attr>
     </path>
 
-    <!-- Right side of the V logo (Purple/Violet Gradient) -->
+    <!-- Right Flap (Purple Gradient - Overlapping) -->
     <path
-        android:pathData="M148.5,49.5 C151.5,49.5 153.5,52.5 152.5,55.5 L111.5,148.5 C110.5,151.5 107.5,153.5 104.5,153.5 L84.5,153.5 C81.5,153.5 79.5,150.5 80.5,147.5 L94.5,115.5 L124.5,49.5 L148.5,49.5 Z">
+        android:pathData="M150,50 C155,50 157,55 155,60 L110,165 C108,170 102,170 100,165 L85,125 L120,50 L150,50 Z">
         <aapt:attr name="android:fillColor">
             <gradient
-                android:startX="152.5"
+                android:startX="155"
                 android:startY="50"
                 android:endX="100"
-                android:endY="150"
+                android:endY="170"
                 android:type="linear">
                 <item android:offset="0" android:color="#7000FF" />
-                <item android:offset="1" android:color="#9A33FF" />
+                <item android:offset="1" android:color="#4B0082" />
             </gradient>
         </aapt:attr>
     </path>
