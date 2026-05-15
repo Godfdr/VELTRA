@@ -178,7 +178,7 @@ class VeltraMainActivity : AppCompatActivity() {
 
         // Floating Center Pay Button
         binding.floatingPayBtn.setOnClickListener {
-            startActivity(Intent(this, VeltraNFCPaymentActivity::class.java))
+            startActivity(Intent(this, VeltraTapAndPayActivity::class.java))
         }
     }
 }
