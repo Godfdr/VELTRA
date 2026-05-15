@@ -10,9 +10,11 @@
         <item name="colorSecondaryVariant">@color/veltra_secondary</item>
         <item name="colorOnSecondary">@color/white</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">@color/background_dark</item>
-        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:statusBarColor">?attr/colorSurface</item>
+        <item name="android:windowLightStatusBar">true</item>
         <!-- Background color. -->
-        <item name="android:windowBackground">@color/background_dark</item>
+        <item name="android:windowBackground">@color/background_themed</item>
+        <item name="colorSurface">@color/surface_themed</item>
+        <item name="android:textColorPrimary">@color/text_themed_primary</item>
     </style>
 </resources>

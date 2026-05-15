@@ -3,126 +3,151 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_dark"
-    android:padding="20dp">
+    android:background="@color/background_themed">
 
     <!-- Header -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="20dp"
         app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/backBtn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="10dp"
+            android:src="@android:drawable/ic_menu_revert"
+            app:tint="@color/text_themed_primary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:contentDescription="Back" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/wallets"
-            android:textColor="@color/white"
+            android:textColor="@color/text_themed_primary"
             android:textSize="20sp"
-            android:textStyle="bold"
+            android:fontFamily="sans-serif-bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/create_new_wallet"
-            android:textColor="@color/veltra_primary"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- Subtitle -->
-    <TextView
-        android:id="@+id/subtitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/organize_money"
-        android:textColor="@color/text_secondary"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header" />
-
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintTop_toBottomOf="@id/subtitle"
+        app:layout_constraintTop_toBottomOf="@id/header"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="20dp">
 
-            <!-- Main Wallet -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/mainWalletPocket"
+            <!-- Wallet Overview Card -->
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:background="@drawable/wallet_card_gradient"
-                android:padding="16dp"
-                android:layout_marginBottom="16dp">
-                <TextView android:id="@+id/w1_label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/main_wallet" android:textColor="@color/white" android:alpha="0.8" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="₦ 25,600.50" android:textColor="@color/white" android:textSize="20sp" android:textStyle="bold" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/w1_label" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="0dp"
+                android:layout_marginBottom="24dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/wallet_card_gradient"
+                    android:orientation="vertical"
+                    android:padding="24dp">
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/balanceLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Total Net Worth"
+                            android:textColor="@color/white"
+                            android:alpha="0.8"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-            <!-- Transport Wallet -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/transportWalletPocket"
+                        <ImageView
+                            android:id="@+id/balanceVisibilityBtn"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@android:drawable/ic_menu_view"
+                            app:tint="@color/white"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:background="?attr/selectableItemBackgroundBorderless" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:id="@+id/totalBalance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="₦ 166,000.50"
+                        android:textColor="@color/white"
+                        android:textSize="32sp"
+                        android:fontFamily="sans-serif-bold" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Your Pockets"
+                android:textColor="@color/text_themed_primary"
+                android:textSize="18sp"
+                android:fontFamily="sans-serif-bold"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Pocket List (Horizontal or Grid usually better, but keeping list for simplicity) -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/walletsRecyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:background="@drawable/quick_action_background"
-                android:backgroundTint="@color/veltra_primary"
-                android:padding="16dp"
-                android:layout_marginBottom="16dp">
-                <TextView android:id="@+id/w2_label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/transport_wallet" android:textColor="@color/white" android:alpha="0.8" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="₦ 8,400.00" android:textColor="@color/white" android:textSize="20sp" android:textStyle="bold" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/w2_label" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false" />
 
-            <!-- Savings Pocket -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/savingsPocket"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:background="@drawable/quick_action_background"
-                android:backgroundTint="@color/veltra_secondary"
-                android:padding="16dp"
-                android:layout_marginBottom="16dp">
-                <TextView android:id="@+id/w3_label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/savings_pocket" android:textColor="@color/white" android:alpha="0.8" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="₦ 120,000.00" android:textColor="@color/white" android:textSize="20sp" android:textStyle="bold" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/w3_label" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <!-- Offline Wallet Pocket -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/offlineWalletPocket"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:background="@drawable/quick_action_background"
-                android:backgroundTint="@color/veltra_warning"
-                android:padding="16dp"
-                android:layout_marginBottom="16dp">
-                <TextView android:id="@+id/w4_label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/offline_wallet_pocket" android:textColor="@color/white" android:alpha="0.8" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="₦ 12,000.00" android:textColor="@color/white" android:textSize="20sp" android:textStyle="bold" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/w4_label" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <!-- Create New Card Button -->
-            <RelativeLayout
+            <androidx.cardview.widget.CardView
                 android:id="@+id/createNewWalletBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/quick_action_background"
-                android:padding="20dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="24dp">
-                <TextView android:id="@+id/createTitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/create_new_wallet" android:textColor="@color/white" android:textStyle="bold" />
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/organize_money" android:textColor="@color/text_muted" android:textSize="12sp" android:layout_below="@id/createTitle" />
-                <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@android:drawable/ic_menu_add" android:layout_alignParentEnd="true" android:layout_centerVertical="true" app:tint="@color/white" android:contentDescription="Add" />
-            </RelativeLayout>
+                android:layout_marginTop="24dp"
+                app:cardCornerRadius="20dp"
+                app:cardBackgroundColor="@color/surface_themed"
+                app:cardElevation="2dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="20dp"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@android:drawable/ic_menu_add"
+                        app:tint="@color/veltra_primary" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Create New Pocket"
+                        android:textColor="@color/veltra_primary"
+                        android:textSize="16sp"
+                        android:fontFamily="sans-serif-medium"
+                        android:layout_marginStart="12dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

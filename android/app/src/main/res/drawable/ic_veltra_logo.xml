@@ -1,46 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:aapt="http://schemas.android.com/aapt"
-    android:width="200dp"
-    android:height="200dp"
-    android:viewportWidth="200"
-    android:viewportHeight="200">
+    android:width="512dp"
+    android:height="512dp"
+    android:viewportWidth="1024"
+    android:viewportHeight="1024">
 
-    <!-- Shadow/Background flap of the V -->
+    <!-- Main Right Arm of the V (Purple) -->
     <path
-        android:pathData="M110,165 L155,60 C157,55 155,50 150,50 L125,50 L95,120 L110,165 Z"
-        android:fillColor="#1A000000" />
-
-    <!-- Left Flap (Cyan to Blue Gradient) -->
-    <path
-        android:pathData="M55,50 C50,50 48,55 50,60 L95,160 C97,165 103,165 105,160 L120,120 L85,50 L55,50 Z">
+        android:pathData="M512,824 L824,200 L650,200 L512,500 L512,824 Z">
         <aapt:attr name="android:fillColor">
             <gradient
-                android:startX="50"
-                android:startY="50"
-                android:endX="100"
-                android:endY="160"
+                android:startX="512"
+                android:startY="200"
+                android:endX="824"
+                android:endY="824"
                 android:type="linear">
-                <item android:offset="0" android:color="#00E5FF" />
-                <item android:offset="1" android:color="#007BFF" />
+                <item android:color="#7000FF" android:offset="0.0" />
+                <item android:color="#00D4FF" android:offset="1.0" />
             </gradient>
         </aapt:attr>
     </path>
 
-    <!-- Right Flap (Purple Gradient - Overlapping) -->
+    <!-- Main Left Arm of the V (Cyan/Blue) -->
     <path
-        android:pathData="M150,50 C155,50 157,55 155,60 L110,165 C108,170 102,170 100,165 L85,125 L120,50 L150,50 Z">
+        android:pathData="M200,200 L512,824 L512,500 L374,200 L200,200 Z">
         <aapt:attr name="android:fillColor">
             <gradient
-                android:startX="155"
-                android:startY="50"
-                android:endX="100"
-                android:endY="170"
+                android:startX="200"
+                android:startY="200"
+                android:endX="512"
+                android:endY="824"
                 android:type="linear">
-                <item android:offset="0" android:color="#7000FF" />
-                <item android:offset="1" android:color="#4B0082" />
+                <item android:color="#00D4FF" android:offset="0.0" />
+                <item android:color="#00A8FF" android:offset="1.0" />
             </gradient>
         </aapt:attr>
     </path>
+
+    <!-- Center fold/shadow -->
+    <path
+        android:fillColor="#20000000"
+        android:pathData="M512,500 L512,824 L374,200 L512,500 Z" />
 
 </vector>

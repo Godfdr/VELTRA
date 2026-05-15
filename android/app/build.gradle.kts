@@ -76,6 +76,12 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.11.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.11.0")
 
+    // QR Code Generation
+    implementation("com.google.zxing:core:3.5.3")
+
+    // Lottie Animations
+    implementation("com.airbnb.android:lottie:6.7.1")
+
     // Lifecycle
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.10.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.10.0")

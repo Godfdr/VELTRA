@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="200"
+    android:viewportHeight="200">
+    <path
+        android:fillColor="@color/veltra_primary"
+        android:pathData="M100,50 A50,50 0 1,1 100,150 A50,50 0 1,1 100,50 Z"
+        android:fillAlpha="0.1" />
+    <path
+        android:fillColor="@color/veltra_primary"
+        android:pathData="M100,70 A30,30 0 1,1 100,130 A30,30 0 1,1 100,70 Z" />
+    <!-- NFC Signal Waves -->
+    <path
+        android:strokeColor="@color/veltra_primary"
+        android:strokeWidth="4"
+        android:strokeLineCap="round"
+        android:pathData="M140,80 Q160,100 140,120" />
+    <path
+        android:strokeColor="@color/veltra_primary"
+        android:strokeWidth="4"
+        android:strokeLineCap="round"
+        android:pathData="M150,70 Q180,100 150,130" />
+</vector>

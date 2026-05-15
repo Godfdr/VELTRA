@@ -16,7 +16,8 @@ class VeltraTopUpMethodActivity : AppCompatActivity() {
         binding.backBtn.setOnClickListener { finish() }
 
         binding.agentMethodBtn.setOnClickListener {
-            startActivity(Intent(this, VeltraAgentTopupActivity::class.java))
+            val intent = Intent(this, VeltraAgentTopupActivity::class.java)
+            startActivity(intent)
         }
 
         binding.continueBtn.setOnClickListener {

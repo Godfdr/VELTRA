@@ -1,316 +1,489 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_dark">
+    android:background="@color/background_themed"
+    tools:openDrawer="start">
 
-    <!-- Top Header -->
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/header"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="20dp"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent">
 
-        <View
-            android:id="@+id/profileImage"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/quick_action_background"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/welcomeText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/hello_tola"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginStart="12dp"
-            app:layout_constraintStart_toEndOf="@id/profileImage"
-            app:layout_constraintTop_toTopOf="@id/profileImage"
-            app:layout_constraintBottom_toBottomOf="@id/profileImage" />
-
-        <ImageView
-            android:id="@+id/notificationIcon"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@android:drawable/ic_popup_reminder"
-            android:contentDescription="Notifications"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/profileImage"
-            app:layout_constraintBottom_toBottomOf="@id/profileImage"
-            app:tint="@color/white" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <!-- Wallet Balance Card -->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/walletCard"
-        android:layout_width="match_parent"
-        android:layout_height="160dp"
-        android:layout_marginHorizontal="20dp"
-        android:background="@drawable/wallet_card_gradient"
-        android:padding="20dp"
-        app:layout_constraintTop_toBottomOf="@id/header">
-
-        <TextView
-            android:id="@+id/balanceLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/total_balance"
-            android:textColor="@color/white"
-            android:alpha="0.8"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/balanceValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="₦ 25,600.50"
-            android:textColor="@color/white"
-            android:textSize="32sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/balanceLabel" />
-
-        <TextView
-            android:id="@+id/fundWalletBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/fund_wallet"
-            android:textColor="@color/white"
-            android:textSize="14sp"
-            android:background="@drawable/quick_action_background"
-            android:backgroundTint="#20FFFFFF"
-            android:paddingHorizontal="12dp"
-            android:paddingVertical="6dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/balanceValue" />
-
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@android:drawable/ic_menu_view"
-            android:contentDescription="Show Balance"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/white" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <!-- Quick Actions Grid -->
-    <LinearLayout
-        android:id="@+id/quickActions"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="24dp"
-        android:weightSum="4"
-        android:baselineAligned="false"
-        app:layout_constraintTop_toBottomOf="@id/walletCard">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
-            <ImageView android:layout_width="50dp" android:layout_height="50dp" android:src="@drawable/ic_tap_pay" android:background="@drawable/quick_action_background" android:padding="12dp" android:contentDescription="@string/tap_to_pay" />
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/tap_to_pay" android:textColor="@color/text_secondary" android:textSize="11sp" android:layout_marginTop="8dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
-            <ImageView android:layout_width="50dp" android:layout_height="50dp" android:src="@drawable/ic_send_money" android:background="@drawable/quick_action_background" android:padding="12dp" android:contentDescription="@string/send_money" />
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/send_money" android:textColor="@color/text_secondary" android:textSize="11sp" android:layout_marginTop="8dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
-            <ImageView android:layout_width="50dp" android:layout_height="50dp" android:src="@drawable/ic_receive_money" android:background="@drawable/quick_action_background" android:padding="12dp" android:contentDescription="@string/receive" />
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/receive" android:textColor="@color/text_secondary" android:textSize="11sp" android:layout_marginTop="8dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
-            <ImageView android:layout_width="50dp" android:layout_height="50dp" android:src="@drawable/ic_buy_airtime" android:background="@drawable/quick_action_background" android:padding="12dp" android:contentDescription="@string/buy_airtime" />
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/buy_airtime" android:textColor="@color/text_secondary" android:textSize="11sp" android:layout_marginTop="8dp" />
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <!-- Cashback Banner -->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/promoBanner"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/quick_action_background"
-        android:backgroundTint="#107000FF"
-        app:layout_constraintTop_toBottomOf="@id/quickActions">
-
-        <TextView
-            android:id="@+id/cashbackText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/cashback_promo"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="12dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/cashback_sub"
-            android:textColor="@color/text_secondary"
-            android:textSize="12sp"
-            android:layout_marginStart="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cashbackText" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <!-- Recent Transactions -->
-    <TextView
-        android:id="@+id/transactionsLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/recent_transactions"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/promoBanner" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/see_all"
-        android:textColor="@color/veltra_primary"
-        android:textSize="12sp"
-        android:layout_marginEnd="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/transactionsLabel"
-        app:layout_constraintBottom_toBottomOf="@id/transactionsLabel" />
-
-    <!-- Transactions List (Simplified) -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        android:layout_marginTop="12dp"
-        android:paddingHorizontal="20dp"
-        app:layout_constraintTop_toBottomOf="@id/transactionsLabel"
-        app:layout_constraintBottom_toTopOf="@id/bottomNav">
-
-        <RelativeLayout
+        <!-- Top Header -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp">
-            <View android:id="@+id/t1_icon" android:layout_width="40dp" android:layout_height="40dp" android:background="@drawable/quick_action_background" />
-            <TextView android:id="@+id/t1_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="BRT Ride" android:textColor="@color/white" android:layout_toEndOf="@id/t1_icon" android:layout_marginStart="12dp" />
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Today, 8:15 AM" android:textColor="@color/text_secondary" android:textSize="11sp" android:layout_below="@id/t1_name" android:layout_toEndOf="@id/t1_icon" android:layout_marginStart="12dp" />
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="- ₦ 200.00" android:textColor="@color/white" android:layout_alignParentEnd="true" android:layout_centerVertical="true" />
-        </RelativeLayout>
+            android:padding="20dp"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp">
-            <View android:id="@+id/t2_icon" android:layout_width="40dp" android:layout_height="40dp" android:background="@drawable/quick_action_background" />
-            <TextView android:id="@+id/t2_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Market Square" android:textColor="@color/white" android:layout_toEndOf="@id/t2_icon" android:layout_marginStart="12dp" />
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Yesterday, 2:30 PM" android:textColor="@color/text_secondary" android:textSize="11sp" android:layout_below="@id/t2_name" android:layout_toEndOf="@id/t2_icon" android:layout_marginStart="12dp" />
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="- ₦ 1,550.00" android:textColor="@color/white" android:layout_alignParentEnd="true" android:layout_centerVertical="true" />
-        </RelativeLayout>
+            <View
+                android:id="@+id/profileImage"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/quick_action_background"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
 
-    </LinearLayout>
-
-    <!-- Bottom Navigation -->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/bottomNav"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:background="@color/surface_dark"
-        app:layout_constraintBottom_toBottomOf="parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:weightSum="5"
-            android:baselineAligned="false">
-
-            <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:orientation="vertical">
-                <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_home_nav" app:tint="@color/veltra_primary" android:contentDescription="@string/nav_home" />
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/nav_home" android:textColor="@color/veltra_primary" android:textSize="11sp" />
-            </LinearLayout>
-
-            <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:orientation="vertical">
-                <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_wallet_nav" app:tint="@color/text_muted" android:contentDescription="@string/nav_wallet" />
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/nav_wallet" android:textColor="@color/text_muted" android:textSize="11sp" />
-            </LinearLayout>
-
-            <View android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" />
-
-            <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:orientation="vertical">
-                <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_cards_nav" app:tint="@color/text_muted" android:contentDescription="@string/nav_cards" />
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/nav_cards" android:textColor="@color/text_muted" android:textSize="11sp" />
-            </LinearLayout>
-
-            <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:orientation="vertical">
-                <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_profile_nav" app:tint="@color/text_muted" android:contentDescription="@string/nav_profile" />
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/nav_profile" android:textColor="@color/text_muted" android:textSize="11sp" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <!-- Floating Pay Button -->
-        <FrameLayout
-            android:id="@+id/floatingPayBtn"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:background="@drawable/pay_button_background"
-            android:elevation="8dp"
-            android:layout_marginBottom="24dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            <TextView
+                android:id="@+id/welcomeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hello, Tola 👋"
+                android:textColor="@color/text_themed_primary"
+                android:textSize="18sp"
+                android:fontFamily="sans-serif-bold"
+                android:layout_marginStart="12dp"
+                app:layout_constraintStart_toEndOf="@id/profileImage"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
 
             <ImageView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_tap_pay"
-                app:tint="@color/white"
-                android:contentDescription="Pay" />
+                android:id="@+id/notificationIcon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@android:drawable/ic_popup_reminder"
+                android:contentDescription="Notifications"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:tint="@color/text_themed_primary" />
 
-        </FrameLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/header"
+            app:layout_constraintBottom_toTopOf="@id/bottomNavCard">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="40dp">
+
+                <!-- Wallet Balance Card -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/walletCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:layout_marginHorizontal="20dp"
+                    android:background="@drawable/wallet_card_gradient"
+                    android:padding="24dp">
+
+                    <TextView
+                        android:id="@+id/balanceLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/total_balance"
+                        android:textColor="@color/white"
+                        android:alpha="0.8"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/balanceValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="₦ 25,600.50"
+                        android:textColor="@color/white"
+                        android:textSize="34sp"
+                        android:fontFamily="sans-serif-bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/balanceLabel" />
+
+                    <TextView
+                        android:id="@+id/fundWalletBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/fund_wallet"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:background="@drawable/quick_action_background"
+                        android:backgroundTint="#40FFFFFF"
+                        android:paddingHorizontal="16dp"
+                        android:paddingVertical="8dp"
+                        android:layout_marginTop="20dp"
+                        android:fontFamily="sans-serif-medium"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/balanceValue" />
+
+                    <ImageView
+                        android:id="@+id/balanceVisibilityBtn"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:src="@android:drawable/ic_menu_view"
+                        android:contentDescription="Show Balance"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/white"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:background="?attr/selectableItemBackgroundBorderless" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- Quick Actions Grid -->
+                <LinearLayout
+                    android:id="@+id/quickActions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="28dp"
+                    android:weightSum="4">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center">
+                        <ImageView android:layout_width="56dp" android:layout_height="56dp" android:src="@drawable/ic_tap_pay" android:background="@drawable/quick_action_background" android:padding="14dp" android:contentDescription="@string/tap_to_pay" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/tap_to_pay" android:textColor="@color/text_secondary" android:textSize="12sp" android:layout_marginTop="8dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center">
+                        <ImageView android:layout_width="56dp" android:layout_height="56dp" android:src="@drawable/ic_send_money" android:background="@drawable/quick_action_background" android:padding="14dp" android:contentDescription="@string/send_money" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/send_money" android:textColor="@color/text_secondary" android:textSize="12sp" android:layout_marginTop="8dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center">
+                        <ImageView android:layout_width="56dp" android:layout_height="56dp" android:src="@drawable/ic_receive_money" android:background="@drawable/quick_action_background" android:padding="14dp" android:contentDescription="@string/receive" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/receive" android:textColor="@color/text_secondary" android:textSize="12sp" android:layout_marginTop="8dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/moreServicesBtn"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center">
+                        <ImageView android:layout_width="56dp" android:layout_height="56dp" android:src="@android:drawable/ic_menu_add" android:background="@drawable/quick_action_background" android:padding="14dp" android:contentDescription="@string/more_label" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/more_label" android:textColor="@color/text_secondary" android:textSize="12sp" android:layout_marginTop="8dp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- Cashback Banner with Bus Animation -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/promoBanner"
+                    android:layout_width="match_parent"
+                    android:layout_height="110dp"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="32dp"
+                    app:cardCornerRadius="24dp"
+                    app:cardElevation="0dp"
+                    app:cardBackgroundColor="#157000FF">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="20dp">
+
+                        <com.airbnb.lottie.LottieAnimationView
+                            android:id="@+id/busLottie"
+                            android:layout_width="140dp"
+                            android:layout_height="match_parent"
+                            app:lottie_autoPlay="true"
+                            app:lottie_loop="true"
+                            app:lottie_fileName="bus_animation.json"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent" />
+
+                        <TextView
+                            android:id="@+id/cashbackText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/cashback_promo"
+                            android:textColor="@color/text_themed_primary"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/cashback_sub"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="13sp"
+                            android:layout_marginEnd="8dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/busLottie"
+                            app:layout_constraintTop_toBottomOf="@id/cashbackText" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Recent Transactions -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:paddingHorizontal="20dp">
+
+                    <TextView
+                        android:id="@+id/transactionsLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/recent_transactions"
+                        android:textColor="@color/text_themed_primary"
+                        android:fontFamily="sans-serif-bold"
+                        android:textSize="18sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/see_all"
+                        android:textColor="@color/veltra_primary"
+                        android:textSize="13sp"
+                        android:fontFamily="sans-serif-medium"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/transactionsLabel"
+                        app:layout_constraintBottom_toBottomOf="@id/transactionsLabel" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- Simulation: Received Ping Card -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/pingRequestCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="20dp"
+                    android:visibility="gone"
+                    app:cardCornerRadius="24dp"
+                    app:cardBackgroundColor="@color/surface_themed"
+                    app:cardElevation="4dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="20dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+                            <View
+                                android:layout_width="44dp"
+                                android:layout_height="44dp"
+                                android:background="@drawable/quick_action_background"
+                                android:backgroundTint="@color/veltra_primary"/>
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:text="Tola Adebayo requested money"
+                                android:textColor="@color/text_themed_primary"
+                                android:fontFamily="sans-serif-bold"
+                                android:layout_marginStart="14dp"/>
+                            <TextView
+                                android:id="@+id/pingAmount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="₦5,000"
+                                android:textColor="@color/veltra_primary"
+                                android:fontFamily="sans-serif-bold"
+                                android:textSize="18sp"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:orientation="horizontal">
+                            <Button
+                                android:id="@+id/declinePingBtn"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="52dp"
+                                android:text="Decline"
+                                android:textColor="@color/text_secondary"
+                                android:background="@drawable/quick_action_background"
+                                android:textAllCaps="false"
+                                android:layout_marginEnd="6dp"/>
+                            <Button
+                                android:id="@+id/acceptPingBtn"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="52dp"
+                                android:text="Pay Now"
+                                android:textColor="@color/white"
+                                android:background="@drawable/pay_button_background"
+                                android:textAllCaps="false"
+                                android:layout_marginStart="6dp"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Transactions Mock List -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="16dp"
+                    android:paddingHorizontal="20dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp">
+                        <View android:id="@+id/t1_icon" android:layout_width="44dp" android:layout_height="44dp" android:background="@drawable/quick_action_background" />
+                        <TextView android:id="@+id/t1_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="BRT Ride" android:textColor="@color/text_themed_primary" android:fontFamily="sans-serif-medium" android:layout_toEndOf="@id/t1_icon" android:layout_marginStart="14dp" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Today, 8:15 AM" android:textColor="@color/text_secondary" android:textSize="12sp" android:layout_below="@id/t1_name" android:layout_toEndOf="@id/t1_icon" android:layout_marginStart="14dp" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="- ₦ 200.00" android:textColor="@color/text_themed_primary" android:fontFamily="sans-serif-bold" android:layout_alignParentEnd="true" android:layout_centerVertical="true" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp">
+                        <View android:id="@+id/t2_icon" android:layout_width="44dp" android:layout_height="44dp" android:background="@drawable/quick_action_background" />
+                        <TextView android:id="@+id/t2_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Market Square" android:textColor="@color/text_themed_primary" android:fontFamily="sans-serif-medium" android:layout_toEndOf="@id/t2_icon" android:layout_marginStart="14dp" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Yesterday, 2:30 PM" android:textColor="@color/text_secondary" android:textSize="12sp" android:layout_below="@id/t2_name" android:layout_toEndOf="@id/t2_icon" android:layout_marginStart="14dp" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="- ₦ 1,550.00" android:textColor="@color/text_themed_primary" android:fontFamily="sans-serif-bold" android:layout_alignParentEnd="true" android:layout_centerVertical="true" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <!-- Bottom Navigation -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/bottomNavCard"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="28dp"
+            app:cardElevation="8dp"
+            app:cardBackgroundColor="@color/surface_themed"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:weightSum="5"
+                    android:baselineAligned="false">
+
+                    <LinearLayout
+                        android:id="@+id/navHomeBtn"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:background="@drawable/nav_item_background">
+                        <ImageView android:layout_width="26dp" android:layout_height="26dp" android:src="@drawable/ic_home_nav" app:tint="@color/veltra_primary" android:contentDescription="@string/nav_home" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/nav_home" android:textColor="@color/veltra_primary" android:textSize="10sp" android:fontFamily="sans-serif-bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/navWalletBtn"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:background="@drawable/nav_item_background">
+                        <ImageView android:layout_width="26dp" android:layout_height="26dp" android:src="@drawable/ic_wallet_nav" app:tint="@color/text_muted" android:contentDescription="@string/nav_wallet" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/nav_wallet" android:textColor="@color/text_muted" android:textSize="10sp" />
+                    </LinearLayout>
+
+                    <View android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" />
+
+                    <LinearLayout
+                        android:id="@+id/navCardsBtn"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:background="@drawable/nav_item_background">
+                        <ImageView android:layout_width="26dp" android:layout_height="26dp" android:src="@drawable/ic_cards_nav" app:tint="@color/text_muted" android:contentDescription="@string/nav_cards" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/nav_cards" android:textColor="@color/text_muted" android:textSize="10sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/navProfileBtn"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:background="@drawable/nav_item_background">
+                        <ImageView android:layout_width="26dp" android:layout_height="26dp" android:src="@drawable/ic_profile_nav" app:tint="@color/text_muted" android:contentDescription="@string/nav_profile" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/nav_profile" android:textColor="@color/text_muted" android:textSize="10sp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- Floating Center Pay Button -->
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/floatingPayBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_tap_pay"
+                    app:tint="@color/white"
+                    app:backgroundTint="@color/veltra_primary"
+                    app:maxImageSize="32dp"
+                    app:elevation="4dp"
+                    app:fabSize="normal"
+                    app:layout_constraintBottom_toTopOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- Navigation Drawer Content -->
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navView"
+        android:layout_width="280dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/surface_themed"
+        app:headerLayout="@layout/nav_header_veltra"
+        app:menu="@menu/drawer_menu_veltra"
+        app:itemIconTint="@color/veltra_primary"
+        app:itemTextColor="@color/text_themed_primary" />
+
+</androidx.drawerlayout.widget.DrawerLayout>

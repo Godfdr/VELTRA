@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="200"
+    android:viewportHeight="200">
+    <path
+        android:fillColor="@color/veltra_success"
+        android:pathData="M60,60 Q100,20 140,60 Q180,100 140,140 Q100,180 60,140 Q20,100 60,60"
+        android:fillAlpha="0.2" />
+    <!-- Happy Face -->
+    <path
+        android:fillColor="@color/veltra_success"
+        android:pathData="M100,70 A30,30 0 1,1 100,130 A30,30 0 1,1 100,70 Z" />
+    <path
+        android:strokeColor="@color/white"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:pathData="M90,110 Q100,120 110,110" />
+</vector>

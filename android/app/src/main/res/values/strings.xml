@@ -30,6 +30,11 @@
     <string name="nav_wallet">Wallet</string>
     <string name="nav_cards">Cards</string>
     <string name="nav_profile">Profile</string>
+    <string name="nav_services">Other Services</string>
+    <string name="nav_support">Support</string>
+    <string name="nav_settings">Settings</string>
+    <string name="nav_logout">Log Out</string>
+    <string name="more_label">More</string>
 
     <!-- Send Money -->
     <string name="to_contact">To Contact</string>
@@ -95,4 +100,20 @@
     <string name="offline_wallet">Offline Wallet</string>
     <string name="offline_sync">Syncing Offline Transactions...</string>
     <string name="offline_ready">Ready for offline payment</string>
+
+    <!-- Receive Screen -->
+    <string name="receive_options">Choose how to receive</string>
+    <string name="bank_transfer">Bank Transfer</string>
+    <string name="bank_desc">Receive from any bank app</string>
+    <string name="veltra_nearby">Veltra Nearby (NFC)</string>
+    <string name="veltra_nearby_desc">Receive from friends nearby</string>
+    <string name="spot_me">Spot Me (Ping)</string>
+    <string name="spot_me_desc">Request money from a friend</string>
+    <string name="agent_topup_label">Cash at Agent</string>
+    <string name="agent_topup_desc">Top up at a Veltra Agent</string>
+    <string name="account_number_label">Veltra Account Number</string>
+    <string name="bank_name">Veltra Microfinance Bank</string>
+    <string name="ping_friend">Ping a Friend</string>
+    <string name="enter_amount_naira">Enter Amount (₦)</string>
+    <string name="request_btn">Request Money</string>
 </resources>

@@ -42,6 +42,10 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".VeltraOnboardingActivity" />
+        <activity android:name=".VeltraLoginActivity" />
+        <activity android:name=".VeltraSignUpActivity" />
+
         <!-- Dashboard -->
         <activity android:name=".VeltraMainActivity" />
 

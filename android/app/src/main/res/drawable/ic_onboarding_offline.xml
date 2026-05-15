@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="200"
+    android:viewportHeight="200">
+    <path
+        android:fillColor="@color/veltra_secondary"
+        android:pathData="M50,100 H150 V110 H50 Z"
+        android:fillAlpha="0.3" />
+    <path
+        android:fillColor="@color/veltra_secondary"
+        android:pathData="M100,50 L140,150 L60,150 Z" />
+    <!-- Lock Icon -->
+    <path
+        android:fillColor="@color/white"
+        android:pathData="M90,110 H110 V130 H90 Z M95,110 V105 Q95,100 100,100 Q105,100 105,105 V110" />
+</vector>

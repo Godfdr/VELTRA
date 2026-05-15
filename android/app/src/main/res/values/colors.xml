@@ -15,10 +15,20 @@
     <color name="surface_dark">#1A1D2D</color>
     <color name="surface_lighter">#25293D</color>
 
+    <color name="background_light">#F8F9FA</color>
+    <color name="surface_light">#FFFFFF</color>
+    <color name="surface_light_accent">#E9ECEF</color>
+
     <!-- Text Colors -->
     <color name="text_primary">#FFFFFF</color>
     <color name="text_secondary">#9CA3AF</color>
     <color name="text_muted">#6B7280</color>
+
+    <color name="background_themed">@color/background_light</color>
+    <color name="surface_themed">@color/surface_light</color>
+    <color name="text_themed_primary">@color/black</color>
+    <color name="edittext_hint_themed">#66000000</color>
+    <color name="edittext_text_themed">@color/black</color>
 
     <!-- Standard Colors -->
     <color name="white">#FFFFFF</color>
