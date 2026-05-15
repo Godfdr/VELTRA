@@ -1,13 +1,13 @@
 package com.veltra.payment
 
-import android.animation.ValueAnimator
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.LinearInterpolator
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.GravityCompat
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.veltra.payment.databinding.ActivityVeltraMainBinding
@@ -16,23 +16,28 @@ class VeltraMainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityVeltraMainBinding
     private var isBalanceVisible = true
-    private val actualBalance = "₦ 25,600.50"
-    private val hiddenBalance = "₦ ••••••••"
+    
+    // Using string resources for clean code
+    private lateinit var actualBalance: String
+    private lateinit var hiddenBalance: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         
         // Initial theme application
-        val sharedPref = getSharedPreferences("veltra_prefs", android.content.Context.MODE_PRIVATE)
+        val sharedPref = getSharedPreferences("veltra_prefs", Context.MODE_PRIVATE)
         val isDarkMode = sharedPref.getBoolean("dark_mode", true)
         if (isDarkMode) {
-            androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES)
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         } else {
-            androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO)
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
 
         binding = ActivityVeltraMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        
+        actualBalance = getString(R.string.mock_balance)
+        hiddenBalance = getString(R.string.mock_balance).replace(Regex("[0-9]"), "•")
 
         setupNavigation()
         setupBalanceToggle()
@@ -55,21 +60,6 @@ class VeltraMainActivity : AppCompatActivity() {
                 binding.balanceValue.text = hiddenBalance
                 binding.balanceVisibilityBtn.setImageResource(android.R.drawable.ic_menu_close_clear_cancel)
             }
-        }
-    }
-
-    private fun setupDrawer() {
-        // Drawer is not shown in high-fidelity image but keeping logic if user wants it
-        binding.navView.setNavigationItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.nav_services -> showServicesBottomSheet()
-                R.id.nav_logout -> {
-                    startActivity(Intent(this, VeltraLoginActivity::class.java))
-                    finish()
-                }
-            }
-            binding.drawerLayout.closeDrawer(GravityCompat.START)
-            true
         }
     }
 
@@ -138,31 +128,14 @@ class VeltraMainActivity : AppCompatActivity() {
             startActivity(Intent(this, VeltraTopUpMethodActivity::class.java))
         }
         
-        // Profile Image Header - Strict following of UI/UX image
+        // Profile Image Header
         binding.profileImage.setOnClickListener {
             startActivity(Intent(this, VeltraProfileActivity::class.java))
         }
 
-        // --- TEST RUN: Spot Me / Ping Simulation ---
-        binding.notificationIcon.setOnClickListener {
-            binding.pingRequestCard.visibility = View.VISIBLE
-            binding.pingRequestCard.alpha = 0f
-            binding.pingRequestCard.translationY = -50f
-            binding.pingRequestCard.animate()
-                .alpha(1f)
-                .translationY(0f)
-                .setDuration(500)
-                .start()
-        }
-
+        // Simulation Card Actions
         binding.acceptPingBtn.setOnClickListener {
-            binding.pingRequestCard.animate()
-                .alpha(0f)
-                .scaleX(0.8f)
-                .scaleY(0.8f)
-                .setDuration(300)
-                .withEndAction { binding.pingRequestCard.visibility = View.GONE }
-                .start()
+            binding.pingRequestCard.visibility = View.GONE
             android.widget.Toast.makeText(this, "₦5,000 sent to Tola! ✅", android.widget.Toast.LENGTH_LONG).show()
         }
 
@@ -170,7 +143,7 @@ class VeltraMainActivity : AppCompatActivity() {
             binding.pingRequestCard.visibility = View.GONE
         }
         
-        // Bottom Navigation (Explicit IDs)
+        // Bottom Navigation
         binding.navHomeBtn.setOnClickListener { /* Already here */ }
         binding.navWalletBtn.setOnClickListener { startActivity(Intent(this, VeltraWalletsActivity::class.java)) }
         binding.navCardsBtn.setOnClickListener { startActivity(Intent(this, VeltraCardsActivity::class.java)) }

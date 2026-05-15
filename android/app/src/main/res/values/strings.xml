@@ -14,7 +14,7 @@
     <string name="description_label">Description</string>
 
     <!-- Home Screen -->
-    <string name="hello_tola">Hello, Tola 👋</string>
+    <string name="hello_tola_emoji">Hello, Tola 👋</string>
     <string name="total_balance">Total Balance</string>
     <string name="fund_wallet">+ Fund Wallet</string>
     <string name="send_money">Send Money</string>
@@ -24,6 +24,19 @@
     <string name="cashback_sub">When you pay on transport</string>
     <string name="recent_transactions">Recent Transactions</string>
     <string name="see_all">See all</string>
+    <string name="mock_balance">₦ 25,600.50</string>
+    <string name="desc_notifications">Notifications</string>
+    <string name="desc_show_balance">Show Balance</string>
+    <string name="ping_requested_msg">Tola Adeyemi requested money</string>
+    <string name="ping_mock_amount">₦5,000</string>
+    <string name="btn_decline">Decline</string>
+    <string name="btn_pay_now">Pay Now</string>
+    <string name="mock_txn_1">BRT Ride</string>
+    <string name="mock_txn_1_time">Today, 8:15 AM</string>
+    <string name="mock_txn_1_amount">- ₦ 200.00</string>
+    <string name="mock_txn_2">Market Square</string>
+    <string name="mock_txn_2_time">Yesterday, 2:30 PM</string>
+    <string name="mock_txn_2_amount">- ₦ 1,550.00</string>
 
     <!-- Navigation -->
     <string name="nav_home">Home</string>

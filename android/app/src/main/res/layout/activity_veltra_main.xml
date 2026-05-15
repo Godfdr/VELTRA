@@ -33,7 +33,7 @@
                 android:id="@+id/welcomeText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hello, Tola 👋"
+                android:text="@string/hello_tola_emoji"
                 android:textColor="@color/text_themed_primary"
                 android:textSize="18sp"
                 android:fontFamily="sans-serif-bold"
@@ -47,7 +47,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@android:drawable/ic_popup_reminder"
-                android:contentDescription="Notifications"
+                android:contentDescription="@string/desc_notifications"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -90,7 +90,7 @@
                         android:id="@+id/balanceValue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="₦ 25,600.50"
+                        android:text="@string/mock_balance"
                         android:textColor="@color/white"
                         android:textSize="34sp"
                         android:fontFamily="sans-serif-bold"
@@ -118,7 +118,7 @@
                         android:layout_width="28dp"
                         android:layout_height="28dp"
                         android:src="@android:drawable/ic_menu_view"
-                        android:contentDescription="Show Balance"
+                        android:contentDescription="@string/desc_show_balance"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:tint="@color/white"
@@ -136,7 +136,8 @@
                     android:orientation="horizontal"
                     android:layout_marginHorizontal="20dp"
                     android:layout_marginTop="28dp"
-                    android:weightSum="4">
+                    android:weightSum="4"
+                    android:baselineAligned="false">
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -294,7 +295,7 @@
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
                                 android:layout_height="wrap_content"
-                                android:text="Tola Adebayo requested money"
+                                android:text="@string/ping_requested_msg"
                                 android:textColor="@color/text_themed_primary"
                                 android:fontFamily="sans-serif-bold"
                                 android:layout_marginStart="14dp"/>
@@ -302,7 +303,7 @@
                                 android:id="@+id/pingAmount"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="₦5,000"
+                                android:text="@string/ping_mock_amount"
                                 android:textColor="@color/veltra_primary"
                                 android:fontFamily="sans-serif-bold"
                                 android:textSize="18sp"/>
@@ -315,20 +316,22 @@
                             android:orientation="horizontal">
                             <Button
                                 android:id="@+id/declinePingBtn"
+                                style="?android:attr/buttonBarButtonStyle"
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
                                 android:layout_height="52dp"
-                                android:text="Decline"
+                                android:text="@string/btn_decline"
                                 android:textColor="@color/text_secondary"
                                 android:background="@drawable/quick_action_background"
                                 android:textAllCaps="false"
                                 android:layout_marginEnd="6dp"/>
                             <Button
                                 android:id="@+id/acceptPingBtn"
+                                style="?android:attr/buttonBarButtonStyle"
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
                                 android:layout_height="52dp"
-                                android:text="Pay Now"
+                                android:text="@string/btn_pay_now"
                                 android:textColor="@color/white"
                                 android:background="@drawable/pay_button_background"
                                 android:textAllCaps="false"
@@ -350,9 +353,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp">
                         <View android:id="@+id/t1_icon" android:layout_width="44dp" android:layout_height="44dp" android:background="@drawable/quick_action_background" />
-                        <TextView android:id="@+id/t1_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="BRT Ride" android:textColor="@color/text_themed_primary" android:fontFamily="sans-serif-medium" android:layout_toEndOf="@id/t1_icon" android:layout_marginStart="14dp" />
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Today, 8:15 AM" android:textColor="@color/text_secondary" android:textSize="12sp" android:layout_below="@id/t1_name" android:layout_toEndOf="@id/t1_icon" android:layout_marginStart="14dp" />
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="- ₦ 200.00" android:textColor="@color/text_themed_primary" android:fontFamily="sans-serif-bold" android:layout_alignParentEnd="true" android:layout_centerVertical="true" />
+                        <TextView android:id="@+id/t1_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/mock_txn_1" android:textColor="@color/text_themed_primary" android:fontFamily="sans-serif-medium" android:layout_toEndOf="@id/t1_icon" android:layout_marginStart="14dp" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/mock_txn_1_time" android:textColor="@color/text_secondary" android:textSize="12sp" android:layout_below="@id/t1_name" android:layout_toEndOf="@id/t1_icon" android:layout_marginStart="14dp" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/mock_txn_1_amount" android:textColor="@color/text_themed_primary" android:fontFamily="sans-serif-bold" android:layout_alignParentEnd="true" android:layout_centerVertical="true" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -360,9 +363,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp">
                         <View android:id="@+id/t2_icon" android:layout_width="44dp" android:layout_height="44dp" android:background="@drawable/quick_action_background" />
-                        <TextView android:id="@+id/t2_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Market Square" android:textColor="@color/text_themed_primary" android:fontFamily="sans-serif-medium" android:layout_toEndOf="@id/t2_icon" android:layout_marginStart="14dp" />
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Yesterday, 2:30 PM" android:textColor="@color/text_secondary" android:textSize="12sp" android:layout_below="@id/t2_name" android:layout_toEndOf="@id/t2_icon" android:layout_marginStart="14dp" />
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="- ₦ 1,550.00" android:textColor="@color/text_themed_primary" android:fontFamily="sans-serif-bold" android:layout_alignParentEnd="true" android:layout_centerVertical="true" />
+                        <TextView android:id="@+id/t2_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/mock_txn_2" android:textColor="@color/text_themed_primary" android:fontFamily="sans-serif-medium" android:layout_toEndOf="@id/t2_icon" android:layout_marginStart="14dp" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/mock_txn_2_time" android:textColor="@color/text_secondary" android:textSize="12sp" android:layout_below="@id/t2_name" android:layout_toEndOf="@id/t2_icon" android:layout_marginStart="14dp" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/mock_txn_2_amount" android:textColor="@color/text_themed_primary" android:fontFamily="sans-serif-bold" android:layout_alignParentEnd="true" android:layout_centerVertical="true" />
                     </RelativeLayout>
 
                 </LinearLayout>
@@ -404,7 +407,7 @@
                         android:focusable="true"
                         android:background="@drawable/nav_item_background">
                         <ImageView android:layout_width="26dp" android:layout_height="26dp" android:src="@drawable/ic_home_nav" app:tint="@color/veltra_primary" android:contentDescription="@string/nav_home" />
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/nav_home" android:textColor="@color/veltra_primary" android:textSize="10sp" android:fontFamily="sans-serif-bold" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/nav_home" android:textColor="@color/veltra_primary" android:textSize="11sp" android:fontFamily="sans-serif-bold" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -418,7 +421,7 @@
                         android:focusable="true"
                         android:background="@drawable/nav_item_background">
                         <ImageView android:layout_width="26dp" android:layout_height="26dp" android:src="@drawable/ic_wallet_nav" app:tint="@color/text_muted" android:contentDescription="@string/nav_wallet" />
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/nav_wallet" android:textColor="@color/text_muted" android:textSize="10sp" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/nav_wallet" android:textColor="@color/text_muted" android:textSize="11sp" />
                     </LinearLayout>
 
                     <View android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" />
@@ -434,7 +437,7 @@
                         android:focusable="true"
                         android:background="@drawable/nav_item_background">
                         <ImageView android:layout_width="26dp" android:layout_height="26dp" android:src="@drawable/ic_cards_nav" app:tint="@color/text_muted" android:contentDescription="@string/nav_cards" />
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/nav_cards" android:textColor="@color/text_muted" android:textSize="10sp" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/nav_cards" android:textColor="@color/text_muted" android:textSize="11sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -448,7 +451,7 @@
                         android:focusable="true"
                         android:background="@drawable/nav_item_background">
                         <ImageView android:layout_width="26dp" android:layout_height="26dp" android:src="@drawable/ic_profile_nav" app:tint="@color/text_muted" android:contentDescription="@string/nav_profile" />
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/nav_profile" android:textColor="@color/text_muted" android:textSize="10sp" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/nav_profile" android:textColor="@color/text_muted" android:textSize="11sp" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -467,7 +470,8 @@
                     app:layout_constraintBottom_toTopOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:contentDescription="@string/tap_to_pay" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
