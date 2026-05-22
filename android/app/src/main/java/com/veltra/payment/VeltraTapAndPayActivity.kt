@@ -1,5 +1,6 @@
 package com.veltra.payment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -48,6 +49,13 @@ class VeltraTapAndPayActivity : VeltraBaseActivity() {
         } else if (mode == "MERCHANT_RECEIVE") {
             binding.statusText.text = "Business Mode: Tap Customer Device to Collect"
             binding.walletSelectorCard.visibility = android.view.View.GONE // Hide wallet selector in receive mode
+            
+            // SIMULATION: After 3 seconds, show the itemized receipt
+            binding.rippleContainer.postDelayed({
+                val intent = Intent(this, VeltraItemizedReceiptActivity::class.java)
+                startActivity(intent)
+                finish()
+            }, 4000)
         }
 
         setupListeners()

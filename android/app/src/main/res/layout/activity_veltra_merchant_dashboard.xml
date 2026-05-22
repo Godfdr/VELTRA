@@ -260,6 +260,7 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/expensesBtn"
                     android:layout_width="0dp"
                     android:layout_columnWeight="1"
                     android:layout_height="100dp"
@@ -270,8 +271,8 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:orientation="vertical">
-                        <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@android:drawable/ic_menu_myplaces" app:tint="@color/veltra_success"/>
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Customers" android:textColor="@color/white" android:textSize="11sp" android:layout_marginTop="8dp"/>
+                        <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@android:drawable/ic_menu_myplaces" app:tint="@color/veltra_danger"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Expenses" android:textColor="@color/white" android:textSize="11sp" android:layout_marginTop="8dp"/>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
