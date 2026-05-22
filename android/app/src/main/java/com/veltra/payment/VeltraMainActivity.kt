@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.GravityCompat
@@ -178,6 +179,10 @@ class VeltraMainActivity : VeltraBaseActivity() {
 
         binding.fundWalletBtn.setOnClickListener {
             startActivity(Intent(this, VeltraTopUpMethodActivity::class.java))
+        }
+
+        binding.referEarnCard.setOnClickListener {
+            Toast.makeText(this, "Referral Link Copied! Share with friends 🎁", Toast.LENGTH_LONG).show()
         }
         
         // Profile Image Header

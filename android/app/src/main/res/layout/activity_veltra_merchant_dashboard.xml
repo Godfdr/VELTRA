@@ -79,13 +79,56 @@
                         android:textSize="32sp"
                         android:fontFamily="sans-serif-black"
                         android:layout_marginTop="8dp" />
-                    <TextView
-                        android:layout_width="wrap_content"
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#20FFFFFF"
+                        android:layout_marginVertical="16dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="+12% from yesterday"
-                        android:textColor="@color/veltra_success"
-                        android:textSize="12sp"
-                        android:layout_marginTop="12dp" />
+                        android:orientation="horizontal">
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Capital"
+                                android:textColor="@color/text_secondary"
+                                android:textSize="12sp" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="₦ 50,000.00"
+                                android:textColor="@color/white"
+                                android:textSize="16sp"
+                                android:fontFamily="sans-serif-bold" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="P/L (Net)"
+                                android:textColor="@color/text_secondary"
+                                android:textSize="12sp" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="+₦ 34,500.00"
+                                android:textColor="@color/veltra_success"
+                                android:textSize="16sp"
+                                android:fontFamily="sans-serif-bold" />
+                        </LinearLayout>
+                    </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -177,8 +220,26 @@
             <GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:columnCount="2"
+                android:columnCount="3"
                 android:layout_marginTop="16dp">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/inventoryBtn"
+                    android:layout_width="0dp"
+                    android:layout_columnWeight="1"
+                    android:layout_height="100dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardBackgroundColor="@color/surface_dark"
+                    android:layout_marginEnd="8dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+                        <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@android:drawable/ic_menu_agenda" app:tint="@color/veltra_primary"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Inventory" android:textColor="@color/white" android:textSize="11sp" android:layout_marginTop="8dp"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="0dp"
@@ -192,8 +253,8 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:orientation="vertical">
-                        <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@android:drawable/ic_menu_agenda" app:tint="@color/veltra_primary"/>
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Invoices" android:textColor="@color/white" android:textSize="12sp" android:layout_marginTop="8dp"/>
+                        <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@android:drawable/ic_menu_day" app:tint="@color/veltra_secondary"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Invoices" android:textColor="@color/white" android:textSize="11sp" android:layout_marginTop="8dp"/>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -202,15 +263,14 @@
                     android:layout_columnWeight="1"
                     android:layout_height="100dp"
                     app:cardCornerRadius="20dp"
-                    app:cardBackgroundColor="@color/surface_dark"
-                    android:layout_marginStart="8dp">
+                    app:cardBackgroundColor="@color/surface_dark">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:orientation="vertical">
-                        <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@android:drawable/ic_menu_myplaces" app:tint="@color/veltra_secondary"/>
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Customers" android:textColor="@color/white" android:textSize="12sp" android:layout_marginTop="8dp"/>
+                        <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@android:drawable/ic_menu_myplaces" app:tint="@color/veltra_success"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Customers" android:textColor="@color/white" android:textSize="11sp" android:layout_marginTop="8dp"/>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 

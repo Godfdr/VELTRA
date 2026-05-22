@@ -84,6 +84,7 @@
         <activity android:name=".VeltraSavingsActivity" />
         <activity android:name=".VeltraBillSplitActivity" />
         <activity android:name=".VeltraMerchantDashboardActivity" />
+        <activity android:name=".VeltraInventoryActivity" />
 
     </application>
 

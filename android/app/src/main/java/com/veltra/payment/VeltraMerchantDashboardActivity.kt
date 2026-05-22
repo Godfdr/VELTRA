@@ -42,6 +42,10 @@ class VeltraMerchantDashboardActivity : VeltraBaseActivity() {
             startActivity(intent)
         }
 
+        binding.inventoryBtn.setOnClickListener {
+            startActivity(Intent(this, VeltraInventoryActivity::class.java))
+        }
+
         // Mock clicks for business hub
         binding.root.findViewById<android.view.View>(R.id.totalSalesValue).setOnClickListener {
             Toast.makeText(this, "Detailed Sales Analytics Coming Soon!", Toast.LENGTH_SHORT).show()
