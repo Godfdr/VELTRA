@@ -190,7 +190,7 @@ class VeltraMainActivity : VeltraBaseActivity() {
             startActivity(Intent(this, VeltraProfileActivity::class.java))
         }
 
-        binding.root.findViewById<View>(R.id.loyaltyPointsText).setOnClickListener {
+        binding.loyaltyPointsText.setOnClickListener {
             Toast.makeText(this, "Loyalty Points Hub coming soon!", Toast.LENGTH_SHORT).show()
         }
 

@@ -46,11 +46,11 @@ class VeltraMerchantDashboardActivity : VeltraBaseActivity() {
             startActivity(Intent(this, VeltraInventoryActivity::class.java))
         }
 
-        binding.root.findViewById<android.view.View>(R.id.invoicesBtn).setOnClickListener {
+        binding.invoicesBtn.setOnClickListener {
             startActivity(Intent(this, VeltraInvoiceActivity::class.java))
         }
 
-        binding.root.findViewById<android.view.View>(R.id.expensesBtn).setOnClickListener {
+        binding.expensesBtn.setOnClickListener {
             startActivity(Intent(this, VeltraBusinessExpensesActivity::class.java))
         }
 
