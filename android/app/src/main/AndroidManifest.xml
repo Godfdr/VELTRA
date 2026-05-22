@@ -81,6 +81,7 @@
         <activity android:name=".VeltraAdminDashboardActivity" />
         <activity android:name=".VeltraAnalyticsActivity" />
         <activity android:name=".VeltraContactlessActivity" />
+        <activity android:name=".VeltraSavingsActivity" />
 
     </application>
 

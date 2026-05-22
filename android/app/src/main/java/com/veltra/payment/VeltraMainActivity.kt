@@ -108,6 +108,11 @@ class VeltraMainActivity : VeltraBaseActivity() {
             dialog.dismiss()
             android.widget.Toast.makeText(this, "Airtime coming soon!", android.widget.Toast.LENGTH_SHORT).show()
         }
+
+        view.findViewById<View>(R.id.service_savings_btn).setOnClickListener {
+            dialog.dismiss()
+            startActivity(Intent(this, VeltraSavingsActivity::class.java))
+        }
         
         dialog.show()
     }
