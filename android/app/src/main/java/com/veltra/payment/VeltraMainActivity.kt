@@ -113,6 +113,11 @@ class VeltraMainActivity : VeltraBaseActivity() {
             dialog.dismiss()
             startActivity(Intent(this, VeltraSavingsActivity::class.java))
         }
+
+        view.findViewById<View>(R.id.service_split_btn).setOnClickListener {
+            dialog.dismiss()
+            startActivity(Intent(this, VeltraBillSplitActivity::class.java))
+        }
         
         dialog.show()
     }

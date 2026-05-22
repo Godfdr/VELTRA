@@ -24,8 +24,18 @@ abstract class VeltraBaseActivity : AppCompatActivity() {
         if (ev?.pointerCount == 3) {
             // Premium Ghost Mode: 3-finger long press (simulated by count check)
             Toast.makeText(this, "Ghost Mode Triggered 👻", Toast.LENGTH_SHORT).show()
-            // In a real implementation, we'd toggle a global blur state or transparent overlay
         }
         return super.dispatchTouchEvent(ev)
+    }
+
+    fun triggerOfflineHaptic() {
+        val vibrator = getSystemService(VIBRATOR_SERVICE) as android.os.Vibrator
+        val pattern = longArrayOf(0, 50, 100, 50) // Double Pulse
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            vibrator.vibrate(android.os.VibrationEffect.createWaveform(pattern, -1))
+        } else {
+            @Suppress("DEPRECATION")
+            vibrator.vibrate(pattern, -1)
+        }
     }
 }

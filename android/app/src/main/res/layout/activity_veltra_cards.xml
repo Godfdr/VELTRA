@@ -68,6 +68,35 @@
             android:background="#1A1D2D"
             android:padding="24dp">
 
+            <!-- Hardware Secured Indicator (Offline Mode) -->
+            <LinearLayout
+                android:id="@+id/offlineSecuredBadge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/verified_badge_background"
+                android:backgroundTint="#20FFA502"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="4dp"
+                android:visibility="gone"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="32dp"
+                android:gravity="center_vertical">
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:src="@android:drawable/ic_lock_idle_lock"
+                    app:tint="@color/veltra_warning" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hardware Secured"
+                    android:textColor="@color/veltra_warning"
+                    android:textSize="9sp"
+                    android:fontFamily="sans-serif-black"
+                    android:layout_marginStart="4dp" />
+            </LinearLayout>
+
             <!-- Large Background "V" Logo (Semi-transparent) -->
             <ImageView
                 android:id="@+id/cardBgLogo"

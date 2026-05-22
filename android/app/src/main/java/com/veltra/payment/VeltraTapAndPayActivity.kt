@@ -11,7 +11,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.veltra.payment.databinding.ActivityVeltraTapAndPayBinding
 import java.util.Locale
 
-class VeltraTapAndPayActivity : AppCompatActivity() {
+class VeltraTapAndPayActivity : VeltraBaseActivity() {
     private lateinit var binding: ActivityVeltraTapAndPayBinding
     
     private val wallets = listOf(
@@ -81,6 +81,9 @@ class VeltraTapAndPayActivity : AppCompatActivity() {
             .setDuration(1500)
             .setListener(null)
             .withEndAction {
+                // Check if offline Pay would happen here (Simulated)
+                triggerOfflineHaptic()
+
                 binding.rippleContainer.animate()
                     .alpha(0.5f)
                     .setDuration(1500)

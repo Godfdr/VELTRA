@@ -27,6 +27,14 @@ class VeltraCardsActivity : VeltraBaseActivity() {
         updateNumberDisplay()
         startLogoPulse()
         loadSavedSkin()
+        checkOfflineStatus()
+    }
+
+    private fun checkOfflineStatus() {
+        // High-end differentiation: If user has funds reserved, show the Hardware Badge
+        val sharedPref = getSharedPreferences("veltra_prefs", MODE_PRIVATE)
+        val hasOfflineFunds = true // Mocked to true for demonstration
+        binding.offlineSecuredBadge.visibility = if (hasOfflineFunds) android.view.View.VISIBLE else android.view.View.GONE
     }
 
     private fun startLogoPulse() {

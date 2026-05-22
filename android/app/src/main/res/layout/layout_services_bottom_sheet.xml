@@ -114,6 +114,20 @@
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Agent" android:textColor="@color/text_secondary" android:textSize="11sp" android:layout_marginTop="8dp" />
         </LinearLayout>
 
+        <!-- Split Bill -->
+        <LinearLayout
+            android:id="@+id/service_split_btn"
+            android:layout_width="0dp"
+            android:layout_columnWeight="1"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:clickable="true"
+            android:focusable="true">
+            <ImageView android:layout_width="48dp" android:layout_height="48dp" android:src="@android:drawable/ic_menu_share" android:background="@drawable/quick_action_background" android:padding="12dp" app:tint="@color/veltra_secondary" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Split Bill" android:textColor="@color/text_secondary" android:textSize="11sp" android:layout_marginTop="8dp" />
+        </LinearLayout>
+
     </GridLayout>
 
 </LinearLayout>
