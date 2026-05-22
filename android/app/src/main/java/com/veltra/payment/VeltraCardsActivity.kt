@@ -1,8 +1,10 @@
 package com.veltra.payment
 
+import android.content.Context
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import com.veltra.payment.databinding.ActivityVeltraCardsBinding
 
 class VeltraCardsActivity : AppCompatActivity() {
@@ -14,6 +16,16 @@ class VeltraCardsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        
+        // Initial theme application
+        val sharedPref = getSharedPreferences("veltra_prefs", Context.MODE_PRIVATE)
+        val isDarkMode = sharedPref.getBoolean("dark_mode", true)
+        if (isDarkMode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
+
         binding = ActivityVeltraCardsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

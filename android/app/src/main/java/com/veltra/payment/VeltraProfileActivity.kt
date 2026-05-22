@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.edit
 import com.veltra.payment.databinding.ActivityVeltraProfileBinding
 
 class VeltraProfileActivity : AppCompatActivity() {
@@ -21,7 +22,7 @@ class VeltraProfileActivity : AppCompatActivity() {
     }
 
     private fun setupThemeSwitch() {
-        val sharedPref = getSharedPreferences("veltra_prefs", Context.MODE_PRIVATE)
+        val sharedPref = getSharedPreferences("veltra_prefs", MODE_PRIVATE)
         val isDarkMode = sharedPref.getBoolean("dark_mode", true)
         
         binding.themeSwitch.isChecked = isDarkMode
@@ -29,7 +30,9 @@ class VeltraProfileActivity : AppCompatActivity() {
         binding.themeBtn.setOnClickListener {
             val newState = !binding.themeSwitch.isChecked
             binding.themeSwitch.isChecked = newState
-            sharedPref.edit().putBoolean("dark_mode", newState).apply()
+            sharedPref.edit {
+                putBoolean("dark_mode", newState)
+            }
             
             if (newState) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)

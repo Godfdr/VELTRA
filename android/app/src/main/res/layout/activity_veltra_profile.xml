@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_themed">
+    android:background="@color/background_themed"
+    tools:ignore="UnusedResources">
 
     <!-- Header -->
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,7 +25,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:contentDescription="Back" />
+            android:contentDescription="@string/cancel" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -48,7 +49,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:contentDescription="Settings" />
+            android:contentDescription="@string/nav_settings" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -64,7 +65,7 @@
             android:orientation="vertical"
             android:padding="20dp">
 
-            <!-- User Info Card (Purple Gradient as in image) -->
+            <!-- User Info Card -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -99,7 +100,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Tola Adeyemi"
+                            android:text="@string/hello_tola_emoji"
                             android:textColor="@color/white"
                             android:textSize="20sp"
                             android:fontFamily="sans-serif-bold" />
@@ -124,11 +125,12 @@
                                 android:layout_width="12dp"
                                 android:layout_height="12dp"
                                 android:src="@android:drawable/checkbox_on_background"
-                                app:tint="@color/veltra_success" />
+                                app:tint="@color/veltra_success"
+                                android:contentDescription="@string/profile_verified" />
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Verified"
+                                android:text="@string/profile_verified"
                                 android:textColor="@color/veltra_success"
                                 android:textSize="11sp"
                                 android:fontFamily="sans-serif-medium"
@@ -154,8 +156,8 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:background="?attr/selectableItemBackground">
-                    <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@android:drawable/ic_menu_compass" app:tint="@color/text_secondary" />
-                    <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="Dark Mode" android:textColor="@color/text_themed_primary" android:textSize="16sp" android:layout_marginStart="16dp" />
+                    <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@android:drawable/ic_menu_compass" app:tint="@color/text_secondary" android:contentDescription="@string/dark_mode" />
+                    <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/dark_mode" android:textColor="@color/text_themed_primary" android:textSize="16sp" android:layout_marginStart="16dp" />
                     <androidx.appcompat.widget.SwitchCompat
                         android:id="@+id/themeSwitch"
                         android:layout_width="wrap_content"
@@ -174,9 +176,9 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:background="?attr/selectableItemBackground">
-                    <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@android:drawable/ic_menu_myplaces" app:tint="@color/text_secondary" />
-                    <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="Personal Information" android:textColor="@color/text_themed_primary" android:textSize="16sp" android:layout_marginStart="16dp" />
-                    <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@android:drawable/ic_media_next" app:tint="@color/text_muted" />
+                    <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@android:drawable/ic_menu_myplaces" app:tint="@color/text_secondary" android:contentDescription="@string/profile_personal_info" />
+                    <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/profile_personal_info" android:textColor="@color/text_themed_primary" android:textSize="16sp" android:layout_marginStart="16dp" />
+                    <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@android:drawable/ic_media_next" app:tint="@color/text_muted" android:contentDescription="@string/done" />
                 </LinearLayout>
 
                 <!-- KYC Verification -->
@@ -189,10 +191,10 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:background="?attr/selectableItemBackground">
-                    <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@android:drawable/ic_menu_agenda" app:tint="@color/text_secondary" />
-                    <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="KYC Verification" android:textColor="@color/text_themed_primary" android:textSize="16sp" android:layout_marginStart="16dp" />
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Verified" android:textColor="@color/veltra_success" android:textSize="13sp" android:layout_marginEnd="8dp" />
-                    <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@android:drawable/ic_media_next" app:tint="@color/text_muted" />
+                    <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@android:drawable/ic_menu_agenda" app:tint="@color/text_secondary" android:contentDescription="@string/profile_kyc" />
+                    <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/profile_kyc" android:textColor="@color/text_themed_primary" android:textSize="16sp" android:layout_marginStart="16dp" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/profile_verified" android:textColor="@color/veltra_success" android:textSize="13sp" android:layout_marginEnd="8dp" />
+                    <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@android:drawable/ic_media_next" app:tint="@color/text_muted" android:contentDescription="@string/done" />
                 </LinearLayout>
 
                 <!-- Security -->
@@ -205,9 +207,9 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:background="?attr/selectableItemBackground">
-                    <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@android:drawable/ic_lock_idle_lock" app:tint="@color/text_secondary" />
-                    <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="Security" android:textColor="@color/text_themed_primary" android:textSize="16sp" android:layout_marginStart="16dp" />
-                    <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@android:drawable/ic_media_next" app:tint="@color/text_muted" />
+                    <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@android:drawable/ic_lock_idle_lock" app:tint="@color/text_secondary" android:contentDescription="@string/profile_security" />
+                    <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/profile_security" android:textColor="@color/text_themed_primary" android:textSize="16sp" android:layout_marginStart="16dp" />
+                    <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@android:drawable/ic_media_next" app:tint="@color/text_muted" android:contentDescription="@string/done" />
                 </LinearLayout>
 
                 <!-- Notifications -->
@@ -220,9 +222,9 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:background="?attr/selectableItemBackground">
-                    <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@android:drawable/ic_popup_reminder" app:tint="@color/text_secondary" />
-                    <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="Notifications" android:textColor="@color/text_themed_primary" android:textSize="16sp" android:layout_marginStart="16dp" />
-                    <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@android:drawable/ic_media_next" app:tint="@color/text_muted" />
+                    <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@android:drawable/ic_popup_reminder" app:tint="@color/text_secondary" android:contentDescription="@string/profile_notifications" />
+                    <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/profile_notifications" android:textColor="@color/text_themed_primary" android:textSize="16sp" android:layout_marginStart="16dp" />
+                    <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@android:drawable/ic_media_next" app:tint="@color/text_muted" android:contentDescription="@string/done" />
                 </LinearLayout>
 
                 <!-- Linked Accounts -->
@@ -235,9 +237,9 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:background="?attr/selectableItemBackground">
-                    <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@android:drawable/ic_menu_share" app:tint="@color/text_secondary" />
-                    <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="Linked Accounts" android:textColor="@color/text_themed_primary" android:textSize="16sp" android:layout_marginStart="16dp" />
-                    <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@android:drawable/ic_media_next" app:tint="@color/text_muted" />
+                    <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@android:drawable/ic_menu_share" app:tint="@color/text_secondary" android:contentDescription="@string/profile_linked_accounts" />
+                    <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/profile_linked_accounts" android:textColor="@color/text_themed_primary" android:textSize="16sp" android:layout_marginStart="16dp" />
+                    <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@android:drawable/ic_media_next" app:tint="@color/text_muted" android:contentDescription="@string/done" />
                 </LinearLayout>
 
                 <!-- Help & Support -->
@@ -250,9 +252,9 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:background="?attr/selectableItemBackground">
-                    <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@android:drawable/ic_menu_help" app:tint="@color/text_secondary" />
-                    <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="Help &amp; Support" android:textColor="@color/text_themed_primary" android:textSize="16sp" android:layout_marginStart="16dp" />
-                    <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@android:drawable/ic_media_next" app:tint="@color/text_muted" />
+                    <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@android:drawable/ic_menu_help" app:tint="@color/text_secondary" android:contentDescription="@string/profile_help" />
+                    <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/profile_help" android:textColor="@color/text_themed_primary" android:textSize="16sp" android:layout_marginStart="16dp" />
+                    <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@android:drawable/ic_media_next" app:tint="@color/text_muted" android:contentDescription="@string/done" />
                 </LinearLayout>
 
                 <!-- About Veltra -->
@@ -265,9 +267,9 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:background="?attr/selectableItemBackground">
-                    <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@android:drawable/ic_menu_info_details" app:tint="@color/text_secondary" />
-                    <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="About Veltra" android:textColor="@color/text_themed_primary" android:textSize="16sp" android:layout_marginStart="16dp" />
-                    <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@android:drawable/ic_media_next" app:tint="@color/text_muted" />
+                    <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@android:drawable/ic_menu_info_details" app:tint="@color/text_secondary" android:contentDescription="@string/profile_about" />
+                    <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/profile_about" android:textColor="@color/text_themed_primary" android:textSize="16sp" android:layout_marginStart="16dp" />
+                    <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@android:drawable/ic_media_next" app:tint="@color/text_muted" android:contentDescription="@string/done" />
                 </LinearLayout>
 
                 <!-- Logout -->
@@ -275,7 +277,7 @@
                     android:id="@+id/logoutBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Log Out"
+                    android:text="@string/btn_logout"
                     android:textColor="@color/veltra_danger"
                     android:textSize="16sp"
                     android:fontFamily="sans-serif-bold"

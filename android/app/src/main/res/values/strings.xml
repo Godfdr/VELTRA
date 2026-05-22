@@ -75,6 +75,10 @@
     <string name="manage_card">Manage your card</string>
     <string name="transaction_limits">Transaction Limits</string>
     <string name="set_limits">Set daily limits</string>
+    <string name="btn_lock_card">Lock Card</string>
+    <string name="title_my_veltra_card">My Veltra Card</string>
+    <string name="card_masked_number">••••   ••••   ••••   1234</string>
+    <string name="visa">VISA</string>
 
     <!-- Wallets Screen -->
     <string name="wallets">Wallets</string>
@@ -90,6 +94,13 @@
     <string name="food_desc">Dining and groceries</string>
     <string name="offline_wallet_pocket">Offline Wallet</string>
     <string name="offline_desc">Pay without internet connection</string>
+    <string name="total_net_worth">Total Net Worth</string>
+    <string name="your_pockets">Your Pockets</string>
+    <string name="create_new_pocket">Create New Pocket</string>
+    <string name="organize_pockets_desc">Organize your money for specific goals.</string>
+    <string name="pocket_name_hint">Pocket Name (e.g. Vacation)</string>
+    <string name="initial_balance_hint">0.00</string>
+    <string name="btn_create_pocket">Create Pocket</string>
 
     <!-- Profile Screen -->
     <string name="personal_info">Personal Information</string>
@@ -100,6 +111,16 @@
     <string name="help_support">Help &amp; Support</string>
     <string name="about_veltra">About Veltra</string>
     <string name="logout">Log Out</string>
+    <string name="profile_verified">Verified</string>
+    <string name="profile_personal_info">Personal Information</string>
+    <string name="profile_kyc">KYC Verification</string>
+    <string name="profile_security">Security</string>
+    <string name="profile_notifications">Notifications</string>
+    <string name="profile_linked_accounts">Linked Accounts</string>
+    <string name="profile_help">Help &amp; Support</string>
+    <string name="profile_about">About Veltra</string>
+    <string name="btn_logout">Log Out</string>
+    <string name="dark_mode">Dark Mode</string>
 
     <!-- Agent Top Up -->
     <string name="agent_topup">Agent Top Up</string>
@@ -109,10 +130,11 @@
     <string name="show_qr_to_agent">Show this QR code to the agent to top up</string>
     <string name="agent_distance">%1$s (%2$s km away)</string>
 
-    <!-- Offline Wallet -->
-    <string name="offline_wallet">Offline Wallet</string>
-    <string name="offline_sync">Syncing Offline Transactions...</string>
-    <string name="offline_ready">Ready for offline payment</string>
+    <string name="tap_pay_status">Hold your phone near\nthe reader to pay</string>
+    <string name="tap_pay_scan_ready">Ready to Scan</string>
+    <string name="default_wallet">Default Wallet</string>
+    <string name="select_debiting_wallet">Select Debiting Wallet</string>
+    <string name="all_services">All Services</string>
 
     <!-- Receive Screen -->
     <string name="receive_options">Choose how to receive</string>
