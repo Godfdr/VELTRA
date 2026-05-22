@@ -1,5 +1,6 @@
 package com.veltra.payment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -40,6 +41,10 @@ class VeltraAnalyticsActivity : VeltraBaseActivity() {
 
     private fun setupListeners() {
         binding.backBtn.setOnClickListener { finish() }
+        
+        binding.insightCard.setOnClickListener {
+            startActivity(Intent(this, VeltraBudgetingActivity::class.java))
+        }
     }
 
     private fun setupHistoryList() {
