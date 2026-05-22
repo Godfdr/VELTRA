@@ -47,6 +47,10 @@ class VeltraProfileActivity : VeltraBaseActivity() {
             Toast.makeText(this, "Settings coming soon", Toast.LENGTH_SHORT).show()
         }
 
+        binding.merchantModeBtn.setOnClickListener {
+            startActivity(Intent(this, VeltraMerchantDashboardActivity::class.java))
+        }
+
         binding.logoutBtn.setOnClickListener {
             startActivity(Intent(this, VeltraLoginActivity::class.java))
             finishAffinity()

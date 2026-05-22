@@ -45,6 +45,9 @@ class VeltraTapAndPayActivity : VeltraBaseActivity() {
             binding.statusText.text = "Instant Pay Active ⚡"
         } else if (mode == "P2P") {
             binding.statusText.text = "Searching for Nearby Device..."
+        } else if (mode == "MERCHANT_RECEIVE") {
+            binding.statusText.text = "Business Mode: Tap Customer Device to Collect"
+            binding.walletSelectorCard.visibility = android.view.View.GONE // Hide wallet selector in receive mode
         }
 
         setupListeners()

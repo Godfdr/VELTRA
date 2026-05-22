@@ -2,6 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_merchant"
+            android:icon="@android:drawable/ic_menu_agenda"
+            android:title="Veltra for Business" />
+        <item
             android:id="@+id/nav_services"
             android:icon="@android:drawable/ic_menu_agenda"
             android:title="@string/nav_services" />

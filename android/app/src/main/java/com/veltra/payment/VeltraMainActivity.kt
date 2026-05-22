@@ -32,7 +32,28 @@ class VeltraMainActivity : VeltraBaseActivity() {
         setupNavigation()
         setupBalanceToggle()
         setupGhostMode()
+        setupDrawer()
         startBusAnimation()
+    }
+
+    private fun setupDrawer() {
+        binding.navView.setNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_merchant -> {
+                    startActivity(Intent(this, VeltraMerchantDashboardActivity::class.java))
+                }
+                R.id.nav_services -> showServicesBottomSheet()
+                R.id.nav_logout -> {
+                    startActivity(Intent(this, VeltraLoginActivity::class.java))
+                    finish()
+                }
+            }
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+            true
+        }
+
+        // Connect a menu button if needed, or use the profile image to open drawer
+        // For now, let's keep the existing navigation but enable the drawer functionality
     }
 
     private fun setupGhostMode() {
@@ -87,6 +108,11 @@ class VeltraMainActivity : VeltraBaseActivity() {
         view.findViewById<View>(R.id.service_agent_btn).setOnClickListener {
             dialog.dismiss()
             startActivity(Intent(this, VeltraAgentTopupActivity::class.java))
+        }
+
+        view.findViewById<View>(R.id.service_merchant_btn).setOnClickListener {
+            dialog.dismiss()
+            startActivity(Intent(this, VeltraMerchantDashboardActivity::class.java))
         }
 
         view.findViewById<View>(R.id.service_nfc_btn).setOnClickListener {

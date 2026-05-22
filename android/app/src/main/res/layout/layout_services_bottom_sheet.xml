@@ -100,6 +100,20 @@
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Savings" android:textColor="@color/text_secondary" android:textSize="11sp" android:layout_marginTop="8dp" />
         </LinearLayout>
 
+        <!-- Merchant Mode -->
+        <LinearLayout
+            android:id="@+id/service_merchant_btn"
+            android:layout_width="0dp"
+            android:layout_columnWeight="1"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:clickable="true"
+            android:focusable="true">
+            <ImageView android:layout_width="48dp" android:layout_height="48dp" android:src="@android:drawable/ic_menu_agenda" android:background="@drawable/quick_action_background" android:padding="12dp" app:tint="@color/veltra_primary" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Business" android:textColor="@color/text_secondary" android:textSize="11sp" android:layout_marginTop="8dp" />
+        </LinearLayout>
+
         <!-- Agent -->
         <LinearLayout
             android:id="@+id/service_agent_btn"
