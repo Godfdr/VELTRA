@@ -74,7 +74,7 @@ class VeltraMainActivity : AppCompatActivity() {
 
         view.findViewById<View>(R.id.service_nfc_btn).setOnClickListener {
             dialog.dismiss()
-            startActivity(Intent(this, VeltraTapAndPayActivity::class.java))
+            startActivity(Intent(this, VeltraContactlessActivity::class.java))
         }
 
         view.findViewById<View>(R.id.service_send_btn).setOnClickListener {
@@ -132,6 +132,11 @@ class VeltraMainActivity : AppCompatActivity() {
             startActivity(Intent(this, VeltraProfileActivity::class.java))
         }
 
+        // Recent Transactions Section Link to Luxury Analytics
+        binding.transactionsLabel.setOnClickListener {
+            startActivity(Intent(this, VeltraAnalyticsActivity::class.java))
+        }
+
         // Simulation Card Actions
         binding.acceptPingBtn.setOnClickListener {
             binding.pingRequestCard.visibility = View.GONE
@@ -148,9 +153,37 @@ class VeltraMainActivity : AppCompatActivity() {
         binding.navCardsBtn.setOnClickListener { startActivity(Intent(this, VeltraCardsActivity::class.java)) }
         binding.navProfileBtn.setOnClickListener { startActivity(Intent(this, VeltraProfileActivity::class.java)) }
 
-        // Floating Center Pay Button
+        // Floating Center Pay Button - Instant Pay (Tap)
         binding.floatingPayBtn.setOnClickListener {
             startActivity(Intent(this, VeltraTapAndPayActivity::class.java))
         }
+
+        // --- PREMIUM FEATURE: Instant Pay (Long Press + Biometric) ---
+        binding.floatingPayBtn.setOnLongClickListener {
+            triggerInstantPay()
+            true
+        }
+    }
+
+    private fun triggerInstantPay() {
+        val executor = androidx.core.content.ContextCompat.getMainExecutor(this)
+        val biometricPrompt = androidx.biometric.BiometricPrompt(this, executor,
+            object : androidx.biometric.BiometricPrompt.AuthenticationCallback() {
+                override fun onAuthenticationSucceeded(result: androidx.biometric.BiometricPrompt.AuthenticationResult) {
+                    super.onAuthenticationSucceeded(result)
+                    val intent = Intent(this@VeltraMainActivity, VeltraTapAndPayActivity::class.java).apply {
+                        putExtra("INSTANT_PAY", true)
+                    }
+                    startActivity(intent)
+                }
+            })
+
+        val promptInfo = androidx.biometric.BiometricPrompt.PromptInfo.Builder()
+            .setTitle(getString(R.string.tap_to_pay))
+            .setSubtitle(getString(R.string.confirm_identity))
+            .setNegativeButtonText(getString(R.string.cancel))
+            .build()
+
+        biometricPrompt.authenticate(promptInfo)
     }
 }

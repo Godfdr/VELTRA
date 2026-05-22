@@ -79,6 +79,8 @@
         <activity android:name=".VeltraTopUpMethodActivity" />
         <activity android:name=".VeltraAgentTopupActivity" />
         <activity android:name=".VeltraAdminDashboardActivity" />
+        <activity android:name=".VeltraAnalyticsActivity" />
+        <activity android:name=".VeltraContactlessActivity" />
 
     </application>
 

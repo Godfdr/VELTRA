@@ -26,6 +26,10 @@ class VeltraTapAndPayActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         
+        // Handle Premium Modes
+        val isInstant = intent.getBooleanExtra("INSTANT_PAY", false)
+        val mode = intent.getStringExtra("MODE")
+
         // Initial theme application
         val sharedPref = getSharedPreferences("veltra_prefs", Context.MODE_PRIVATE)
         val isDarkMode = sharedPref.getBoolean("dark_mode", true)
@@ -37,6 +41,12 @@ class VeltraTapAndPayActivity : AppCompatActivity() {
 
         binding = ActivityVeltraTapAndPayBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        if (isInstant) {
+            binding.statusText.text = "Instant Pay Active ⚡"
+        } else if (mode == "P2P") {
+            binding.statusText.text = "Searching for Nearby Device..."
+        }
 
         setupListeners()
         updateWalletDisplay()
