@@ -269,12 +269,14 @@
 
             <!-- Luxury Insight Tip -->
             <androidx.cardview.widget.CardView
+                android:id="@+id/insightCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="24dp"
                 app:cardElevation="0dp"
                 app:cardBackgroundColor="#1000D084"
-                android:layout_marginTop="16dp">
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="32dp">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -285,7 +287,8 @@
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:src="@android:drawable/ic_dialog_info"
-                        app:tint="@color/veltra_success" />
+                        app:tint="@color/veltra_success"
+                        android:contentDescription="Info" />
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -296,6 +299,66 @@
                         android:lineSpacingExtra="2dp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+
+            <!-- Detailed Purchase History Analysis -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Detailed Purchase History"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:fontFamily="sans-serif-bold"
+                android:layout_marginBottom="16dp" />
+
+            <EditText
+                android:id="@+id/searchHistory"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/edittext_background"
+                android:hint="Search items or merchants..."
+                android:textColorHint="@color/text_muted"
+                android:textColor="@color/white"
+                android:paddingHorizontal="16dp"
+                android:textSize="14sp"
+                android:layout_marginBottom="16dp" />
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                android:layout_marginBottom="20dp">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <com.google.android.material.chip.Chip
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="All"
+                        app:chipBackgroundColor="@color/veltra_primary"
+                        android:textColor="@color/white"
+                        android:layout_marginEnd="8dp" />
+                    <com.google.android.material.chip.Chip
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Electronics"
+                        style="@style/Widget.MaterialComponents.Chip.Action"
+                        android:textColor="@color/text_secondary"
+                        android:layout_marginEnd="8dp" />
+                    <com.google.android.material.chip.Chip
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Groceries"
+                        style="@style/Widget.MaterialComponents.Chip.Action"
+                        android:textColor="@color/text_secondary" />
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/historyRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
