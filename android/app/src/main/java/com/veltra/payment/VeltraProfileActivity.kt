@@ -1,15 +1,13 @@
 package com.veltra.payment
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.edit
 import com.veltra.payment.databinding.ActivityVeltraProfileBinding
 
-class VeltraProfileActivity : AppCompatActivity() {
+class VeltraProfileActivity : VeltraBaseActivity() {
     private lateinit var binding: ActivityVeltraProfileBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,18 +45,6 @@ class VeltraProfileActivity : AppCompatActivity() {
 
         binding.settingsBtn.setOnClickListener {
             Toast.makeText(this, "Settings coming soon", Toast.LENGTH_SHORT).show()
-        }
-
-        binding.personalInfoBtn.setOnClickListener {
-            Toast.makeText(this, "Opening Personal Info", Toast.LENGTH_SHORT).show()
-        }
-
-        binding.kycBtn.setOnClickListener {
-            Toast.makeText(this, "Verification Status: Level 3", Toast.LENGTH_SHORT).show()
-        }
-
-        binding.securityBtn.setOnClickListener {
-            Toast.makeText(this, "Opening Security Settings", Toast.LENGTH_SHORT).show()
         }
 
         binding.logoutBtn.setOnClickListener {

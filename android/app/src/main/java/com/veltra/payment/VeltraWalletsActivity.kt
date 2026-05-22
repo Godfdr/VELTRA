@@ -23,7 +23,7 @@ data class WalletPocket(
     val balance: Double
 )
 
-class VeltraWalletsActivity : AppCompatActivity() {
+class VeltraWalletsActivity : VeltraBaseActivity() {
     private lateinit var binding: ActivityVeltraWalletsBinding
     private lateinit var walletAdapter: WalletAdapter
     private var isBalanceVisible = true
@@ -40,15 +40,6 @@ class VeltraWalletsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         
-        // Initial theme application
-        val sharedPref = getSharedPreferences("veltra_prefs", MODE_PRIVATE)
-        val isDarkMode = sharedPref.getBoolean("dark_mode", true)
-        if (isDarkMode) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        }
-
         binding = ActivityVeltraWalletsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -97,6 +88,11 @@ class VeltraWalletsActivity : AppCompatActivity() {
 
         binding.createNewWalletBtn.setOnClickListener {
             showCreatePocketDialog()
+        }
+
+        binding.squadPocketCard.setOnClickListener {
+            Toast.makeText(this, "Opening Summer Trip 2024 Squad Pocket... 🏖️", Toast.LENGTH_SHORT).show()
+            // Logic to show group members and contributing history
         }
     }
 

@@ -101,6 +101,73 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
+            <!-- Squad Pockets Section (High-Fidelity) -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Squad Pockets"
+                android:textColor="@color/text_themed_primary"
+                android:textSize="18sp"
+                android:fontFamily="sans-serif-bold"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="16dp" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/squadPocketCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="24dp"
+                app:cardBackgroundColor="@color/surface_themed"
+                app:cardElevation="2dp"
+                android:layout_marginBottom="16dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/squadName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Summer Trip 2024"
+                            android:textColor="@color/text_themed_primary"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-bold" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="₦ 450,000.00"
+                            android:textColor="@color/veltra_primary"
+                            android:textStyle="bold"
+                            android:layout_alignParentEnd="true" />
+                    </RelativeLayout>
+
+                    <!-- Real-time Avatars -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="12dp">
+                        <View android:layout_width="32dp" android:layout_height="32dp" android:background="@drawable/nav_item_background" android:backgroundTint="@color/veltra_primary" android:layout_marginEnd="-8dp" />
+                        <View android:layout_width="32dp" android:layout_height="32dp" android:background="@drawable/nav_item_background" android:backgroundTint="@color/veltra_secondary" android:layout_marginEnd="-8dp" />
+                        <View android:layout_width="32dp" android:layout_height="32dp" android:background="@drawable/nav_item_background" android:backgroundTint="@color/veltra_success" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="+4 more" android:textColor="@color/text_secondary" android:textSize="12sp" android:layout_marginStart="16dp" android:layout_gravity="center_vertical" />
+                    </LinearLayout>
+
+                    <!-- Glowing Progress Bar -->
+                    <ProgressBar
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="12dp"
+                        android:progress="75"
+                        android:layout_marginTop="20dp"
+                        android:progressTint="@color/veltra_primary" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -108,6 +175,7 @@
                 android:textColor="@color/text_themed_primary"
                 android:textSize="18sp"
                 android:fontFamily="sans-serif-bold"
+                android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp" />
 
             <!-- Pocket List (Horizontal or Grid usually better, but keeping list for simplicity) -->

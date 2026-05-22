@@ -51,7 +51,106 @@
             android:orientation="vertical"
             android:padding="24dp">
 
-            <!-- Luxury Monthly Summary Card -->
+            <!-- High-Fidelity Spend Stories (Interactive Horizontal Scroll) -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Spend Stories"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:fontFamily="sans-serif-bold"
+                android:layout_marginBottom="16dp" />
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                android:layout_marginBottom="32dp">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!-- Story 1: Transport -->
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="120dp"
+                        android:layout_height="180dp"
+                        android:layout_marginEnd="16dp"
+                        app:cardCornerRadius="24dp"
+                        app:cardBackgroundColor="@color/veltra_primary">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="16dp">
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:src="@drawable/ic_bus_modern"
+                                app:tint="@color/white" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Commute\nMaster"
+                                android:textColor="@color/white"
+                                android:textStyle="bold"
+                                android:layout_alignParentBottom="true" />
+                        </RelativeLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <!-- Story 2: Dining -->
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="120dp"
+                        android:layout_height="180dp"
+                        android:layout_marginEnd="16dp"
+                        app:cardCornerRadius="24dp"
+                        app:cardBackgroundColor="@color/veltra_secondary">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="16dp">
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:src="@android:drawable/ic_menu_gallery"
+                                app:tint="@color/white" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Foodie\nStats"
+                                android:textColor="@color/white"
+                                android:textStyle="bold"
+                                android:layout_alignParentBottom="true" />
+                        </RelativeLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <!-- Story 3: Savings -->
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="120dp"
+                        android:layout_height="180dp"
+                        app:cardCornerRadius="24dp"
+                        app:cardBackgroundColor="@color/veltra_success">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="16dp">
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:src="@android:drawable/ic_menu_save"
+                                app:tint="@color/white" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Wealth\nBuilder"
+                                android:textColor="@color/white"
+                                android:textStyle="bold"
+                                android:layout_alignParentBottom="true" />
+                        </RelativeLayout>
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <!-- Monthly Summary Card -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -10,7 +10,7 @@ import androidx.core.view.GravityCompat
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.veltra.payment.databinding.ActivityVeltraMainBinding
 
-class VeltraMainActivity : AppCompatActivity() {
+class VeltraMainActivity : VeltraBaseActivity() {
 
     private lateinit var binding: ActivityVeltraMainBinding
     private var isBalanceVisible = true
@@ -23,15 +23,6 @@ class VeltraMainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         
-        // Initial theme application
-        val sharedPref = getSharedPreferences("veltra_prefs", MODE_PRIVATE)
-        val isDarkMode = sharedPref.getBoolean("dark_mode", true)
-        if (isDarkMode) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        }
-
         binding = ActivityVeltraMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         
@@ -45,13 +36,27 @@ class VeltraMainActivity : AppCompatActivity() {
     }
 
     private fun setupGhostMode() {
-        // High-end feature: Long press on the profile image to blur balance
-        binding.profileImage.setOnLongClickListener {
-            isGhostModeActive = !isGhostModeActive
-            binding.balanceValue.alpha = if (isGhostModeActive) 0.1f else 1.0f
-            val msg = if (isGhostModeActive) "Ghost Mode Active 👻" else "Ghost Mode Disabled"
-            android.widget.Toast.makeText(this, msg, android.widget.Toast.LENGTH_SHORT).show()
-            true
+        // Advanced 3-Finger Gesture for Ghost Mode
+        binding.root.setOnTouchListener { v, event ->
+            if (event.pointerCount == 3) {
+                isGhostModeActive = true
+                binding.mainContent.alpha = 0.05f
+                android.widget.Toast.makeText(this, "Ghost Mode Active 👻", android.widget.Toast.LENGTH_SHORT).show()
+            } else if (event.action == android.view.MotionEvent.ACTION_UP && isGhostModeActive) {
+                // Keep it active until a specific action or just for a moment
+                // For this demo, let's toggle it back on single tap elsewhere
+            }
+            false
+        }
+
+        binding.profileImage.setOnClickListener {
+            if (isGhostModeActive) {
+                isGhostModeActive = false
+                binding.mainContent.alpha = 1.0f
+                android.widget.Toast.makeText(this, "Ghost Mode Disabled", android.widget.Toast.LENGTH_SHORT).show()
+            } else {
+                startActivity(Intent(this, VeltraProfileActivity::class.java))
+            }
         }
     }
 
