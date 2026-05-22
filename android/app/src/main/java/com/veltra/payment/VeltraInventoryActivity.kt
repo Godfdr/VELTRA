@@ -8,17 +8,23 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.veltra.payment.databinding.ActivityVeltraInventoryBinding
 import com.veltra.payment.databinding.ItemInventoryBinding
+import java.util.Locale
 
-data class InventoryItem(val name: String, val stock: Int, val price: Double)
+data class InventoryItem(
+    val name: String, 
+    val stock: Int, 
+    val sellingPrice: Double,
+    val costPrice: Double
+)
 
 class VeltraInventoryActivity : VeltraBaseActivity() {
     private lateinit var binding: ActivityVeltraInventoryBinding
 
     private val mockStock = listOf(
-        InventoryItem("Wireless Earbuds", 15, 12500.0),
-        InventoryItem("Power Bank 20k mAh", 8, 8500.0),
-        InventoryItem("iPhone Case (Clear)", 42, 2500.0),
-        InventoryItem("Fast Charger 20W", 20, 4000.0)
+        InventoryItem("Wireless Earbuds", 15, 12500.0, 8000.0),
+        InventoryItem("Power Bank 20k mAh", 8, 8500.0, 6200.0),
+        InventoryItem("iPhone Case (Clear)", 42, 2500.0, 1100.0),
+        InventoryItem("Fast Charger 20W", 20, 4000.0, 2400.0)
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,9 +57,12 @@ class VeltraInventoryActivity : VeltraBaseActivity() {
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val item = items[position]
+            val profit = item.sellingPrice - item.costPrice
+            
             holder.binding.itemName.text = item.name
             holder.binding.itemStock.text = "In Stock: ${item.stock}"
-            holder.binding.itemPrice.text = "₦ ${String.format("%,.0f", item.price)}"
+            holder.binding.itemPrice.text = String.format(Locale.getDefault(), "₦ %,.0f", item.sellingPrice)
+            holder.binding.itemProfit.text = String.format(Locale.getDefault(), "Profit/unit: ₦ %,.0f", profit)
         }
 
         override fun getItemCount() = items.size

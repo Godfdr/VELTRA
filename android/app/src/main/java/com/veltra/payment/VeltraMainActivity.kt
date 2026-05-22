@@ -190,6 +190,10 @@ class VeltraMainActivity : VeltraBaseActivity() {
             startActivity(Intent(this, VeltraProfileActivity::class.java))
         }
 
+        binding.root.findViewById<View>(R.id.loyaltyPointsText).setOnClickListener {
+            Toast.makeText(this, "Loyalty Points Hub coming soon!", Toast.LENGTH_SHORT).show()
+        }
+
         // Recent Transactions Section Link to Luxury Analytics
         binding.transactionsLabel.setOnClickListener {
             startActivity(Intent(this, VeltraAnalyticsActivity::class.java))

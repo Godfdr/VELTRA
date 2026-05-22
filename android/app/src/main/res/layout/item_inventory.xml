@@ -33,6 +33,16 @@
             android:layout_marginTop="4dp" />
 
         <TextView
+            android:id="@+id/itemProfit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Profit/unit: ₦ 0"
+            android:textColor="@color/veltra_success"
+            android:textSize="11sp"
+            android:layout_below="@id/itemStock"
+            android:layout_marginTop="2dp" />
+
+        <TextView
             android:id="@+id/itemPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -30,18 +30,31 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent" />
 
-            <TextView
-                android:id="@+id/welcomeText"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/hello_tola_emoji"
-                android:textColor="@color/text_themed_primary"
-                android:textSize="18sp"
-                android:fontFamily="sans-serif-bold"
+                android:orientation="vertical"
                 android:layout_marginStart="12dp"
                 app:layout_constraintStart_toEndOf="@id/profileImage"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                app:layout_constraintBottom_toBottomOf="parent">
+                <TextView
+                    android:id="@+id/welcomeText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hello_tola_emoji"
+                    android:textColor="@color/text_themed_primary"
+                    android:textSize="18sp"
+                    android:fontFamily="sans-serif-bold" />
+                <TextView
+                    android:id="@+id/loyaltyPointsText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2,450 V-Points 💎"
+                    android:textColor="@color/veltra_primary"
+                    android:textSize="11sp"
+                    android:fontFamily="sans-serif-medium" />
+            </LinearLayout>
 
             <ImageView
                 android:id="@+id/notificationIcon"
