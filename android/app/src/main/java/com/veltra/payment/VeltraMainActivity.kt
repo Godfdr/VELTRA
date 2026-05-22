@@ -1,6 +1,5 @@
 package com.veltra.payment
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,6 +14,7 @@ class VeltraMainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityVeltraMainBinding
     private var isBalanceVisible = true
+    private var isGhostModeActive = false
     
     // Using string resources for clean code
     private lateinit var actualBalance: String
@@ -40,7 +40,19 @@ class VeltraMainActivity : AppCompatActivity() {
 
         setupNavigation()
         setupBalanceToggle()
+        setupGhostMode()
         startBusAnimation()
+    }
+
+    private fun setupGhostMode() {
+        // High-end feature: Long press on the profile image to blur balance
+        binding.profileImage.setOnLongClickListener {
+            isGhostModeActive = !isGhostModeActive
+            binding.balanceValue.alpha = if (isGhostModeActive) 0.1f else 1.0f
+            val msg = if (isGhostModeActive) "Ghost Mode Active 👻" else "Ghost Mode Disabled"
+            android.widget.Toast.makeText(this, msg, android.widget.Toast.LENGTH_SHORT).show()
+            true
+        }
     }
 
     private fun startBusAnimation() {

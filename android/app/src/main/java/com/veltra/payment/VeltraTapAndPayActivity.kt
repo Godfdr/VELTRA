@@ -1,6 +1,5 @@
 package com.veltra.payment
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -31,7 +30,7 @@ class VeltraTapAndPayActivity : AppCompatActivity() {
         val mode = intent.getStringExtra("MODE")
 
         // Initial theme application
-        val sharedPref = getSharedPreferences("veltra_prefs", Context.MODE_PRIVATE)
+        val sharedPref = getSharedPreferences("veltra_prefs", MODE_PRIVATE)
         val isDarkMode = sharedPref.getBoolean("dark_mode", true)
         if (isDarkMode) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
