@@ -90,6 +90,7 @@
         <activity android:name=".VeltraItemizedReceiptActivity" />
         <activity android:name=".VeltraBudgetingActivity" />
         <activity android:name=".VeltraRemittanceActivity" />
+        <activity android:name=".VeltraVirtualCardsActivity" />
 
     </application>
 

@@ -72,6 +72,10 @@ class VeltraCardsActivity : VeltraBaseActivity() {
         binding.skinNeon.setOnClickListener { updateSkin("#001F1F", "neon") }
         binding.skinEco.setOnClickListener { updateSkin("#004D40", "eco") }
 
+        binding.cardSettingsBtn.setOnClickListener {
+            startActivity(android.content.Intent(this, VeltraVirtualCardsActivity::class.java))
+        }
+
         binding.lockCardBtn.setOnClickListener {
             isCardLocked = !isCardLocked
             binding.cardContainer.alpha = if (isCardLocked) 0.5f else 1.0f
