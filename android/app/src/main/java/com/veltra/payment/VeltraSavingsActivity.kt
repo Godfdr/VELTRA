@@ -28,7 +28,13 @@ class VeltraSavingsActivity : VeltraBaseActivity() {
         
         lifecycleScope.launch {
             delay(2000) // Simulate analysis
-            binding.aiSuggestionText.text = "✨ Done! I've created the 'Friday Freedom' plan. It will automatically move ₦2,000 to your Vacation goal every Friday. Sound good?"
+            binding.aiSuggestionText.text = "✨ Done! I've created the 'Friday Freedom' plan. Based on your income flow, you'll hit your goal 5 days early!"
+            
+            // Show Prediction
+            binding.aiPredictionBadge.visibility = android.view.View.VISIBLE
+            binding.aiPredictionBadge.alpha = 0f
+            binding.aiPredictionBadge.animate().alpha(1f).setDuration(500).start()
+
             binding.generatePlanBtn.text = "Activate AI Plan 🚀"
             binding.generatePlanBtn.isEnabled = true
             

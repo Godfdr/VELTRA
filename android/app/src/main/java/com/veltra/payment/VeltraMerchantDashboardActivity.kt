@@ -54,6 +54,10 @@ class VeltraMerchantDashboardActivity : VeltraBaseActivity() {
             startActivity(Intent(this, VeltraBusinessExpensesActivity::class.java))
         }
 
+        binding.merchantNotificationsBtn.setOnClickListener {
+            Toast.makeText(this, "Live Settlement: No pending webhook signals 🟢", Toast.LENGTH_SHORT).show()
+        }
+
         // Mock clicks for business hub
         binding.root.findViewById<android.view.View>(R.id.totalSalesValue).setOnClickListener {
             Toast.makeText(this, "Detailed Sales Analytics Coming Soon!", Toast.LENGTH_SHORT).show()

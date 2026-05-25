@@ -37,6 +37,18 @@
             app:layout_constraintTop_toTopOf="@id/businessName"
             app:layout_constraintBottom_toBottomOf="@id/businessName" />
 
+        <ImageView
+            android:id="@+id/merchantNotificationsBtn"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@android:drawable/ic_popup_reminder"
+            app:tint="@color/white"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toStartOf="@id/switchBackBtn"
+            app:layout_constraintTop_toTopOf="@id/businessName"
+            app:layout_constraintBottom_toBottomOf="@id/businessName"
+            android:contentDescription="Business Alerts" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.core.widget.NestedScrollView

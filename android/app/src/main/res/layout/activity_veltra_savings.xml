@@ -95,6 +95,33 @@
                         android:textSize="14sp"
                         android:lineSpacingExtra="4dp" />
 
+                    <!-- NEW: AI Prediction Badge -->
+                    <LinearLayout
+                        android:id="@+id/aiPredictionBadge"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:background="@drawable/verified_badge_background"
+                        android:backgroundTint="#1500D4FF"
+                        android:padding="12dp"
+                        android:visibility="gone"
+                        android:gravity="center_vertical">
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@android:drawable/ic_menu_today"
+                            app:tint="@color/veltra_primary" />
+                        <TextView
+                            android:id="@+id/predictionText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Estimated Goal Date: Nov 12, 2024"
+                            android:textColor="@color/veltra_primary"
+                            android:textSize="11sp"
+                            android:fontFamily="sans-serif-bold"
+                            android:layout_marginStart="8dp" />
+                    </LinearLayout>
+
                     <Button
                         android:id="@+id/generatePlanBtn"
                         android:layout_width="match_parent"
