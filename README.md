@@ -21,7 +21,7 @@ VELTRA is a **next-generation fintech platform** engineered for the African and 
 - ⚡ **Ultra-Fast Transactions**: Sub-1.5 second end-to-end NFC taps.
 - 🛡️ **Advanced Privacy**: Premium "Ghost Mode" and Biometric security.
 - 📡 **Offline Mastery**: Hardware-secured offline wallets for payments without internet.
-- 📊 **AI Intelligence**: Heuristic AI for automated budgeting and savings.
+- 📊 **AI Intelligence**: Heuristic AI for automated budgeting and savings predictions.
 
 ---
 
@@ -31,24 +31,27 @@ VELTRA is a **next-generation fintech platform** engineered for the African and 
 *   **Tap & Pay (NFC)**: Contactless payments with circular ripple animations and haptic feedback.
 *   **Instant Pay**: Biometric shortcut (Long-press dashboard button) for immediate scanning.
 *   **Hardware Secured Offline Wallet**: A "Reserve & Lock" mechanism using cryptographically signed tokens.
+*   **Disposable Burner Cards**: Generate one-time-use virtual cards with animated "mint" and "burn" effects.
 *   **Ghost Mode**: A 3-finger gesture that instantly blurs all sensitive financial data for total privacy.
 
 ### 📊 Intelligence & Analytics
+*   **Financial Health Score**: Real-time tracker gamifying spending and saving habits.
 *   **Spending Insights Hub**: Luxury visual breakdown with interactive horizontal "Spend Stories."
+*   **AI Goal Date Prediction**: "The Fortune Teller" engine predicting exactly when you'll hit your savings goals.
 *   **Auto-Budgeting Guardian**: Real-time spending guardrails with automated warnings.
-*   **AI Savings Architect**: Heuristic engine generating personalized auto-pilot savings plans.
-*   **V-Points Loyalty**: Integrated loyalty system rewarding frequent users.
+*   **Payday Auto-Save**: Rule-based engine to automate savings the moment your salary arrives.
 
 ### 💼 Veltra for Business (Merchant Mode)
 *   **Phone-as-POS**: Transform any Android device into a terminal to collect NFC payments instantly.
 *   **Business Dashboard**: Tracks Sales, Capital, and Net Profit/Loss (P/L).
-*   **Inventory & Invoicing**: Detailed stock tracking with unit-level profit analysis and professional invoicing.
+*   **Inventory & Invoicing**: Detailed stock tracking with unit-level profit analysis (Cost Price vs Selling Price).
+*   **Merchant Notifications**: Live webhook settlement signals and business alerts.
 *   **Expense Categorization**: Smart logging for Raw Materials and Logistics.
 
 ### 🤝 Social Banking
 *   **Squad Pockets**: Joint savings goals with real-time avatars and glowing progress bars.
 *   **Spot a Friend (Ping)**: Social money requests with high-fidelity notification cards.
-*   **Group Bill Splitting**: Intelligent split logic with recipient toggles.
+*   **Group Bill Splitting**: Intelligent split logic with recipient toggles (Reimburse Payer or Pay Merchant).
 *   **Global Remittance**: Real-time currency converter with live API integration and 1.5% service fee logic.
 
 ---
@@ -64,6 +67,7 @@ Veltra utilizes a distributed, multi-engine database strategy for maximum reliab
 
 ### Go Backend (High-Performance API)
 *   **Gin Framework**: High-throughput HTTP routing.
+*   **Swagger/OpenAPI**: Interactive API documentation and testing UI.
 *   **Pgx Driver**: Advanced, high-performance PostgreSQL interface.
 *   **Clean Repository Pattern**: Scalable directory structure separating concerns.
 
@@ -79,6 +83,7 @@ Veltra utilizes a distributed, multi-engine database strategy for maximum reliab
 ```text
 VELTRA/
 ├── cmd/api/main.go           # Go Application Entry Point
+├── docs/                     # Auto-generated Swagger Documentation
 ├── internal/database/        # DB Initializations (Postgres, Mongo, Redis)
 ├── internal/ledger/          # Core Financial Logic (ACID Transactions)
 ├── internal/ai/              # AI Insights & Behavioral Models
