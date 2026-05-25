@@ -110,8 +110,17 @@ class VeltraSignUpActivity : AppCompatActivity() {
     }
 
     private fun completeAndNavigate() {
-        Toast.makeText(this, "Welcome to Veltra, ${binding.nameInput.text}!", Toast.LENGTH_LONG).show()
-        startActivity(Intent(this, VeltraMainActivity::class.java))
-        finishAffinity() // Clear activity stack
+        val name = binding.nameInput.text.toString()
+        val phone = binding.phoneInput.text.toString()
+        
+        com.veltra.payment.network.ApiClient.post("/auth/signup", mapOf("name" to name, "phone" to phone)) { success, _ ->
+            if (success) {
+                Toast.makeText(this, "Welcome to Veltra, $name!", Toast.LENGTH_LONG).show()
+                startActivity(Intent(this, VeltraMainActivity::class.java))
+                finishAffinity()
+            } else {
+                Toast.makeText(this, "Sign up failed. Please try again.", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }

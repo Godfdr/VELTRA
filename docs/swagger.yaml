@@ -1,11 +1,42 @@
-basePath: /
+basePath: /v1
 definitions:
+  internal_ledger.Expense:
+    properties:
+      amount:
+        type: integer
+      category:
+        type: string
+      description:
+        type: string
+      id:
+        type: string
+      merchant_id:
+        type: string
+    type: object
+  internal_ledger.InventoryItem:
+    properties:
+      cost_price:
+        type: integer
+      id:
+        type: string
+      merchant_id:
+        type: string
+      name:
+        type: string
+      selling_price:
+        type: integer
+      stock_count:
+        type: integer
+    type: object
   internal_ledger.NFCPayload:
     properties:
       amount:
         description: 5,000.00 NGN in Kobo
         example: 500000
         type: integer
+      device_signature:
+        example: a4f2e9...
+        type: string
       receiver_id:
         example: merch_1122
         type: string
@@ -14,7 +45,7 @@ definitions:
         type: string
     required:
     - amount
-    - receiver_id
+    - device_signature
     - sender_id
     type: object
   internal_ledger.PaymentResponse:
@@ -23,10 +54,25 @@ definitions:
         example: Transfer successful
         type: string
       status:
-        example: COMPLETED
+        example: APPROVED
         type: string
       transaction_id:
         example: tx_7718293
+        type: string
+    type: object
+  internal_ledger.Pocket:
+    properties:
+      balance:
+        type: integer
+      id:
+        type: string
+      name:
+        type: string
+      target_amount:
+        type: integer
+      type:
+        type: string
+      user_id:
         type: string
     type: object
 host: localhost:8080
@@ -36,12 +82,49 @@ info:
   title: VELTRA API Engine
   version: "1.0"
 paths:
-  /api/ledger/transfer:
+  /v1/merchant/expenses:
     post:
       consumes:
       - application/json
-      description: Accepts sender and receiver details to perform an atomic ledger
-        transfer.
+      description: Records a new expense entry (Raw Materials, Logistics, etc).
+      parameters:
+      - description: Expense Details
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/internal_ledger.Expense'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Expense logged
+          schema:
+            type: string
+      summary: Log Business Expense
+      tags:
+      - Merchant
+  /v1/merchant/inventory:
+    get:
+      description: Retrieves all items in stock for the merchant.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/internal_ledger.InventoryItem'
+            type: array
+      summary: Get Merchant Inventory
+      tags:
+      - Merchant
+  /v1/payments/nfc-tap:
+    post:
+      consumes:
+      - application/json
+      description: Accepts encrypted card/phone tap data and passes it through the
+        ACID transaction ledger.
       parameters:
       - description: NFC Tap Transaction Details
         in: body
@@ -57,18 +140,51 @@ paths:
           schema:
             $ref: '#/definitions/internal_ledger.PaymentResponse'
         "400":
-          description: Invalid request payload
+          description: Bad Request - Invalid Payload Structure
           schema:
-            additionalProperties:
-              type: string
-            type: object
-        "500":
-          description: Internal server error
+            type: string
+        "402":
+          description: Payment Required - Insufficient Balance
           schema:
-            additionalProperties:
-              type: string
-            type: object
+            type: string
       summary: Process NFC Tap Payment
       tags:
-      - Ledger
+      - Payments
+  /v1/pockets:
+    get:
+      description: Retrieves all savings, squad, and offline pockets for the authenticated
+        user.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/internal_ledger.Pocket'
+            type: array
+      summary: List User Pockets
+      tags:
+      - Pockets
+    post:
+      consumes:
+      - application/json
+      description: Creates a new savings or squad pocket.
+      parameters:
+      - description: Pocket Details
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/internal_ledger.Pocket'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Pocket created
+          schema:
+            type: string
+      summary: Create New Pocket
+      tags:
+      - Pockets
 swagger: "2.0"

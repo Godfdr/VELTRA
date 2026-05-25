@@ -29,7 +29,48 @@ CREATE TABLE transaction_ledgers (
     currency VARCHAR(3) NOT NULL,
     channel VARCHAR(50) NOT NULL,
     status VARCHAR(50) NOT NULL DEFAULT 'SUCCESS',
+    item_details JSONB, -- For itemized receipts
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE pockets (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    name VARCHAR(100) NOT NULL,
+    type VARCHAR(50) NOT NULL DEFAULT 'SAVINGS', -- 'SQUAD', 'OFFLINE', 'BUDGET'
+    balance BIGINT NOT NULL DEFAULT 0,
+    target_amount BIGINT,
+    meta JSONB, -- For squad avatars, etc.
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE invoices (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    merchant_id UUID NOT NULL REFERENCES users(id),
+    client_name VARCHAR(255) NOT NULL,
+    amount BIGINT NOT NULL,
+    status VARCHAR(50) NOT NULL DEFAULT 'PENDING',
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE business_expenses (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    merchant_id UUID NOT NULL REFERENCES users(id),
+    category VARCHAR(100) NOT NULL, -- 'RAW_MATERIALS', 'LOGISTICS'
+    amount BIGINT NOT NULL,
+    description TEXT,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE inventory_items (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    merchant_id UUID NOT NULL REFERENCES users(id),
+    name VARCHAR(255) NOT NULL,
+    stock_count INT NOT NULL DEFAULT 0,
+    cost_price BIGINT NOT NULL,
+    selling_price BIGINT NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE INDEX idx_accounts_user_id ON accounts(user_id);

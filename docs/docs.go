@@ -15,9 +15,9 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/api/ledger/transfer": {
+        "/v1/merchant/expenses": {
             "post": {
-                "description": "Accepts sender and receiver details to perform an atomic ledger transfer.",
+                "description": "Records a new expense entry (Raw Materials, Logistics, etc).",
                 "consumes": [
                     "application/json"
                 ],
@@ -25,7 +25,64 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Ledger"
+                    "Merchant"
+                ],
+                "summary": "Log Business Expense",
+                "parameters": [
+                    {
+                        "description": "Expense Details",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/internal_ledger.Expense"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Expense logged",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/merchant/inventory": {
+            "get": {
+                "description": "Retrieves all items in stock for the merchant.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Merchant"
+                ],
+                "summary": "Get Merchant Inventory",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/internal_ledger.InventoryItem"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/payments/nfc-tap": {
+            "post": {
+                "description": "Accepts encrypted card/phone tap data and passes it through the ACID transaction ledger.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Payments"
                 ],
                 "summary": "Process NFC Tap Payment",
                 "parameters": [
@@ -47,21 +104,70 @@ const docTemplate = `{
                         }
                     },
                     "400": {
-                        "description": "Invalid request payload",
+                        "description": "Bad Request - Invalid Payload Structure",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "type": "string"
-                            }
+                            "type": "string"
                         }
                     },
-                    "500": {
-                        "description": "Internal server error",
+                    "402": {
+                        "description": "Payment Required - Insufficient Balance",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "type": "string"
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/pockets": {
+            "get": {
+                "description": "Retrieves all savings, squad, and offline pockets for the authenticated user.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Pockets"
+                ],
+                "summary": "List User Pockets",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/internal_ledger.Pocket"
                             }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Creates a new savings or squad pocket.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Pockets"
+                ],
+                "summary": "Create New Pocket",
+                "parameters": [
+                    {
+                        "description": "Pocket Details",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/internal_ledger.Pocket"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Pocket created",
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 }
@@ -69,11 +175,54 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "internal_ledger.Expense": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "type": "integer"
+                },
+                "category": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "merchant_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "internal_ledger.InventoryItem": {
+            "type": "object",
+            "properties": {
+                "cost_price": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "merchant_id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "selling_price": {
+                    "type": "integer"
+                },
+                "stock_count": {
+                    "type": "integer"
+                }
+            }
+        },
         "internal_ledger.NFCPayload": {
             "type": "object",
             "required": [
                 "amount",
-                "receiver_id",
+                "device_signature",
                 "sender_id"
             ],
             "properties": {
@@ -81,6 +230,10 @@ const docTemplate = `{
                     "description": "5,000.00 NGN in Kobo",
                     "type": "integer",
                     "example": 500000
+                },
+                "device_signature": {
+                    "type": "string",
+                    "example": "a4f2e9..."
                 },
                 "receiver_id": {
                     "type": "string",
@@ -101,11 +254,34 @@ const docTemplate = `{
                 },
                 "status": {
                     "type": "string",
-                    "example": "COMPLETED"
+                    "example": "APPROVED"
                 },
                 "transaction_id": {
                     "type": "string",
                     "example": "tx_7718293"
+                }
+            }
+        },
+        "internal_ledger.Pocket": {
+            "type": "object",
+            "properties": {
+                "balance": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "target_amount": {
+                    "type": "integer"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "user_id": {
+                    "type": "string"
                 }
             }
         }
@@ -116,7 +292,7 @@ const docTemplate = `{
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
 	Host:             "localhost:8080",
-	BasePath:         "/",
+	BasePath:         "/v1",
 	Schemes:          []string{},
 	Title:            "VELTRA API Engine",
 	Description:      "High-performance core for VELTRA NFC routing, Ledgers, and AI banking.",

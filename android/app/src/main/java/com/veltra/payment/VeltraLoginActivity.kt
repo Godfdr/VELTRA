@@ -22,8 +22,14 @@ class VeltraLoginActivity : AppCompatActivity() {
             val pin = binding.pinInput.text.toString()
 
             if (phone.isNotEmpty() && pin.isNotEmpty()) {
-                startActivity(Intent(this, VeltraMainActivity::class.java))
-                finish()
+                com.veltra.payment.network.ApiClient.post("/auth/login", mapOf("phone" to phone, "pin" to pin)) { success, _ ->
+                    if (success) {
+                        startActivity(Intent(this, VeltraMainActivity::class.java))
+                        finish()
+                    } else {
+                        Toast.makeText(this, "Login failed. Please check your credentials.", Toast.LENGTH_SHORT).show()
+                    }
+                }
             } else {
                 Toast.makeText(this, "Please enter login details", Toast.LENGTH_SHORT).show()
             }

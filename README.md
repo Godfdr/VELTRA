@@ -6,7 +6,7 @@
 ![Go](https://img.shields.io/badge/Go-1.26+-00ADD8?style=flat-square&logo=go)
 ![Kotlin](https://img.shields.io/badge/Kotlin-2.0+-7F52FF?style=flat-square&logo=kotlin)
 ![Architecture](https://img.shields.io/badge/Architecture-Hybrid%20Database-orange?style=flat-square)
-![Status](https://img.shields.io/badge/Status-v1.0%20Published-brightgreen?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-v1.2%20Pro%20Build-brightgreen?style=for-the-badge)
 
 **High-fidelity, luxury fintech ecosystem redefining digital payments with sub-1.5s transactions, social banking, and offline reliability.**
 
@@ -16,16 +16,11 @@
 
 ## 🎯 Overview
 
-VELTRA is a **next-generation fintech platform** engineered for the African and global markets. By combining a high-performance **Go backend** with a luxury **Android experience**, VELTRA delivers more than just payments—it provides a complete financial ecosystem for both consumers and businesses.
-
-- ⚡ **Ultra-Fast Transactions**: Sub-1.5 second end-to-end NFC taps.
-- 🛡️ **Advanced Privacy**: Premium "Ghost Mode" and Biometric security.
-- 📡 **Offline Mastery**: Hardware-secured offline wallets for payments without internet.
-- 📊 **AI Intelligence**: Heuristic AI for automated budgeting and savings predictions.
+VELTRA (branded as **Zeltra**) is a **next-generation fintech platform** engineered for the African and global markets. By combining a high-performance **Go backend** with a luxury **Android experience**, VELTRA delivers more than just payments—it provides a complete financial ecosystem for both consumers and businesses.
 
 ---
 
-## 🚀 Key Features
+## 🚀 Key Features & Functionalities
 
 ### 🛡️ Core Payments & Security
 *   **Tap & Pay (NFC)**: Contactless payments with circular ripple animations and haptic feedback.
@@ -33,20 +28,22 @@ VELTRA is a **next-generation fintech platform** engineered for the African and 
 *   **Hardware Secured Offline Wallet**: A "Reserve & Lock" mechanism using cryptographically signed tokens.
 *   **Disposable Burner Cards**: Generate one-time-use virtual cards with animated "mint" and "burn" effects.
 *   **Ghost Mode**: A 3-finger gesture that instantly blurs all sensitive financial data for total privacy.
+*   **Biometric Security**: Face/Fingerprint integration for every critical action.
 
 ### 📊 Intelligence & Analytics
-*   **Financial Health Score**: Real-time tracker gamifying spending and saving habits.
-*   **Spending Insights Hub**: Luxury visual breakdown with interactive horizontal "Spend Stories."
+*   **Spend Story Analytics**: Weekly summaries presented as interactive, animated stories with category icons.
 *   **AI Goal Date Prediction**: "The Fortune Teller" engine predicting exactly when you'll hit your savings goals.
-*   **Auto-Budgeting Guardian**: Real-time spending guardrails with automated warnings.
-*   **Payday Auto-Save**: Rule-based engine to automate savings the moment your salary arrives.
+*   **Auto-Budgeting Guardian**: Real-time spending guardrails for Transport, Dining, and Lifestyle with automated warnings.
+*   **Financial Health Score**: Real-time tracker gamifying spending and saving habits.
+*   **V-Points Loyalty**: Integrated loyalty system rewarding frequent users with digital assets.
 
 ### 💼 Veltra for Business (Merchant Mode)
 *   **Phone-as-POS**: Transform any Android device into a terminal to collect NFC payments instantly.
-*   **Business Dashboard**: Tracks Sales, Capital, and Net Profit/Loss (P/L).
-*   **Inventory & Invoicing**: Detailed stock tracking with unit-level profit analysis (Cost Price vs Selling Price).
+*   **Business Dashboard**: Tracks Sales, Capital, and Net Profit/Loss (P/L) in real-time.
+*   **Advanced Inventory**: Stock tracking with unit-level profit analysis (Cost Price vs Selling Price).
+*   **Professional Invoicing**: Client management and invoice generation directly from the app.
+*   **Business Expense Categorization**: Smart logging for Raw Materials and Logistics.
 *   **Merchant Notifications**: Live webhook settlement signals and business alerts.
-*   **Expense Categorization**: Smart logging for Raw Materials and Logistics.
 
 ### 🤝 Social Banking
 *   **Squad Pockets**: Joint savings goals with real-time avatars and glowing progress bars.
@@ -60,21 +57,15 @@ VELTRA is a **next-generation fintech platform** engineered for the African and 
 
 ### Hybrid Database Architecture (Backend)
 Veltra utilizes a distributed, multi-engine database strategy for maximum reliability:
-*   **PostgreSQL (Core Ledger)**: ACID-compliant primary database for immutable financial records.
-*   **MongoDB (AI & Analytics)**: NoSQL engine for high-velocity behavioral data and AI logs.
-*   **Redis (Speed Layer)**: In-memory cache for sub-millisecond transaction approvals.
-*   **SQLite (Offline Sync)**: Embedded storage for secured offline tokens.
+*   **PostgreSQL 16 (Core Ledger)**: ACID-compliant primary database for immutable records using `pgx/v5`.
+*   **MongoDB 7.0 (AI & Analytics)**: NoSQL engine for high-velocity behavioral data and AI logs.
+*   **Redis 7.2 (Speed Layer)**: In-memory cache for sub-millisecond transaction approvals and rate limiting.
+*   **SQLite (Offline Sync)**: Embedded storage for secured offline tokens on the mobile device.
 
 ### Go Backend (High-Performance API)
-*   **Gin Framework**: High-throughput HTTP routing.
-*   **Swagger/OpenAPI**: Interactive API documentation and testing UI.
-*   **Pgx Driver**: Advanced, high-performance PostgreSQL interface.
-*   **Clean Repository Pattern**: Scalable directory structure separating concerns.
-
-### Android Frontend
-*   **Kotlin & Jetpack**: ViewBinding, ViewPager2, RecyclerView, MotionLayout.
-*   **Lottie Engine**: Vector-based fluid animations for onboarding and dashboard.
-*   **Hardware Integration**: Native NFC (HCE/ISO-DEP) and Biometric Prompt API.
+*   **Gin Framework**: High-throughput HTTP routing with structured `slog` logging.
+*   **Swagger/OpenAPI**: Interactive API documentation (Code-First) for developer integration.
+*   **Atomic Transactions**: Multi-statement SQL mutations enforced entirely within the database engine to prevent race conditions.
 
 ---
 
@@ -84,11 +75,14 @@ Veltra utilizes a distributed, multi-engine database strategy for maximum reliab
 VELTRA/
 ├── cmd/api/main.go           # Go Application Entry Point
 ├── docs/                     # Auto-generated Swagger Documentation
-├── internal/database/        # DB Initializations (Postgres, Mongo, Redis)
-├── internal/ledger/          # Core Financial Logic (ACID Transactions)
-├── internal/ai/              # AI Insights & Behavioral Models
-├── android/                  # Android Studio Project
-│   └── app/src/main/         # Kotlin Source & High-Fidelity UI Layouts
+├── internal/
+│   ├── database/             # Connection pooling (Postgres, Mongo, Redis)
+│   ├── middleware/           # Rate limiting, JWT Auth, Panic recovery
+│   ├── ledger/               # Atomic financial mutations & models
+│   ├── ai/                   # Behavioral analytics & AI logic
+├── android/                  # Android Studio Project (Kotlin/XML)
+├── docker-compose.yml        # Infrastructure containerization
+├── schema.sql                # Relational ledger schema
 └── README.md                 # This file
 ```
 
@@ -102,8 +96,8 @@ VELTRA/
 git clone https://github.com/Godfdr/VELTRA.git
 cd VELTRA
 
-# Install dependencies
-go mod tidy
+# Startup Infrastructure
+docker-compose up -d
 
 # Run the API server
 go run cmd/api/main.go
@@ -117,7 +111,7 @@ go run cmd/api/main.go
 ---
 
 ## 🤝 Contributing
-Built with ❤️ by **Joshua Dawang**. Contributions are welcome via feature branches and pull requests.
+Built with ❤️ by **Joshua Dawang**.
 
 ---
 

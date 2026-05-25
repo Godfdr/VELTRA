@@ -14,13 +14,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.veltra.payment.databinding.ActivityVeltraWalletsBinding
 import com.veltra.payment.databinding.ItemWalletBinding
+import com.veltra.payment.network.ApiClient
 import java.util.Locale
 
 data class WalletPocket(
     val id: String,
     val name: String,
     val description: String,
-    val balance: Double
+    val balance: Double,
+    val type: String = "SAVINGS",
+    val target_amount: Long = 0
 )
 
 class VeltraWalletsActivity : VeltraBaseActivity() {
@@ -29,13 +32,7 @@ class VeltraWalletsActivity : VeltraBaseActivity() {
     private var isBalanceVisible = true
     private var totalBalanceValue = 0.0
 
-    private val pockets = mutableListOf(
-        WalletPocket("1", "Main Wallet", "Primary spending account", 25600.50),
-        WalletPocket("2", "Transport Wallet", "For commutes and rides", 8400.00),
-        WalletPocket("3", "Savings Pocket", "Emergency and long-term funds", 120000.00),
-        WalletPocket("4", "Food Wallet", "Dining and groceries", 5000.00),
-        WalletPocket("5", "Offline Wallet", "Pay without internet", 12000.00)
-    )
+    private val pockets = mutableListOf<WalletPocket>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +42,31 @@ class VeltraWalletsActivity : VeltraBaseActivity() {
 
         setupRecyclerView()
         setupListeners()
+        fetchPockets()
+    }
+
+    private fun fetchPockets() {
+        ApiClient.get("/pockets") { success, data ->
+            if (success && data != null) {
+                val list = com.google.gson.Gson().fromJson(data, Array<WalletPocket>::class.java).toList()
+                pockets.clear()
+                pockets.addAll(list)
+                walletAdapter.notifyDataSetChanged()
+                updateTotalBalance()
+            } else {
+                Toast.makeText(this, "Failed to load pockets", Toast.LENGTH_SHORT).show()
+                // Loading mock data if API fails for demo
+                loadMockData()
+            }
+        }
+    }
+
+    private fun loadMockData() {
+        pockets.clear()
+        pockets.add(WalletPocket("1", "Main Wallet", "Primary spending account", 25600.50))
+        pockets.add(WalletPocket("2", "Transport Wallet", "For commutes and rides", 8400.00))
+        pockets.add(WalletPocket("3", "Savings Pocket", "Emergency and long-term funds", 120000.00))
+        walletAdapter.notifyDataSetChanged()
         updateTotalBalance()
     }
 
@@ -111,16 +133,21 @@ class VeltraWalletsActivity : VeltraBaseActivity() {
             
             if (name.isNotEmpty() && balanceStr.isNotEmpty()) {
                 val newPocket = WalletPocket(
-                    (pockets.size + 1).toString(),
+                    "",
                     name,
                     "Custom pocket",
                     balanceStr.toDouble()
                 )
-                pockets.add(newPocket)
-                walletAdapter.notifyItemInserted(pockets.size - 1)
-                updateTotalBalance()
-                dialog.dismiss()
-                Toast.makeText(this, "$name pocket created! ✅", Toast.LENGTH_LONG).show()
+                
+                ApiClient.post("/pockets", newPocket) { success, _ ->
+                    if (success) {
+                        fetchPockets()
+                        dialog.dismiss()
+                        Toast.makeText(this, "$name pocket created! ✅", Toast.LENGTH_LONG).show()
+                    } else {
+                        Toast.makeText(this, "Failed to create pocket", Toast.LENGTH_SHORT).show()
+                    }
+                }
             } else {
                 Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
             }
