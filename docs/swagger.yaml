@@ -94,6 +94,13 @@ definitions:
       user_id:
         type: string
     type: object
+  internal_ledger.SecureNFCPayload:
+    properties:
+      encrypted_data:
+        type: string
+    required:
+    - encrypted_data
+    type: object
 host: localhost:8080
 info:
   contact: {}
@@ -190,6 +197,29 @@ paths:
           schema:
             type: string
       summary: Process NFC Tap Payment
+      tags:
+      - Payments
+  /v1/payments/secure-nfc-tap:
+    post:
+      consumes:
+      - application/json
+      description: Decrypts AES-256-GCM data and passes it through the ACID transaction
+        ledger.
+      parameters:
+      - description: Encrypted NFC Data
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/internal_ledger.SecureNFCPayload'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_ledger.PaymentResponse'
+      summary: Process Secure NFC Tap Payment
       tags:
       - Payments
   /v1/pockets:

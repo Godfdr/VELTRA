@@ -146,6 +146,40 @@
                 }
             }
         },
+        "/v1/payments/secure-nfc-tap": {
+            "post": {
+                "description": "Decrypts AES-256-GCM data and passes it through the ACID transaction ledger.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Payments"
+                ],
+                "summary": "Process Secure NFC Tap Payment",
+                "parameters": [
+                    {
+                        "description": "Encrypted NFC Data",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/internal_ledger.SecureNFCPayload"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/internal_ledger.PaymentResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/pockets": {
             "get": {
                 "description": "Retrieves all savings, squad, and offline pockets for the authenticated user.",
@@ -338,6 +372,17 @@
                     "type": "string"
                 },
                 "user_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "internal_ledger.SecureNFCPayload": {
+            "type": "object",
+            "required": [
+                "encrypted_data"
+            ],
+            "properties": {
+                "encrypted_data": {
                     "type": "string"
                 }
             }

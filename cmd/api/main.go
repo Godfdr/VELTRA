@@ -79,6 +79,7 @@ func main() {
 		})
 
 		v1.POST("/payments/nfc-tap", ledgerHandler.HandleNFCTap)
+		v1.POST("/payments/secure-nfc-tap", ledgerHandler.HandleSecureNFCTap)
 
 		// Pockets
 		v1.GET("/pockets", ledgerHandler.GetPockets)

@@ -1,8 +1,10 @@
 package ledger
 
 import (
+	"encoding/json"
 	"net/http"
 	"github.com/gin-gonic/gin"
+	"github.com/Godfdr/VELTRA/internal/crypto"
 )
 
 type Handler struct {
@@ -21,13 +23,67 @@ type NFCPayload struct {
 	DeviceSig  string `json:"device_signature" binding:"required" example:"a4f2e9..."`
 }
 
+// SecureNFCPayload represents the encrypted envelope
+type SecureNFCPayload struct {
+	EncryptedData string `json:"encrypted_data" binding:"required"`
+}
+
+// PaymentResponse represents the API response for a transaction
 type PaymentResponse struct {
 	TxID    string `json:"transaction_id" example:"tx_7718293"`
 	Status  string `json:"status" example:"APPROVED"`
 	Message string `json:"message" example:"Transfer successful"`
 }
 
-// HandleNFCTap handles physical device transactions
+// HandleSecureNFCTap handles physical device transactions with over-the-wire encryption
+// @Summary      Process Secure NFC Tap Payment
+// @Description  Decrypts AES-256-GCM data and passes it through the ACID transaction ledger.
+// @Tags         Payments
+// @Accept       json
+// @Produce      json
+// @Param        payload body      SecureNFCPayload  true  "Encrypted NFC Data"
+// @Success      200     {object}  PaymentResponse
+// @Router       /v1/payments/secure-nfc-tap [post]
+func (h *Handler) HandleSecureNFCTap(c *gin.Context) {
+	var req SecureNFCPayload
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid secure envelope"})
+		return
+	}
+
+	// In production, the shared key would be fetched from a secure HSM or session cache
+	sharedKey := []byte("this_is_a_32_byte_secret_key_v1")
+
+	plainText, err := crypto.DecryptNFCReceipt(req.EncryptedData, sharedKey)
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": err.Error()})
+		return
+	}
+
+	var nfcReq NFCPayload
+	if err := json.Unmarshal(plainText, &nfcReq); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Malformed decrypted data"})
+		return
+	}
+
+	receiverID := nfcReq.ReceiverID
+	if receiverID == "" {
+		receiverID = "merch_default_001"
+	}
+
+	if err := h.repo.ProcessNFCPaymentAtomic(c.Request.Context(), "tx_sec_"+nfcReq.SenderID[:4], nfcReq.SenderID, receiverID, nfcReq.Amount); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, PaymentResponse{
+		TxID:    "tx_secure_" + nfcReq.SenderID[:4],
+		Status:  "APPROVED",
+		Message: "Secure transfer successful",
+	})
+}
+
+// HandleNFCTap handles standard physical device transactions
 // @Summary      Process NFC Tap Payment
 // @Description  Accepts encrypted card/phone tap data and passes it through the ACID transaction ledger.
 // @Tags         Payments
