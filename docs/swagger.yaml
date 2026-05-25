@@ -1,0 +1,74 @@
+basePath: /
+definitions:
+  internal_ledger.NFCPayload:
+    properties:
+      amount:
+        description: 5,000.00 NGN in Kobo
+        example: 500000
+        type: integer
+      receiver_id:
+        example: merch_1122
+        type: string
+      sender_id:
+        example: usr_99823
+        type: string
+    required:
+    - amount
+    - receiver_id
+    - sender_id
+    type: object
+  internal_ledger.PaymentResponse:
+    properties:
+      message:
+        example: Transfer successful
+        type: string
+      status:
+        example: COMPLETED
+        type: string
+      transaction_id:
+        example: tx_7718293
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: High-performance core for VELTRA NFC routing, Ledgers, and AI banking.
+  title: VELTRA API Engine
+  version: "1.0"
+paths:
+  /api/ledger/transfer:
+    post:
+      consumes:
+      - application/json
+      description: Accepts sender and receiver details to perform an atomic ledger
+        transfer.
+      parameters:
+      - description: NFC Tap Transaction Details
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/internal_ledger.NFCPayload'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_ledger.PaymentResponse'
+        "400":
+          description: Invalid request payload
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Process NFC Tap Payment
+      tags:
+      - Ledger
+swagger: "2.0"

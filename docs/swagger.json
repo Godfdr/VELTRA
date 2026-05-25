@@ -1,0 +1,107 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "High-performance core for VELTRA NFC routing, Ledgers, and AI banking.",
+        "title": "VELTRA API Engine",
+        "contact": {},
+        "version": "1.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/",
+    "paths": {
+        "/api/ledger/transfer": {
+            "post": {
+                "description": "Accepts sender and receiver details to perform an atomic ledger transfer.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Ledger"
+                ],
+                "summary": "Process NFC Tap Payment",
+                "parameters": [
+                    {
+                        "description": "NFC Tap Transaction Details",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/internal_ledger.NFCPayload"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/internal_ledger.PaymentResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request payload",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "internal_ledger.NFCPayload": {
+            "type": "object",
+            "required": [
+                "amount",
+                "receiver_id",
+                "sender_id"
+            ],
+            "properties": {
+                "amount": {
+                    "description": "5,000.00 NGN in Kobo",
+                    "type": "integer",
+                    "example": 500000
+                },
+                "receiver_id": {
+                    "type": "string",
+                    "example": "merch_1122"
+                },
+                "sender_id": {
+                    "type": "string",
+                    "example": "usr_99823"
+                }
+            }
+        },
+        "internal_ledger.PaymentResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "example": "Transfer successful"
+                },
+                "status": {
+                    "type": "string",
+                    "example": "COMPLETED"
+                },
+                "transaction_id": {
+                    "type": "string",
+                    "example": "tx_7718293"
+                }
+            }
+        }
+    }
+}

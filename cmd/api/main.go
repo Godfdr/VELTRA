@@ -13,7 +13,17 @@ import (
 	"github.com/Godfdr/VELTRA/internal/database"
 	"github.com/Godfdr/VELTRA/internal/ledger"
 	"github.com/Godfdr/VELTRA/internal/ai"
+
+	_ "github.com/Godfdr/VELTRA/docs" // Swagger docs generated folder
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
+
+// @title           VELTRA API Engine
+// @version         1.0
+// @description     High-performance core for VELTRA NFC routing, Ledgers, and AI banking.
+// @host            localhost:8080
+// @BasePath        /
 
 func main() {
 	// 1. Initialize Databases
@@ -27,38 +37,23 @@ func main() {
 
 	pgPool, err := database.NewPostgresPool(postgresURL)
 	if err != nil {
-		log.Fatalf("failed to connect to postgres: %v", err)
-	}
-	defer pgPool.Close()
-
-	redisAddr := os.Getenv("REDIS_ADDR")
-	if redisAddr == "" {
-		redisAddr = "localhost:6379"
-	}
-	redisClient, err := database.NewRedisClient(redisAddr, "", 0)
-	if err != nil {
-		log.Printf("warning: failed to connect to redis: %v", err)
+		log.Printf("warning: failed to connect to postgres: %v", err)
 	} else {
-		defer redisClient.Close()
+		defer pgPool.Close()
 	}
 
-	mongoURI := os.Getenv("MONGO_URI")
-	if mongoURI == "" {
-		mongoURI = "mongodb://localhost:27017"
-	}
-	mongoClient, err := database.NewMongoClient(mongoURI)
-	if err != nil {
-		log.Printf("warning: failed to connect to mongodb: %v", err)
-	} else {
-		defer mongoClient.Disconnect(ctx)
-	}
-
-	// 2. Initialize Repositories
+	// 2. Initialize Repositories & Handlers
 	ledgerRepo := ledger.NewRepository(pgPool)
-	aiRepo := ai.NewRepository(mongoClient.Database("veltra_ai"))
+	ledgerHandler := ledger.NewHandler(ledgerRepo)
+
+	// AI Repo placeholder (Mongo check omitted for speed if not running)
+	// aiRepo := ai.NewRepository(mongoClient.Database("veltra_ai"))
 
 	// 3. Setup Gin Engine
 	r := gin.Default()
+
+	// Swagger UI
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	// Health Check
 	r.GET("/health", func(c *gin.Context) {
@@ -66,35 +61,7 @@ func main() {
 	})
 
 	// Ledger Endpoints
-	r.POST("/api/ledger/transfer", func(c *gin.Context) {
-		var req struct {
-			SenderID   string `json:"sender_id"`
-			ReceiverID string `json:"receiver_id"`
-			Amount     int64  `json:"amount"`
-		}
-		if err := c.ShouldBindJSON(&req); err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-			return
-		}
-
-		if err := ledgerRepo.ExecuteNFCTransfer(c.Request.Context(), req.SenderID, req.ReceiverID, req.Amount); err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-			return
-		}
-
-		c.JSON(http.StatusOK, gin.H{"message": "Transfer successful"})
-	})
-
-	// AI Analytics Endpoints
-	r.GET("/api/ai/stories/:userId", func(c *gin.Context) {
-		userID := c.Param("userId")
-		stories, err := aiRepo.GetUserStories(c.Request.Context(), userID)
-		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-			return
-		}
-		c.JSON(http.StatusOK, stories)
-	})
+	r.POST("/api/ledger/transfer", ledgerHandler.HandleNFCTap)
 
 	// 4. Start Server
 	srv := &http.Server{
@@ -109,6 +76,7 @@ func main() {
 	}()
 
 	log.Println("VELTRA API Server started on :8080 🚀")
+	log.Println("Swagger documentation available at http://localhost:8080/swagger/index.html 📄")
 
 	<-ctx.Done()
 	log.Println("Shutting down gracefully...")
