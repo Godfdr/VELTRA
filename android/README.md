@@ -36,10 +36,26 @@ VELTRA is a high-fidelity, luxury fintech mobile application designed to redefin
 *   **Interactive ATM Skins**: Customizable digital card visuals (Classic, Gold, Cyberpunk, Eco-Green) with pulsing logo effects.
 *   **System-Wide Themes**: Persistent Dark and Light modes with automatic UI adaptation.
 
-## 🛠️ Tech Stack
-*   **Frontend**: Kotlin, Jetpack ViewBinding, ViewPager2, RecyclerView, MotionLayout, Lottie.
-*   **Backend Logic**: Go (Multi-threaded processing, Heuristic AI, Fraud Detection).
-*   **Hardware**: NFC (HCE/ISO-DEP), Biometric Prompt API, Hardware-backed TEE.
+## 🛠️ Tech Stack & Architecture
+
+### Hybrid Database Architecture (Backend)
+Veltra utilizes a distributed, multi-engine database strategy to handle high-frequency financial and behavioral data:
+*   **PostgreSQL (Core Ledger)**: ACID-compliant primary database for immutable financial records and user balances.
+*   **MongoDB (AI & Analytics)**: NoSQL engine for high-velocity behavioral data, Spend Stories, and AI insight logs.
+*   **Redis (Speed Layer)**: In-memory cache for sub-millisecond NFC transaction approvals and session management.
+*   **SQLite (Offline Sync)**: Embedded on-device storage for cryptographically secured offline wallet tokens.
+
+### Go Backend (High-Performance API)
+The core API is built using **Go (Golang)** for its superior concurrency and low-latency profile:
+*   **Gin Framework**: High-throughput HTTP routing.
+*   **Pgx Driver**: Advanced, high-performance PostgreSQL interface.
+*   **Clean Repository Pattern**: Scalable directory structure separating Ledger, AI, and Caching layers.
+*   **Context-Aware**: Full support for request timeouts and cancellations to preserve system resources.
+
+### Android Frontend
+*   **Kotlin & Jetpack**: ViewBinding, ViewPager2, RecyclerView, MotionLayout.
+*   **Lottie Engine**: Vector-based fluid animations.
+*   **NFC & Biometrics**: Hardware-level integration for security and payments.
 
 ---
 Built with ❤️ by **Joshua Dawang**
