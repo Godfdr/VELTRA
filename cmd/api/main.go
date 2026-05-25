@@ -95,6 +95,9 @@ func main() {
 		// Merchant
 		v1.GET("/merchant/inventory", ledgerHandler.GetInventory)
 		v1.POST("/merchant/expenses", ledgerHandler.LogExpense)
+
+		// Offline Wallet
+		v1.POST("/ledger/reconcile", ledgerHandler.ReconcileOffline)
 	}
 
 	// 4. Start Server

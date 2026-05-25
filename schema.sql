@@ -73,6 +73,20 @@ CREATE TABLE inventory_items (
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE user_offline_certificates (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    user_id UUID NOT NULL REFERENCES users(id),
+    max_limit BIGINT NOT NULL,
+    current_spent BIGINT NOT NULL DEFAULT 0,
+    last_processed_counter BIGINT NOT NULL DEFAULT 0,
+    expires_at TIMESTAMP WITH TIME ZONE NOT NULL,
+    device_public_key TEXT NOT NULL,
+    status VARCHAR(50) NOT NULL DEFAULT 'ACTIVE',
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX idx_offline_certs_user ON user_offline_certificates(user_id);
+
 CREATE INDEX idx_accounts_user_id ON accounts(user_id);
 CREATE INDEX idx_ledger_reference ON transaction_ledgers(transaction_reference);
 CREATE INDEX idx_ledger_sender ON transaction_ledgers(sender_account_id);

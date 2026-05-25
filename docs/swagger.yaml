@@ -48,6 +48,25 @@ definitions:
     - device_signature
     - sender_id
     type: object
+  internal_ledger.OfflineReceipt:
+    properties:
+      amount:
+        type: integer
+      cert_id:
+        type: string
+      device_sig:
+        type: string
+      hardware_counter:
+        type: integer
+      merchant_id:
+        type: string
+      prev_hash:
+        type: string
+      tx_ref:
+        type: string
+      user_id:
+        type: string
+    type: object
   internal_ledger.PaymentResponse:
     properties:
       message:
@@ -82,6 +101,29 @@ info:
   title: VELTRA API Engine
   version: "1.0"
 paths:
+  /v1/ledger/reconcile:
+    post:
+      consumes:
+      - application/json
+      description: Accepts a cryptographically signed receipt from the offline wallet
+        to settle funds online.
+      parameters:
+      - description: Offline Receipt Details
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/internal_ledger.OfflineReceipt'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Settle successful
+          schema:
+            type: string
+      summary: Reconcile Offline Transaction
+      tags:
+      - Ledger
   /v1/merchant/expenses:
     post:
       consumes:

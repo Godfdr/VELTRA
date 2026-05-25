@@ -165,3 +165,27 @@ func (h *Handler) LogExpense(c *gin.Context) {
 
 	c.JSON(http.StatusCreated, gin.H{"message": "Expense logged"})
 }
+
+// ReconcileOffline processes an offline receipt from the client
+// @Summary      Reconcile Offline Transaction
+// @Description  Accepts a cryptographically signed receipt from the offline wallet to settle funds online.
+// @Tags         Ledger
+// @Accept       json
+// @Produce      json
+// @Param        payload body      OfflineReceipt  true  "Offline Receipt Details"
+// @Success      200     {string}  string "Settle successful"
+// @Router       /v1/ledger/reconcile [post]
+func (h *Handler) ReconcileOffline(c *gin.Context) {
+	var req OfflineReceipt
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	if err := h.repo.ReconcileOfflineReceipt(c.Request.Context(), req); err != nil {
+		c.JSON(http.StatusForbidden, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "Settle successful"})
+}

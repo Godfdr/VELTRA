@@ -15,6 +15,40 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/v1/ledger/reconcile": {
+            "post": {
+                "description": "Accepts a cryptographically signed receipt from the offline wallet to settle funds online.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Ledger"
+                ],
+                "summary": "Reconcile Offline Transaction",
+                "parameters": [
+                    {
+                        "description": "Offline Receipt Details",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/internal_ledger.OfflineReceipt"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Settle successful",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/merchant/expenses": {
             "post": {
                 "description": "Records a new expense entry (Raw Materials, Logistics, etc).",
@@ -242,6 +276,35 @@ const docTemplate = `{
                 "sender_id": {
                     "type": "string",
                     "example": "usr_99823"
+                }
+            }
+        },
+        "internal_ledger.OfflineReceipt": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "type": "integer"
+                },
+                "cert_id": {
+                    "type": "string"
+                },
+                "device_sig": {
+                    "type": "string"
+                },
+                "hardware_counter": {
+                    "type": "integer"
+                },
+                "merchant_id": {
+                    "type": "string"
+                },
+                "prev_hash": {
+                    "type": "string"
+                },
+                "tx_ref": {
+                    "type": "string"
+                },
+                "user_id": {
+                    "type": "string"
                 }
             }
         },
