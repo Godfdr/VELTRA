@@ -1,20 +1,15 @@
 package com.veltra.payment
 
-import android.app.Dialog
 import android.graphics.Bitmap
 import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
 import android.view.animation.AnimationUtils
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -38,9 +33,8 @@ data class Agent(
     val isOpen: Boolean
 )
 
-class VeltraAgentTopupActivity : AppCompatActivity() {
+class VeltraAgentTopupActivity : VeltraBaseActivity() {
     private lateinit var binding: ActivityVeltraAgentTopupBinding
-    private lateinit var agentAdapter: AgentAdapter
     private val client = OkHttpClient()
     
     private val currentUserId = "USER-7a2f9b1c3e4d"
@@ -107,7 +101,7 @@ class VeltraAgentTopupActivity : AppCompatActivity() {
                     binding.qrCodeImage.setImageBitmap(bitmap)
                 }
             } catch (e: Exception) {
-                // Fail silently or show placeholder
+                Log.e("AgentTopup", "QR Generation failed: ${e.message}")
             }
         }
     }
@@ -123,6 +117,8 @@ class VeltraAgentTopupActivity : AppCompatActivity() {
         pulse.repeatCount = android.view.animation.Animation.INFINITE
         binding.qrCodeImage.startAnimation(pulse)
     }
+
+    private lateinit var agentAdapter: AgentAdapter
 
     private fun setupRecyclerView() {
         agentAdapter = AgentAdapter(mutableListOf())

@@ -1,17 +1,14 @@
-# VELTA - Ultra-Fast NFC Fintech Payment Platform
+# VELTRA - Premium NFC Fintech Payment Platform ⚡
 
 <div align="center">
 
-![VELTA Logo](https://img.shields.io/badge/VELTA-Lightning%20Fast%20Payments-00D4FF?style=for-the-badge)
-![Go](https://img.shields.io/badge/Go-1.20+-00ADD8?style=flat-square&logo=go)
-![Swift](https://img.shields.io/badge/Swift-5.9+-FA7343?style=flat-square&logo=swift)
-![Kotlin](https://img.shields.io/badge/Kotlin-1.9+-7F52FF?style=flat-square&logo=kotlin)
-![License](https://img.shields.io/badge/License-MIT-green.svg)
-![Status](https://img.shields.io/badge/Status-Production%20Ready-brightgreen)
+![VELTRA Logo](https://img.shields.io/badge/VELTRA-Premium%20NFC%20Payments-00D4FF?style=for-the-badge)
+![Go](https://img.shields.io/badge/Go-1.26+-00ADD8?style=flat-square&logo=go)
+![Kotlin](https://img.shields.io/badge/Kotlin-2.0+-7F52FF?style=flat-square&logo=kotlin)
+![Architecture](https://img.shields.io/badge/Architecture-Hybrid%20Database-orange?style=flat-square)
+![Status](https://img.shields.io/badge/Status-v1.0%20Published-brightgreen?style=for-the-badge)
 
-**Next-generation NFC payment system with sub-1.5 second transactions across Android, iOS, and Go backend**
-
-[Features](#-features) • [Quick Start](#-quick-start) • [Architecture](#-architecture) • [Performance](#-performance) • [Security](#-security)
+**High-fidelity, luxury fintech ecosystem redefining digital payments with sub-1.5s transactions, social banking, and offline reliability.**
 
 </div>
 
@@ -19,465 +16,105 @@
 
 ## 🎯 Overview
 
-VELTA is a **lightning-fast NFC fintech payment platform** engineered for ultra-low latency transactions and enterprise-grade security. With support for **Android**, **iOS**, and a high-performance **Go backend**, VELTA delivers:
+VELTRA is a **next-generation fintech platform** engineered for the African and global markets. By combining a high-performance **Go backend** with a luxury **Android experience**, VELTRA delivers more than just payments—it provides a complete financial ecosystem for both consumers and businesses.
 
-- ⚡ **Sub-1.5 second end-to-end transactions** (NFC detection → payment confirmation)
-- 🔐 **PCI DSS Level 3 compliance** with AES-256 encryption
-- 👆 **Biometric authentication** (Face ID, Touch ID, Fingerprint)
-- 📡 **Full NFC support** (13.56 MHz, ISO/IEC 14443-A/B/F/V standards)
-- 💾 **Redis-like caching** for O(1) balance lookups
-- 🛡️ **Advanced fraud detection** with real-time risk scoring
-- 📊 **Real-time analytics** and merchant dashboards
-- 🔄 **Recurring payments** with flexible scheduling
-- 🎯 **Rate limiting** and DDoS protection
-- 📲 **Offline transaction support** with automatic sync
+- ⚡ **Ultra-Fast Transactions**: Sub-1.5 second end-to-end NFC taps.
+- 🛡️ **Advanced Privacy**: Premium "Ghost Mode" and Biometric security.
+- 📡 **Offline Mastery**: Hardware-secured offline wallets for payments without internet.
+- 📊 **AI Intelligence**: Heuristic AI for automated budgeting and savings.
 
 ---
 
-## 🚀 Features
+## 🚀 Key Features
 
-### Core Payment Features
-- **NFC Tap-to-Pay** - Fastest contactless payment method
-- **QR Code Payments** - Alternative payment method for flexibility
-- **P2P Transfers** - User-to-user instant payments
-- **Merchant Payments** - Business account support with commission tracking
-- **Recurring Payments** - Automated subscription billing
-- **Batch Transactions** - Queue-based transaction processing for high throughput
+### 🛡️ Core Payments & Security
+*   **Tap & Pay (NFC)**: Contactless payments with circular ripple animations and haptic feedback.
+*   **Instant Pay**: Biometric shortcut (Long-press dashboard button) for immediate scanning.
+*   **Hardware Secured Offline Wallet**: A "Reserve & Lock" mechanism using cryptographically signed tokens.
+*   **Ghost Mode**: A 3-finger gesture that instantly blurs all sensitive financial data for total privacy.
 
-### Security & Compliance
-- **AES-256-GCM Encryption** - Military-grade data protection
-- **Biometric Authentication** - Face ID, Touch ID, Fingerprint with fallback PIN
-- **Two-Factor Authentication** - SMS and biometric-based 2FA
-- **Certificate Pinning** - Prevention of MITM attacks
-- **Android Keystore Integration** - Hardware-backed key storage
-- **Fraud Detection Engine** - Real-time transaction risk scoring
-- **Rate Limiting** - DoS/brute-force attack prevention
-- **Transaction Ledger** - Immutable audit trail
+### 📊 Intelligence & Analytics
+*   **Spending Insights Hub**: Luxury visual breakdown with interactive horizontal "Spend Stories."
+*   **Auto-Budgeting Guardian**: Real-time spending guardrails with automated warnings.
+*   **AI Savings Architect**: Heuristic engine generating personalized auto-pilot savings plans.
+*   **V-Points Loyalty**: Integrated loyalty system rewarding frequent users.
 
-### Performance Optimizations
-- **Sub-200ms NFC Detection** - 156ms average read time
-- **Sub-325ms Backend Processing** - Optimized payment engine
-- **Caching Layer** - Redis-like balance and transaction cache
-- **Batch Processing Queue** - 1000+ TPS capability
-- **Connection Pooling** - Reusable HTTP connections
-- **Async Webhooks** - Non-blocking event delivery
+### 💼 Veltra for Business (Merchant Mode)
+*   **Phone-as-POS**: Transform any Android device into a terminal to collect NFC payments instantly.
+*   **Business Dashboard**: Tracks Sales, Capital, and Net Profit/Loss (P/L).
+*   **Inventory & Invoicing**: Detailed stock tracking with unit-level profit analysis and professional invoicing.
+*   **Expense Categorization**: Smart logging for Raw Materials and Logistics.
 
-### Developer Features
-- **Multi-Language Stack** - Go, Swift, Kotlin for maximum flexibility
-- **RESTful API** - Standard HTTP endpoints
-- **Webhook System** - Event-driven integrations
-- **Comprehensive Logging** - Detailed transaction tracking
-- **Analytics Dashboard** - Real-time metrics and insights
+### 🤝 Social Banking
+*   **Squad Pockets**: Joint savings goals with real-time avatars and glowing progress bars.
+*   **Spot a Friend (Ping)**: Social money requests with high-fidelity notification cards.
+*   **Group Bill Splitting**: Intelligent split logic with recipient toggles.
+*   **Global Remittance**: Real-time currency converter with live API integration and 1.5% service fee logic.
+
+---
+
+## 🏗️ Tech Stack & Architecture
+
+### Hybrid Database Architecture (Backend)
+Veltra utilizes a distributed, multi-engine database strategy for maximum reliability:
+*   **PostgreSQL (Core Ledger)**: ACID-compliant primary database for immutable financial records.
+*   **MongoDB (AI & Analytics)**: NoSQL engine for high-velocity behavioral data and AI logs.
+*   **Redis (Speed Layer)**: In-memory cache for sub-millisecond transaction approvals.
+*   **SQLite (Offline Sync)**: Embedded storage for secured offline tokens.
+
+### Go Backend (High-Performance API)
+*   **Gin Framework**: High-throughput HTTP routing.
+*   **Pgx Driver**: Advanced, high-performance PostgreSQL interface.
+*   **Clean Repository Pattern**: Scalable directory structure separating concerns.
+
+### Android Frontend
+*   **Kotlin & Jetpack**: ViewBinding, ViewPager2, RecyclerView, MotionLayout.
+*   **Lottie Engine**: Vector-based fluid animations for onboarding and dashboard.
+*   **Hardware Integration**: Native NFC (HCE/ISO-DEP) and Biometric Prompt API.
 
 ---
 
 ## 📦 Project Structure
 
-```
-VELTA/
-├── velta.go                          # Go backend implementation (1622 lines)
-├── VeltaPayment.swift                # iOS NFC payment manager (CoreNFC)
-├── VeltaPaymentAndroid.kt            # Android NFC payment activity (NFC Framework)
-├── AndroidManifest.xml               # Android app configuration & permissions
-├── nfc_tech_filter.xml               # Android NFC technology filter
-├── network_security_config.xml       # Certificate pinning & HTTPS config
-├── ANDROID_DEMO.md                   # Android payment visualization & flow diagrams
-├── README.md                         # This file
-├── ARCHITECTURE.md                   # System design & data flow
-├── SETUP.md                          # Development environment setup
-├── FEATURES.md                       # Detailed feature documentation
-└── SECURITY.md                       # Security implementation details
-```
-
-### Branch Structure
-```
-main                          # Production-ready code
-├── develop                   # Integration branch
-├── feature/backend-go        # Go backend features
-├── feature/ios-swift         # iOS implementation features
-├── feature/android-kotlin    # Android implementation features
-├── feature/security          # Security enhancements
-└── feature/performance       # Performance optimizations
+```text
+VELTRA/
+├── cmd/api/main.go           # Go Application Entry Point
+├── internal/database/        # DB Initializations (Postgres, Mongo, Redis)
+├── internal/ledger/          # Core Financial Logic (ACID Transactions)
+├── internal/ai/              # AI Insights & Behavioral Models
+├── android/                  # Android Studio Project
+│   └── app/src/main/         # Kotlin Source & High-Fidelity UI Layouts
+└── README.md                 # This file
 ```
 
 ---
 
 ## ⚡ Quick Start
 
-### Prerequisites
-- **Go 1.20+** (for backend)
-- **Xcode 15+** (for iOS development)
-- **Android Studio 2023.1+** (for Android development)
-- **Node.js 18+** (for development tools)
-
-### Setup Backend (Go)
-
+### Backend (Go)
 ```bash
 # Clone the repository
 git clone https://github.com/Godfdr/VELTRA.git
 cd VELTRA
 
-# Run the Go backend
-go run velta.go
+# Install dependencies
+go mod tidy
 
-# Expected output:
-# 🟢 VELTA Payment App initialized successfully!
-# 📡 NFC Reader: READY
-# 🔐 Encryption: READY (AES-256-GCM)
-# 💰 Payment Cache: READY (Redis-like)
-# ...
+# Run the API server
+go run cmd/api/main.go
 ```
 
-### Setup iOS (Xcode)
-
-```bash
-# Import VeltaPayment.swift into your Xcode project
-# Configure build settings:
-# - Signing Team: Your Apple Team ID
-# - Bundle Identifier: com.velta.payment
-# - Deployment Target: iOS 13.0+
-
-# Add required capabilities in Xcode:
-# - NFC Tag Reading capability
-# - Face ID/Touch ID capability
-```
-
-### Setup Android (Android Studio)
-
-```bash
-# Import the Kotlin/XML files into your Android project
-# Add to AndroidManifest.xml:
-#   - NFC permissions (required)
-#   - Biometric permissions
-#   - Internet permission
-#   - Camera permission (for QR code)
-
-# Configure gradle:
-# - Target SDK: 34 (Android 14)
-# - Min SDK: 19 (Android 4.4)
-# - Kotlin: 1.9+
-```
-
----
-
-## 🏗️ Architecture
-
-### System Design
-
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                        VELTA Payment Platform                   │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│  ┌──────────────────────────────────────────────────────────┐  │
-│  │  Client Layer                                            │  │
-│  │  ┌────────────────┐    ┌─────────────────────────────┐  │  │
-│  │  │ iOS (CoreNFC)  │    │ Android (NFC Framework)     │  │  │
-│  │  │ • AES-256-GCM  │    │ • AES/CBC/PKCS5Padding     │  │  │
-│  │  │ • Face ID      │    │ • Fingerprint Auth         │  │  │
-│  │  │ • 13.56 MHz    │    │ • BiometricPrompt          │  │  │
-│  │  └────────────────┘    └─────────────────────────────┘  │  │
-│  └──────────────────────────────────────────────────────────┘  │
-│                             ↓                                   │
-│  ┌──────────────────────────────────────────────────────────┐  │
-│  │  API Gateway                                             │  │
-│  │  • HTTPS/TLS 1.3 (AES-256-GCM)                          │  │
-│  │  • Certificate Pinning                                  │  │
-│  │  • Rate Limiting (100 req/hr per user)                  │  │
-│  │  • Request Validation                                   │  │
-│  └──────────────────────────────────────────────────────────┘  │
-│                             ↓                                   │
-│  ┌──────────────────────────────────────────────────────────┐  │
-│  │  Go Backend Engine                                       │  │
-│  │  ┌──────────────────────────────────────────────────┐   │  │
-│  │  │ Payment Processor                                │   │  │
-│  │  │ • Ultra-fast transaction handling               │   │  │
-│  │  │ • Wallet balance management                     │   │  │
-│  │  │ • 2FA verification                              │   │  │
-│  │  └──────────────────────────────────────────────────┘   │  │
-│  │  ┌──────────────────────────────────────────────────┐   │  │
-│  │  │ Security Layer                                   │   │  │
-│  │  │ • Fraud Detection Engine (ML-based scoring)      │   │  │
-│  │  │ • Rate Limiter                                   │   │  │
-│  │  │ • Encryption Manager                            │   │  │
-│  │  │ • User Verification                             │   │  │
-│  │  └──────────────────────────────────────────────────┘   │  │
-│  │  ┌──────────────────────────────────────────────────┐   │  │
-│  │  │ Data Layer                                       │   │  │
-│  │  │ • Payment Cache (O(1) lookups)                   │   │  │
-│  │  │ • Transaction Ledger                            │   │  │
-│  │  │ • User Registry                                 │   │  │
-│  │  │ • Merchant Registry                             │   │  │
-│  │  └──────────────────────────────────────────────────┘   │  │
-│  │  ┌──────────────────────────────────────────────────┐   │  │
-│  │  │ Integration Layer                                │   │  │
-│  │  │ • Webhook Manager                               │   │  │
-│  │  │ • Analytics Engine                              │   │  │
-│  │  │ • Recurring Payment Scheduler                   │   │  │
-│  │  │ • Receipt Generator                             │   │  │
-│  │  └──────────────────────────────────────────────────┘   │  │
-│  └──────────────────────────────────────────────────────────┘  │
-│                             ↓                                   │
-│  ┌──────────────────────────────────────────────────────────┐  │
-│  │  External Services                                       │  │
-│  │  • Payment Gateways (Stripe, Square)                     │  │
-│  │  • Email Service (Notifications)                         │  │
-│  │  • SMS Service (OTP, Alerts)                             │  │
-│  │  • Webhook Consumers (Merchant APIs)                     │  │
-│  └──────────────────────────────────────────────────────────┘  │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
-```
-
-### Transaction Flow
-
-```
-User Initiates Payment (Android)
-        ↓
-Biometric Authentication (Fingerprint)
-        ↓
-NFC Reader Activated (Back of device)
-        ↓
-Payment Terminal Detected (156ms)
-        ↓
-NDEF Data Parsed (45ms)
-        ↓
-Payload Encrypted (AES-256-GCM, 89ms)
-        ↓
-Fraud Detection (62ms)
-        ↓
-HTTP/HTTPS Request to Backend
-        ↓
-Backend: User Verification (25ms)
-        ↓
-Backend: Balance Check (38ms)
-        ↓
-Backend: Rate Limit Check (45ms)
-        ↓
-Backend: Fraud Scoring (62ms)
-        ↓
-Backend: Cache Lookup (12ms)
-        ↓
-Backend: Transaction Processing (156ms)
-        ↓
-Backend: Ledger Update & Commit (78ms)
-        ↓
-Webhook Trigger (89ms)
-        ↓
-Response Sent to Android (156ms)
-        ↓
-Confirmation Displayed & Haptic Feedback
-        ↓
-✅ Total Time: 922ms - 1.5 seconds ⚡
-```
-
----
-
-## ⚡ Performance Metrics
-
-### Response Time Breakdown
-
-| Component | Time | Details |
-|-----------|------|---------|
-| NFC Detection | 156ms | Tag discovery & NDEF parsing |
-| Biometric Auth | 245ms | Fingerprint/Face recognition |
-| Encryption | 89ms | AES-256-GCM key generation & encryption |
-| Fraud Detection | 62ms | Risk scoring & pattern analysis |
-| Backend Processing | 325ms | Database transactions & ledger update |
-| Receipt Generation | 45ms | PDF/Email generation |
-| **TOTAL** | **922ms** | **Ultra-fast end-to-end** |
-
-### Reliability Metrics
-
-| Metric | Value | Target |
-|--------|-------|--------|
-| NFC Success Rate | 98.8% | >95% |
-| Payment Completion Rate | 99.2% | >99% |
-| System Uptime | 99.98% | >99.9% |
-| Fraud Detection Accuracy | 98.5% | >98% |
-| Biometric Success Rate | 99.6% | >99% |
-| Average Response Time | 324ms | <500ms |
-
-### Scalability
-
-- **Concurrent Users**: 10,000+
-- **Transactions Per Second**: 1,000+ TPS
-- **Daily Transaction Volume**: 100,000+
-- **Cache Hit Rate**: >85% (balance lookups)
-- **Webhook Delivery**: 98.5% first attempt
-
----
-
-## 🔐 Security
-
-### Encryption Standards
-- **AES-256-GCM** for data in transit
-- **AES-256** for data at rest
-- **SHA-256** for password hashing
-- **HMAC-SHA256** for message authentication
-
-### Authentication
-- **Biometric Authentication** (Face ID, Touch ID, Fingerprint)
-- **Two-Factor Authentication** (SMS, biometric)
-- **PIN Fallback** (minimum 6 digits)
-- **Session Management** with 30-minute timeout
-
-### Compliance
-- **PCI DSS Level 3** compliant
-- **GDPR** ready (data privacy controls)
-- **SOC 2 Type II** compatible architecture
-- **Android OS Security Keystore** integration
-- **Certificate Pinning** for API endpoints
-
-### Fraud Prevention
-- **Machine Learning Risk Scoring** (0-1.0 scale)
-- **Velocity Checking** (transaction frequency limits)
-- **Amount Anomaly Detection** (deviation from patterns)
-- **Geolocation Verification** (location consistency)
-- **Device Fingerprinting** (security check)
-- **Blacklist Management** (fraudulent users/merchants)
-
----
-
-## 📱 Platform Support
-
-### iOS
-- **Minimum Version**: iOS 13.0
-- **NFC**: Core NFC framework (top-of-device sensor)
-- **Authentication**: Face ID, Touch ID, Optic ID
-- **Encryption**: Apple CryptoKit (FIPS 140-2)
-- **Devices**: All iPhones with NFC capability (XS and newer)
-
-### Android
-- **Minimum SDK**: API 19 (Android 4.4)
-- **Target SDK**: API 34 (Android 14)
-- **NFC**: Android NFC Framework (back-of-device sensor)
-- **Authentication**: BiometricPrompt (Fingerprint, Face, Iris)
-- **Encryption**: javax.crypto with Android Keystore
-- **Devices**: 2 billion+ compatible Android devices
-
-### Backend
-- **Language**: Go 1.20+
-- **Runtime**: Linux, macOS, Windows
-- **Concurrency**: goroutines & channels for high throughput
-- **Database**: Compatible with PostgreSQL, MongoDB, Redis
-
----
-
-## 🛠️ Development Guide
-
-### Code Organization
-
-**Backend (Go)**
-```go
-// Key types
-type VeltaApp struct { ... }
-type User struct { ... }
-type WalletAccount struct { ... }
-type Transaction struct { ... }
-type Merchant struct { ... }
-type FraudDetectionEngine struct { ... }
-
-// Key functions
-func InitVelta() { ... }
-func ProcessPayment(fromUserID, toUserID, amount, nfcTagID string) { ... }
-func checkRateLimit(userID string) bool { ... }
-func registerWebhook(url string, events []string) { ... }
-```
-
-**iOS (Swift)**
-```swift
-class VeltaNFCPaymentManager: NSObject, NFCNDEFReaderSessionDelegate { }
-class EncryptionManager { }
-class BiometricAuthentication { }
-class VeltaPaymentViewController: UIViewController { }
-```
-
-**Android (Kotlin)**
-```kotlin
-class VeltaNFCPaymentActivity : AppCompatActivity(), NfcAdapter.ReaderCallback { }
-class EncryptionManager { }
-class FraudDetectionEngine { }
-```
-
-### Building from Source
-
-```bash
-# Backend
-go build -o velta-server velta.go
-go run velta.go
-
-# iOS
-open VeltaPayment.xcodeproj
-# Build and run from Xcode (Cmd+R)
-
-# Android
-./gradlew build
-./gradlew installDebug
-```
-
----
-
-## 📚 Additional Documentation
-
-- **[ARCHITECTURE.md](ARCHITECTURE.md)** - Detailed system design and data flow
-- **[SETUP.md](SETUP.md)** - Environment setup and configuration
-- **[FEATURES.md](FEATURES.md)** - Complete feature documentation
-- **[SECURITY.md](SECURITY.md)** - Security implementation details
-- **[ANDROID_DEMO.md](ANDROID_DEMO.md)** - Android NFC payment visualization
+### Mobile (Android)
+1. Open the `android` folder in **Android Studio**.
+2. Sync Project with Gradle Files.
+3. Deploy to a device with **NFC and Biometrics** support.
 
 ---
 
 ## 🤝 Contributing
-
-Contributions are welcome! Please follow these guidelines:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit changes (`git commit -m 'Add amazing feature'`)
-4. Push to branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-### Code Standards
-- **Go**: Follow Go Code Review Comments
-- **Swift**: Follow Swift API Design Guidelines
-- **Kotlin**: Follow Kotlin Coding Conventions
-- **Documentation**: Add comments for public APIs
-- **Tests**: Write unit tests for critical paths
-
----
-
-## 📞 Support
-
-- **Issues**: GitHub Issues
-- **Discussions**: GitHub Discussions
-- **Documentation**: See ARCHITECTURE.md, SETUP.md, FEATURES.md
-- **Security Issues**: Please report privately to security@velta.io
+Built with ❤️ by **Joshua Dawang**. Contributions are welcome via feature branches and pull requests.
 
 ---
 
 ## 📄 License
-
-This project is licensed under the **MIT License** - see the LICENSE file for details.
-
----
-
-## 🎉 Acknowledgments
-
-- **NFC Standards**: ISO/IEC 14443 (A, B, F, V)
-- **Encryption**: NIST AES-256-GCM standard
-- **Biometrics**: FIDO2 & FIDO Biometric Certification Board
-- **Go**: Efficient, concurrent backend processing
-- **iOS/Android**: Native platform NFC integration
-
----
-
-<div align="center">
-
-**VELTA - Lightning-Fast NFC Payments** ⚡
-
-Built with ❤️ for fintech innovation
-
-[GitHub](https://github.com/Godfdr/VELTRA) • [Documentation](ARCHITECTURE.md) • [Security](SECURITY.md)
-
-</div>
+This project is licensed under the MIT License.

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import com.google.gson.Gson
@@ -45,17 +44,19 @@ class VeltraRemittanceActivity : VeltraBaseActivity() {
                 val response = client.newCall(request).execute()
                 if (response.isSuccessful) {
                     val body = response.body?.string()
-                    val data = Gson().fromJson(body, ExchangeResponse::class.java)
-                    val ngnRate = data.rates["NGN"] ?: 1500.0
-                    
-                    withContext(Dispatchers.Main) {
-                        liveExchangeRate = ngnRate
-                        binding.rateText.text = String.format(Locale.getDefault(), "1 USD = ₦ %,.2f", liveExchangeRate)
-                        calculateConverted(binding.amountInput.text.toString())
+                    if (body != null) {
+                        val data = Gson().fromJson(body, ExchangeResponse::class.java)
+                        val ngnRate = data.rates["NGN"] ?: 1500.0
+                        
+                        withContext(Dispatchers.Main) {
+                            liveExchangeRate = ngnRate
+                            binding.rateText.text = String.format(Locale.getDefault(), "1 USD = ₦ %,.2f", liveExchangeRate)
+                            calculateConverted(binding.amountInput.text.toString())
+                        }
                     }
                 }
             } catch (e: Exception) {
-                Log.e("Remittance", "Failed to fetch rate", e)
+                Log.e("Remittance", "Failed to fetch rate: ${e.message}")
                 withContext(Dispatchers.Main) {
                     Toast.makeText(this@VeltraRemittanceActivity, "Using offline rate", Toast.LENGTH_SHORT).show()
                 }
@@ -87,8 +88,8 @@ class VeltraRemittanceActivity : VeltraBaseActivity() {
 
     private fun calculateConverted(input: String) {
         if (input.isEmpty()) {
-            binding.receiveAmount.text = "0.00"
-            binding.feeText.text = "Fee (1.5%): ₦ 0.00"
+            binding.receiveAmount.text = getString(R.string.initial_balance_hint)
+            binding.feeText.text = String.format(Locale.getDefault(), "Fee (1.5%%): ₦ %,.2f", 0.0)
             return
         }
         
@@ -103,11 +104,11 @@ class VeltraRemittanceActivity : VeltraBaseActivity() {
             val amountUsd = netAmountNgn / liveExchangeRate
             
             binding.receiveAmount.text = String.format(Locale.getDefault(), "%,.2f", amountUsd)
-            binding.feeText.text = String.format(Locale.getDefault(), "Fee (1.5%): ₦ %,.2f", feeNgn)
+            binding.feeText.text = String.format(Locale.getDefault(), "Fee (1.5%%): ₦ %,.2f", feeNgn)
             
         } catch (e: Exception) {
-            binding.receiveAmount.text = "0.00"
-            binding.feeText.text = "Fee (1.5%): ₦ 0.00"
+            binding.receiveAmount.text = getString(R.string.initial_balance_hint)
+            binding.feeText.text = String.format(Locale.getDefault(), "Fee (1.5%%): ₦ %,.2f", 0.0)
         }
     }
 }
