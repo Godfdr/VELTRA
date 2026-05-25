@@ -1,11 +1,11 @@
 package com.veltra.payment
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.GravityCompat
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -57,16 +57,14 @@ class VeltraMainActivity : VeltraBaseActivity() {
         // For now, let's keep the existing navigation but enable the drawer functionality
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private fun setupGhostMode() {
         // Advanced 3-Finger Gesture for Ghost Mode
-        binding.root.setOnTouchListener { v, event ->
+        binding.root.setOnTouchListener { _, event ->
             if (event.pointerCount == 3) {
                 isGhostModeActive = true
                 binding.mainContent.alpha = 0.05f
-                android.widget.Toast.makeText(this, "Ghost Mode Active 👻", android.widget.Toast.LENGTH_SHORT).show()
-            } else if (event.action == android.view.MotionEvent.ACTION_UP && isGhostModeActive) {
-                // Keep it active until a specific action or just for a moment
-                // For this demo, let's toggle it back on single tap elsewhere
+                Toast.makeText(this, "Ghost Mode Active 👻", Toast.LENGTH_SHORT).show()
             }
             false
         }
@@ -75,7 +73,7 @@ class VeltraMainActivity : VeltraBaseActivity() {
             if (isGhostModeActive) {
                 isGhostModeActive = false
                 binding.mainContent.alpha = 1.0f
-                android.widget.Toast.makeText(this, "Ghost Mode Disabled", android.widget.Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Ghost Mode Disabled", Toast.LENGTH_SHORT).show()
             } else {
                 startActivity(Intent(this, VeltraProfileActivity::class.java))
             }
@@ -144,6 +142,11 @@ class VeltraMainActivity : VeltraBaseActivity() {
         view.findViewById<View>(R.id.service_split_btn).setOnClickListener {
             dialog.dismiss()
             startActivity(Intent(this, VeltraBillSplitActivity::class.java))
+        }
+
+        view.findViewById<View>(R.id.service_remittance_btn).setOnClickListener {
+            dialog.dismiss()
+            startActivity(Intent(this, VeltraRemittanceActivity::class.java))
         }
         
         dialog.show()

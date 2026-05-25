@@ -89,6 +89,7 @@
         <activity android:name=".VeltraBusinessExpensesActivity" />
         <activity android:name=".VeltraItemizedReceiptActivity" />
         <activity android:name=".VeltraBudgetingActivity" />
+        <activity android:name=".VeltraRemittanceActivity" />
 
     </application>
 
