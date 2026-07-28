@@ -13,5 +13,17 @@ class VeltraPayBillsActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.backBtn.setOnClickListener { finish() }
+
+        binding.dataBtn.setOnClickListener {
+            startActivity(android.content.Intent(this, VeltraDataPaymentActivity::class.java))
+        }
+
+        binding.tvBtn.setOnClickListener {
+            startActivity(android.content.Intent(this, VeltraCablePaymentActivity::class.java))
+        }
+
+        binding.electricityBtn.setOnClickListener {
+            startActivity(android.content.Intent(this, VeltraElectricityPaymentActivity::class.java))
+        }
     }
 }

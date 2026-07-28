@@ -38,50 +38,66 @@
 
         <!-- Airtime -->
         <LinearLayout
+            android:id="@+id/airtimeBtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
             android:orientation="vertical"
             android:gravity="center"
-            android:padding="12dp">
+            android:padding="12dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground">
             <View android:layout_width="56dp" android:layout_height="56dp" android:background="@drawable/quick_action_background" android:backgroundTint="#1500D4FF" />
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Airtime" android:textColor="@color/text_secondary" android:textSize="12sp" android:layout_marginTop="8dp" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/buy_airtime" android:textColor="@color/text_secondary" android:textSize="12sp" android:layout_marginTop="8dp" />
         </LinearLayout>
 
         <!-- Data -->
         <LinearLayout
+            android:id="@+id/dataBtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
             android:orientation="vertical"
             android:gravity="center"
-            android:padding="12dp">
+            android:padding="12dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground">
             <View android:layout_width="56dp" android:layout_height="56dp" android:background="@drawable/quick_action_background" android:backgroundTint="#157000FF" />
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Data" android:textColor="@color/text_secondary" android:textSize="12sp" android:layout_marginTop="8dp" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/utility_data" android:textColor="@color/text_secondary" android:textSize="12sp" android:layout_marginTop="8dp" />
         </LinearLayout>
 
         <!-- Electricity -->
         <LinearLayout
+            android:id="@+id/electricityBtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
             android:orientation="vertical"
             android:gravity="center"
-            android:padding="12dp">
+            android:padding="12dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground">
             <View android:layout_width="56dp" android:layout_height="56dp" android:background="@drawable/quick_action_background" android:backgroundTint="#15FFA502" />
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Electricity" android:textColor="@color/text_secondary" android:textSize="12sp" android:layout_marginTop="8dp" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/utility_electricity" android:textColor="@color/text_secondary" android:textSize="12sp" android:layout_marginTop="8dp" />
         </LinearLayout>
 
         <!-- TV -->
         <LinearLayout
+            android:id="@+id/tvBtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
             android:orientation="vertical"
             android:gravity="center"
-            android:padding="12dp">
+            android:padding="12dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground">
             <View android:layout_width="56dp" android:layout_height="56dp" android:background="@drawable/quick_action_background" android:backgroundTint="#1500D084" />
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="TV" android:textColor="@color/text_secondary" android:textSize="12sp" android:layout_marginTop="8dp" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/utility_cable" android:textColor="@color/text_secondary" android:textSize="12sp" android:layout_marginTop="8dp" />
         </LinearLayout>
 
         <!-- Internet -->

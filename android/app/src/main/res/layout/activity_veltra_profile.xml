@@ -208,8 +208,8 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:background="?attr/selectableItemBackground">
-                    <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@android:drawable/ic_menu_agenda" app:tint="@color/text_secondary" android:contentDescription="@string/profile_kyc" />
-                    <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/profile_kyc" android:textColor="@color/text_themed_primary" android:textSize="16sp" android:layout_marginStart="16dp" />
+                    <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@android:drawable/ic_menu_agenda" app:tint="@color/text_secondary" android:contentDescription="@string/profile_account_verification" />
+                    <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/profile_account_verification" android:textColor="@color/text_themed_primary" android:textSize="16sp" android:layout_marginStart="16dp" />
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/profile_verified" android:textColor="@color/veltra_success" android:textSize="13sp" android:layout_marginEnd="8dp" />
                     <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@android:drawable/ic_media_next" app:tint="@color/text_muted" android:contentDescription="@string/done" />
                 </LinearLayout>

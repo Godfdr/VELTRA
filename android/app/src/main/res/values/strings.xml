@@ -114,7 +114,10 @@
     <string name="profile_verified">Verified</string>
     <string name="profile_personal_info">Personal Information</string>
     <string name="profile_kyc">KYC Verification</string>
-    <string name="profile_security">Security</string>
+    <string name="profile_account_verification">Account Verification</string>
+    <string name="profile_security">Security Settings</string>
+    <string name="profile_change_password">Change Password</string>
+    <string name="profile_change_pin">Change PIN</string>
     <string name="profile_notifications">Notifications</string>
     <string name="profile_linked_accounts">Linked Accounts</string>
     <string name="profile_help">Help &amp; Support</string>
@@ -138,6 +141,17 @@
 
     <!-- Receive Screen -->
     <string name="receive_options">Choose how to receive</string>
+
+    <!-- Utilities -->
+    <string name="utility_data">Data</string>
+    <string name="utility_cable">Cable TV</string>
+    <string name="utility_electricity">Electricity</string>
+    <string name="utility_internet">Internet</string>
+    <string name="utility_water">Water</string>
+    <string name="buy_data">Buy Data</string>
+    <string name="pay_cable">Pay Cable TV</string>
+    <string name="pay_electricity">Pay Electricity</string>
+
     <string name="bank_transfer">Bank Transfer</string>
     <string name="bank_desc">Receive from any bank app</string>
     <string name="veltra_nearby">Veltra Nearby (NFC)</string>

@@ -37,7 +37,7 @@
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="16sp"
-            android:fontFamily="sans-serif-medium" />
+            android:fontFamily="@font/urbanist_semibold" />
 
         <TextView
             android:id="@+id/skipBtn"
@@ -48,7 +48,8 @@
             android:padding="8dp"
             android:text="@string/cancel"
             android:textColor="@color/text_secondary"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:fontFamily="@font/urbanist_regular" />
 
     </LinearLayout>
 

@@ -44,7 +44,15 @@ class VeltraProfileActivity : VeltraBaseActivity() {
         binding.backBtn.setOnClickListener { finish() }
 
         binding.settingsBtn.setOnClickListener {
-            Toast.makeText(this, "Settings coming soon", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, VeltraSecuritySettingsActivity::class.java))
+        }
+
+        binding.securityBtn.setOnClickListener {
+            startActivity(Intent(this, VeltraSecuritySettingsActivity::class.java))
+        }
+
+        binding.kycBtn.setOnClickListener {
+            startActivity(Intent(this, VeltraVerificationActivity::class.java))
         }
 
         binding.merchantModeBtn.setOnClickListener {
