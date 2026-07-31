@@ -1,224 +1,197 @@
 package com.veltra.payment.ui.auth
 
-import androidx.compose.foundation.*
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.util.lerp
+import com.veltra.payment.R
 import com.veltra.payment.ui.theme.*
 import kotlinx.coroutines.launch
+import kotlin.math.absoluteValue
 
 @Composable
 fun OnboardingScreen(onGetStartedClick: () -> Unit) {
-    val pagerState = rememberPagerState(pageCount = { 4 })
-    val scope = rememberCoroutineScope()
-
-    val slides = listOf(
-        OnboardingSlide(
-            "Bank smarter,\nnot harder",
-            "Manage your money, send and receive payments — all in one secure app.",
-            Icons.Default.AccountBalanceWallet,
-            Royal
+    val onboardingData = listOf(
+        OnboardingData(
+            title = "Smart Banking for\nthe Next Generation",
+            description = "Experience seamless multi-currency transfers,\nsecure offline payments, and smart savings.",
+            iconRes = R.drawable.ic_onboarding_offline
         ),
-        OnboardingSlide(
-            "Tap & Go\nanywhere",
-            "Transfer money instantly with a tap — phone to phone, card to phone, or at any NFC reader.",
-            Icons.Default.PhonelinkRing,
-            Teal
+        OnboardingData(
+            title = "Connect and Pay\nwith Social Pings",
+            description = "Send and request money from friends instantly\nwith our unique Ping Me feature.",
+            iconRes = R.drawable.ic_onboarding_spot
         ),
-        OnboardingSlide(
-            "Request, share\nor split money",
-            "Ping a contact, share your tag, or split a group bill in seconds with anyone.",
-            Icons.Default.NotificationsActive,
-            InfoPurple
+        OnboardingData(
+            title = "Tap & Go\nContactless Payments",
+            description = "Pay at merchants or transfer between phones\nwith a simple tap using NFC technology.",
+            iconRes = R.drawable.ic_onboarding_nfc
         ),
-        OnboardingSlide(
-            "Your money,\nfully protected",
-            "Bank-grade encryption, biometric security, and real-time fraud detection keep you safe.",
-            Icons.Default.Shield,
-            WarningOrange
+        OnboardingData(
+            title = "Personal & Group\nSmart Pockets",
+            description = "Save for your goals alone or with friends\nusing our collaborative smart pockets.",
+            iconRes = R.drawable.veltra_logo_type2
         )
     )
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Base)
-    ) {
-        // Dynamic Gradient Background based on page
-        val currentSlide = slides[pagerState.currentPage]
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight(0.6f)
-                .background(
-                    Brush.verticalGradient(
-                        colors = listOf(currentSlide.color.copy(alpha = 0.22f), Base)
-                    )
-                )
-        )
+    val pagerState = rememberPagerState(pageCount = { onboardingData.size })
+    val scope = rememberCoroutineScope()
 
+    Box(modifier = Modifier.fillMaxSize().background(Base)) {
         Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Skip Button
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(20.dp)
-                    .statusBarsPadding(),
-                horizontalArrangement = Arrangement.End
-            ) {
-                Text(
-                    "Skip",
-                    color = Muted,
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.Bold,
-                    fontFamily = Urbanist,
-                    modifier = Modifier.clickable { onGetStartedClick() }
-                )
-            }
-
-            // Pager for Slides
-            HorizontalPager(
-                state = pagerState,
-                modifier = Modifier.weight(1f)
-            ) { page ->
-                val slide = slides[page]
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(horizontal = 28.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    // Hero Icon
-                    Box(
-                        modifier = Modifier
-                            .size(130.dp)
-                            .clip(RoundedCornerShape(34.dp))
-                            .background(
-                                Brush.linearGradient(
-                                    listOf(slide.color.copy(alpha = 0.25f), slide.color.copy(alpha = 0.08f))
-                                )
-                            ),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Box(
-                            modifier = Modifier
-                                .size(82.dp)
-                                .clip(CircleShape)
-                                .background(slide.color.copy(alpha = 0.15f)),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Icon(slide.icon, contentDescription = null, tint = slide.color, modifier = Modifier.size(38.dp))
-                        }
-                    }
-
-                    Spacer(modifier = Modifier.height(30.dp))
-
-                    Text(
-                        slide.title,
-                        color = Color.White,
-                        fontSize = 25.sp,
-                        fontWeight = FontWeight.ExtraBold,
-                        lineHeight = 31.sp,
-                        textAlign = TextAlign.Center,
-                        fontFamily = Urbanist
-                    )
-
-                    Spacer(modifier = Modifier.height(12.dp))
-
-                    Text(
-                        slide.sub,
-                        color = Muted,
-                        fontSize = 13.sp,
-                        lineHeight = 20.sp,
-                        textAlign = TextAlign.Center,
-                        fontFamily = Urbanist,
-                        fontWeight = FontWeight.Medium
-                    )
-                }
-            }
-
-            // Indicator Dots
-            Row(
-                modifier = Modifier.padding(vertical = 20.dp),
-                horizontalArrangement = Arrangement.spacedBy(6.dp)
-            ) {
-                repeat(slides.size) { index ->
-                    val isActive = pagerState.currentPage == index
-                    Box(
-                        modifier = Modifier
-                            .height(6.dp)
-                            .width(if (isActive) 22.dp else 6.dp)
-                            .clip(RoundedCornerShape(4.dp))
-                            .background(if (isActive) Teal else Card2)
-                    )
-                }
-            }
-
-            // CTA Button
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 24.dp, vertical = 32.dp)
-            ) {
-                Button(
-                    onClick = {
-                        if (pagerState.currentPage < 3) {
-                            scope.launch { pagerState.animateScrollToPage(pagerState.currentPage + 1) }
-                        } else {
-                            onGetStartedClick()
-                        }
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(56.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
-                    contentPadding = PaddingValues(),
-                    shape = RoundedCornerShape(50.dp)
-                ) {
-                    Box(
+            Box(modifier = Modifier.weight(1f)) {
+                HorizontalPager(
+                    state = pagerState,
+                    modifier = Modifier.fillMaxSize(),
+                    key = { onboardingData[it].title },
+                    userScrollEnabled = true
+                ) { page ->
+                    val data = onboardingData[page]
+                    Column(
                         modifier = Modifier
                             .fillMaxSize()
-                            .background(PrimaryGradient),
-                        contentAlignment = Alignment.Center
+                            .padding(horizontal = 40.dp)
+                            .graphicsLayer {
+                                val pageOffset = (
+                                    (pagerState.currentPage - page) + pagerState
+                                        .currentPageOffsetFraction
+                                    ).absoluteValue
+                                
+                                alpha = lerp(
+                                    start = 0.5f,
+                                    stop = 1f,
+                                    fraction = 1f - pageOffset.coerceIn(0f, 1f)
+                                )
+                                
+                                scaleX = lerp(
+                                    start = 0.85f,
+                                    stop = 1f,
+                                    fraction = 1f - pageOffset.coerceIn(0f, 1f)
+                                )
+                                scaleY = scaleX
+                            },
+                        horizontalAlignment = Alignment.CenterHorizontally
                     ) {
+                        Spacer(modifier = Modifier.height(80.dp))
+                        
+                        Box(
+                            modifier = Modifier
+                                .size(240.dp)
+                                .clip(RoundedCornerShape(32.dp))
+                                .background(Color.White.copy(alpha = 0.08f))
+                                .padding(24.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Image(
+                                painter = painterResource(id = data.iconRes),
+                                contentDescription = null,
+                                modifier = Modifier.fillMaxSize()
+                            )
+                        }
+
+                        Spacer(modifier = Modifier.height(60.dp))
+
                         Text(
-                            if (pagerState.currentPage < 3) "Next" else "Get Started",
+                            data.title,
                             color = Color.White,
-                            fontSize = 14.sp,
-                            fontWeight = FontWeight.Bold,
+                            fontSize = 28.sp,
+                            fontWeight = FontWeight.ExtraBold,
+                            textAlign = TextAlign.Center,
+                            lineHeight = 36.sp,
+                            fontFamily = Urbanist
+                        )
+
+                        Spacer(modifier = Modifier.height(16.dp))
+
+                        Text(
+                            data.description,
+                            color = Muted,
+                            fontSize = 15.sp,
+                            textAlign = TextAlign.Center,
+                            lineHeight = 24.sp,
                             fontFamily = Urbanist
                         )
                     }
+                }
+            }
+
+            // Pager Indicators
+            Row(
+                modifier = Modifier.height(50.dp).fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                repeat(onboardingData.size) { iteration ->
+                    val color = if (pagerState.currentPage == iteration) Teal else Border
+                    Box(
+                        modifier = Modifier
+                            .padding(horizontal = 6.dp)
+                            .clip(CircleShape)
+                            .background(color)
+                            .size(if (pagerState.currentPage == iteration) 10.dp else 6.dp)
+                    )
+                }
+            }
+
+            Button(
+                onClick = {
+                    if (pagerState.currentPage < onboardingData.size - 1) {
+                        scope.launch { pagerState.animateScrollToPage(pagerState.currentPage + 1) }
+                    } else {
+                        onGetStartedClick()
+                    }
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 32.dp, end = 32.dp, top = 20.dp, bottom = 40.dp)
+                    .height(60.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
+                contentPadding = PaddingValues(0.dp),
+                shape = RoundedCornerShape(50.dp)
+            ) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(PrimaryGradient),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        if (pagerState.currentPage == onboardingData.size - 1) "Get Started" else "Next",
+                        color = Color.White, 
+                        fontSize = 16.sp, 
+                        fontWeight = FontWeight.Bold, 
+                        fontFamily = Urbanist
+                    )
                 }
             }
         }
     }
 }
 
-data class OnboardingSlide(val title: String, val sub: String, val icon: ImageVector, val color: Color)
+data class OnboardingData(val title: String, val description: String, val iconRes: Int)
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun OnboardingPreview() {
     VeltraTheme {

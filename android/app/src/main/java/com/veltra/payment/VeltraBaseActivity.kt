@@ -21,16 +21,17 @@ abstract class VeltraBaseActivity : AppCompatActivity() {
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
-        if (ev?.pointerCount == 3) {
-            // Premium Ghost Mode: 3-finger long press (simulated by count check)
-            Toast.makeText(this, "Ghost Mode Triggered 👻", Toast.LENGTH_SHORT).show()
+        // Fintech feature: Detection of multiple pointers (prevention of touch injection)
+        val pointerCount = ev?.pointerCount ?: 0
+        if (pointerCount >= 3) {
+            Toast.makeText(this, "Security Alert: Unusual Touch Pattern 🔒", Toast.LENGTH_SHORT).show()
         }
         return super.dispatchTouchEvent(ev)
     }
 
     fun triggerOfflineHaptic() {
         val vibrator = getSystemService(VIBRATOR_SERVICE) as android.os.Vibrator
-        val pattern = longArrayOf(0, 50, 100, 50) // Double Pulse
+        val pattern = longArrayOf(0, 50, 100, 50)
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             vibrator.vibrate(android.os.VibrationEffect.createWaveform(pattern, -1))
         } else {

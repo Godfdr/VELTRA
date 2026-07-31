@@ -12,42 +12,35 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.veltra.payment.ui.theme.*
+import java.math.BigDecimal
 
 @Composable
-fun PingMeScreen(onBackClick: () -> Unit) {
-    var amount by remember { mutableStateOf("5,000.00") }
+fun PingMeScreen(onBackClick: () -> Unit, onSendPingClick: () -> Unit) {
+    var amount by remember { mutableStateOf("5,000") }
+    var note by remember { mutableStateOf("") }
+    
+    val numericAmount = remember(amount) {
+        amount.replace(",", "").toBigDecimalOrNull() ?: BigDecimal.ZERO
+    }
 
     Scaffold(
         containerColor = Base,
         topBar = {
             Column {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(30.dp)
-                        .background(HeaderStart)
-                )
                 Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(Brush.verticalGradient(listOf(HeaderStart, Base)))
-                        .padding(horizontal = 20.dp, vertical = 10.dp),
+                    modifier = Modifier.fillMaxWidth().background(HeaderGradient).padding(horizontal = 20.dp, vertical = 10.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     IconButton(
                         onClick = onBackClick,
-                        modifier = Modifier
-                            .size(34.dp)
-                            .background(Color.White.copy(alpha = 0.08f), CircleShape)
-                            .border(1.dp, Border, CircleShape)
+                        modifier = Modifier.size(34.dp).background(Color.White.copy(alpha = 0.08f), CircleShape).border(1.dp, Border, CircleShape)
                     ) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back", tint = Color.White, modifier = Modifier.size(16.dp))
                     }
@@ -55,119 +48,93 @@ fun PingMeScreen(onBackClick: () -> Unit) {
                     Text("Ping Me", color = Color.White, fontSize = 16.sp, fontWeight = FontWeight.Bold, fontFamily = Urbanist)
                 }
 
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 24.dp, vertical = 10.dp)
-                ) {
-                    Text("Who do you want to", color = Color.White, fontSize = 19.sp, fontWeight = FontWeight.ExtraBold, fontFamily = Urbanist)
-                    Text("ping for money?", color = Teal, fontSize = 19.sp, fontWeight = FontWeight.ExtraBold, fontFamily = Urbanist)
+                Column(modifier = Modifier.fillMaxWidth().padding(vertical = 32.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text("Request amount", color = Muted, fontSize = 11.sp, fontFamily = Urbanist, fontWeight = FontWeight.Medium)
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.horizontalScroll(rememberScrollState())) {
+                        Text("₦", color = Color.White, fontSize = 28.sp, fontWeight = FontWeight.ExtraBold, fontFamily = Urbanist)
+                        Spacer(modifier = Modifier.width(4.dp))
+                        androidx.compose.foundation.text.BasicTextField(
+                            value = amount,
+                            onValueChange = { amount = it.filter { c -> c.isDigit() || c == ',' || c == '.' } },
+                            textStyle = LocalTextStyle.current.copy(
+                                color = Color.White, 
+                                fontSize = 38.sp, 
+                                fontWeight = FontWeight.ExtraBold, 
+                                fontFamily = Urbanist,
+                                letterSpacing = (-1).sp
+                            ),
+                            cursorBrush = SolidColor(Teal),
+                            singleLine = true
+                        )
+                    }
                 }
             }
         },
         bottomBar = {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(Base)
-                    .padding(16.dp)
-            ) {
+            Box(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
+                val isButtonEnabled = numericAmount > BigDecimal.ZERO
+                val buttonBrush = if (isButtonEnabled) PrimaryGradient else SolidColor(Sub)
                 Button(
-                    onClick = { },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(56.dp)
-                        .shadow(elevation = 24.dp, shape = RoundedCornerShape(50.dp), ambientColor = Royal.copy(alpha = 0.35f), spotColor = Royal.copy(alpha = 0.35f)),
+                    onClick = onSendPingClick,
+                    modifier = Modifier.fillMaxWidth().height(56.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                     contentPadding = PaddingValues(),
-                    shape = RoundedCornerShape(50.dp)
+                    shape = RoundedCornerShape(50.dp),
+                    enabled = isButtonEnabled
                 ) {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .background(Brush.horizontalGradient(listOf(Royal, Teal))),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text("Send Ping →", color = Color.White, fontSize = 15.sp, fontWeight = FontWeight.Bold, fontFamily = Urbanist)
+                    Box(modifier = Modifier.fillMaxSize().background(buttonBrush), contentAlignment = Alignment.Center) {
+                        Text("Send Ping", color = Color.White, fontSize = 15.sp, fontWeight = FontWeight.Bold, fontFamily = Urbanist)
                     }
                 }
             }
         }
     ) { paddingValues ->
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues)
-                .verticalScroll(rememberScrollState())
-                .padding(horizontal = 16.dp, vertical = 20.dp)
+            modifier = Modifier.fillMaxSize().padding(paddingValues).verticalScroll(rememberScrollState()).padding(horizontal = 16.dp, vertical = 10.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            SectionHeaderSmall("Select a contact")
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 12.dp)
-                    .horizontalScroll(rememberScrollState()),
-                horizontalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                ContactAvatar("VC", "Victoria", true)
-                ContactAvatar("SH", "Shawn")
-                ContactAvatar("KY", "Kyle")
-                ContactAvatar("MJ", "Marjorie")
+            Text("Search Veltra user", color = Muted, fontSize = 11.sp, fontFamily = Urbanist, fontWeight = FontWeight.Bold)
+
+            androidx.compose.foundation.text.BasicTextField(
+                value = "",
+                onValueChange = { },
+                modifier = Modifier.fillMaxWidth().background(Card, RoundedCornerShape(14.dp)).border(1.dp, Border, RoundedCornerShape(14.dp)).padding(14.dp),
+                textStyle = LocalTextStyle.current.copy(color = Color.White, fontSize = 13.sp, fontFamily = Urbanist),
+                cursorBrush = SolidColor(Teal),
+                decorationBox = { innerTextField ->
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(Icons.Default.Search, contentDescription = null, tint = Muted, modifier = Modifier.size(18.dp))
+                        Spacer(modifier = Modifier.width(10.dp))
+                        if (true) Text("Search by name, @username, or phone", color = Muted, fontSize = 13.sp, fontFamily = Urbanist)
+                        innerTextField()
+                    }
+                }
+            )
+
+            Text("Select friend", color = Muted, fontSize = 11.sp, fontFamily = Urbanist, fontWeight = FontWeight.Bold)
+
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                PingFriendAvatar("VC", "Victor", true)
+                PingFriendAvatar("SH", "Sarah", false)
+                PingFriendAvatar("JD", "John", false)
+                PingFriendAvatar("MK", "Musa", false)
             }
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(10.dp))
+            Text("Add a note", color = Muted, fontSize = 11.sp, fontFamily = Urbanist, fontWeight = FontWeight.Bold)
 
-            SectionHeaderSmall("Amount")
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(Card, RoundedCornerShape(14.dp))
-                    .border(1.dp, Border, RoundedCornerShape(14.dp))
-                    .padding(16.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                Text("₦", color = Muted, fontSize = 18.sp, fontWeight = FontWeight.Bold, fontFamily = Urbanist)
-                Text(amount, color = Color.White, fontSize = 24.sp, fontWeight = FontWeight.ExtraBold, fontFamily = Urbanist)
-            }
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(Card, RoundedCornerShape(14.dp))
-                    .border(1.dp, Border, RoundedCornerShape(14.dp))
-                    .padding(horizontal = 14.dp, vertical = 13.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(10.dp)
-            ) {
-                Icon(Icons.Default.EditNote, contentDescription = null, tint = Muted, modifier = Modifier.size(15.dp))
-                Text("Add a note (e.g. Dinner at Cactus 🌮)", color = Muted, fontSize = 12.sp, fontFamily = Urbanist, fontWeight = FontWeight.Medium)
-            }
-
-            Spacer(modifier = Modifier.height(24.dp))
-
-            // Notification Banner
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(Teal.copy(alpha = 0.1f), RoundedCornerShape(12.dp))
-                    .border(1.dp, Teal.copy(alpha = 0.2f), RoundedCornerShape(12.dp))
-                    .padding(13.dp, 14.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(10.dp)
-            ) {
-                Icon(Icons.Default.NotificationsActive, contentDescription = null, tint = Teal, modifier = Modifier.size(15.dp))
-                Text(
-                    "Victoria will get a Ping notification with Pay & Reject buttons",
-                    color = Teal,
-                    fontSize = 11.sp,
-                    lineHeight = 16.sp,
-                    fontFamily = Urbanist,
-                    fontWeight = FontWeight.Medium
-                )
-            }
+            androidx.compose.foundation.text.BasicTextField(
+                value = note,
+                onValueChange = { note = it },
+                modifier = Modifier.fillMaxWidth().background(Card, RoundedCornerShape(14.dp)).border(1.dp, Border, RoundedCornerShape(14.dp)).padding(16.dp),
+                textStyle = LocalTextStyle.current.copy(color = Color.White, fontSize = 13.sp, fontFamily = Urbanist),
+                cursorBrush = SolidColor(Teal),
+                decorationBox = { innerTextField ->
+                    if (note.isEmpty()) Text("What's this for? (e.g. Lunch at Cactus 🌮)", color = Muted, fontSize = 13.sp, fontFamily = Urbanist)
+                    innerTextField()
+                }
+            )
             
             Spacer(modifier = Modifier.height(40.dp))
         }
@@ -175,39 +142,22 @@ fun PingMeScreen(onBackClick: () -> Unit) {
 }
 
 @Composable
-fun SectionHeaderSmall(text: String) {
-    Text(
-        text = text.uppercase(),
-        color = Muted,
-        fontSize = 12.sp,
-        fontWeight = FontWeight.Bold,
-        letterSpacing = 1.sp,
-        modifier = Modifier.padding(bottom = 8.dp, start = 2.dp),
-        fontFamily = Urbanist
-    )
-}
-
-@Composable
-fun ContactAvatar(initials: String, name: String, isSelected: Boolean = false) {
-    Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(5.dp)) {
+fun PingFriendAvatar(initials: String, name: String, isSelected: Boolean) {
+    Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Box(
-            modifier = Modifier
-                .size(46.dp)
-                .clip(CircleShape)
-                .background(if (isSelected) Royal else Royal.copy(alpha = 0.12f))
-                .border(1.5.dp, if (isSelected) Teal else Border, CircleShape),
+            modifier = Modifier.size(54.dp).clip(CircleShape).background(if (isSelected) Royal else Color.White.copy(alpha = 0.05f)).border(1.dp, if (isSelected) Teal else Border, CircleShape),
             contentAlignment = Alignment.Center
         ) {
-            Text(initials, color = if (isSelected) Color.White else Royal, fontSize = 13.sp, fontWeight = FontWeight.Bold, fontFamily = Urbanist)
+            Text(initials, color = Color.White, fontSize = 14.sp, fontWeight = FontWeight.Bold, fontFamily = Urbanist)
         }
-        Text(name, color = Muted, fontSize = 9.5.sp, fontFamily = Urbanist, fontWeight = FontWeight.Medium)
+        Text(name, color = if (isSelected) Color.White else Muted, fontSize = 10.sp, fontWeight = FontWeight.SemiBold, fontFamily = Urbanist)
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun PingMePreview() {
     VeltraTheme {
-        PingMeScreen({})
+        PingMeScreen({}, {})
     }
 }

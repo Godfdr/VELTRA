@@ -2,27 +2,20 @@ package com.veltra.payment.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontLoadingStrategy
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.googlefonts.Font
-import androidx.compose.ui.text.googlefonts.GoogleFont
 import androidx.compose.ui.unit.sp
 import com.veltra.payment.R
 
-val provider = GoogleFont.Provider(
-    providerAuthority = "com.google.android.gms.fonts",
-    providerPackage = "com.google.android.gms",
-    certificates = R.array.com_google_android_gms_fonts_certs
-)
-
-val UrbanistFont = GoogleFont("Urbanist")
-
+// Using local fonts with explicit loading strategy to fix Preview render issues
 val Urbanist = FontFamily(
-    Font(googleFont = UrbanistFont, fontProvider = provider, weight = FontWeight.Normal),
-    Font(googleFont = UrbanistFont, fontProvider = provider, weight = FontWeight.Medium),
-    Font(googleFont = UrbanistFont, fontProvider = provider, weight = FontWeight.SemiBold),
-    Font(googleFont = UrbanistFont, fontProvider = provider, weight = FontWeight.Bold),
-    Font(googleFont = UrbanistFont, fontProvider = provider, weight = FontWeight.ExtraBold)
+    Font(resId = R.font.urbanist_regular, weight = FontWeight.Normal, loadingStrategy = FontLoadingStrategy.Async),
+    Font(resId = R.font.urbanist_medium, weight = FontWeight.Medium, loadingStrategy = FontLoadingStrategy.Async),
+    Font(resId = R.font.urbanist_semibold, weight = FontWeight.SemiBold, loadingStrategy = FontLoadingStrategy.Async),
+    Font(resId = R.font.urbanist_bold, weight = FontWeight.Bold, loadingStrategy = FontLoadingStrategy.Async),
+    Font(resId = R.font.urbanist_extrabold, weight = FontWeight.ExtraBold, loadingStrategy = FontLoadingStrategy.Async)
 )
 
 val Typography = Typography(

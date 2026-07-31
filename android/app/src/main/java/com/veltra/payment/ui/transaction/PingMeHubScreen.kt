@@ -6,6 +6,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.CallMade
+import androidx.compose.material.icons.automirrored.filled.CallReceived
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -18,147 +20,116 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.veltra.payment.ui.SectionHeaderSmall
 import com.veltra.payment.ui.theme.*
 
 @Composable
-fun PingMeHubScreen(onBackClick: () -> Unit, onRequestMoneyClick: () -> Unit) {
-    var showIncomingPing by remember { mutableStateOf(false) }
-
-    Box(modifier = Modifier.fillMaxSize()) {
-        Scaffold(
-            containerColor = Base,
-            topBar = {
-                Column {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(30.dp)
-                            .background(HeaderStart)
-                    )
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .background(HeaderGradient)
-                            .padding(horizontal = 20.dp, vertical = 10.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        IconButton(
-                            onClick = onBackClick,
-                            modifier = Modifier
-                                .size(34.dp)
-                                .background(Color.White.copy(alpha = 0.08f), CircleShape)
-                                .border(1.dp, Border, CircleShape)
-                        ) {
-                            Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back", tint = Color.White, modifier = Modifier.size(16.dp))
-                        }
-                        Spacer(modifier = Modifier.width(16.dp))
-                        Text("Ping Me Hub", color = Color.White, fontSize = 16.sp, fontWeight = FontWeight.Bold, fontFamily = Urbanist)
-                    }
-                }
-            }
-        ) { paddingValues ->
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(paddingValues)
-                    .verticalScroll(rememberScrollState())
-                    .padding(horizontal = 16.dp, vertical = 20.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                // Main Action Card
-                HubActionCard(
-                    title = "Request Money",
-                    sub = "Ping a contact and get paid instantly",
-                    icon = Icons.Default.NotificationsActive,
-                    color = InfoPurple,
-                    onClick = onRequestMoneyClick
-                )
-
-                // Secondary Action Cards
-                Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                    HubSmallCard(title = "Activity", icon = Icons.Default.History, color = Teal, modifier = Modifier.weight(1f))
-                    HubSmallCard(title = "Settings", icon = Icons.Default.Settings, color = Royal, modifier = Modifier.weight(1f))
-                }
-
-                Spacer(modifier = Modifier.height(10.dp))
-                Text("Active Pings", color = Color.White, fontSize = 14.sp, fontWeight = FontWeight.Bold, fontFamily = Urbanist)
-
-                // Simulation Trigger for Demo
-                Button(
-                    onClick = { showIncomingPing = true },
-                    modifier = Modifier.fillMaxWidth(),
-                    colors = ButtonDefaults.buttonColors(containerColor = Card)
+fun PingMeHubScreen(
+    onBackClick: () -> Unit,
+    onRequestMoneyClick: () -> Unit,
+    onActivityClick: () -> Unit
+) {
+    Scaffold(
+        containerColor = Base,
+        topBar = {
+            Column {
+                Row(
+                    modifier = Modifier.fillMaxWidth().background(HeaderGradient).padding(horizontal = 20.dp, vertical = 10.dp),
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text("Simulate Incoming Ping", color = Muted, fontSize = 12.sp, fontFamily = Urbanist)
+                    IconButton(
+                        onClick = onBackClick,
+                        modifier = Modifier.size(34.dp).background(Color.White.copy(alpha = 0.08f), CircleShape).border(1.dp, Border, CircleShape)
+                    ) {
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back", tint = Color.White, modifier = Modifier.size(16.dp))
+                    }
+                    Spacer(modifier = Modifier.width(16.dp))
+                    Text("Ping Me Hub", color = Color.White, fontSize = 16.sp, fontWeight = FontWeight.Bold, fontFamily = Urbanist)
                 }
             }
         }
-
-        // The high-fidelity overlay
-        IncomingPingOverlay(
-            isVisible = showIncomingPing,
-            onRejectClick = { showIncomingPing = false },
-            onPayClick = { showIncomingPing = false }
-        )
-    }
-}
-
-@Composable
-fun HubActionCard(title: String, sub: String, icon: ImageVector, color: Color, onClick: () -> Unit) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(20.dp))
-            .background(color.copy(alpha = 0.12f))
-            .border(1.dp, color.copy(alpha = 0.3f), RoundedCornerShape(20.dp))
-            .clickable { onClick() }
-            .padding(20.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
-        Box(
-            modifier = Modifier
-                .size(48.dp)
-                .background(color, CircleShape),
-            contentAlignment = Alignment.Center
+    ) { paddingValues ->
+        Column(
+            modifier = Modifier.fillMaxSize().padding(paddingValues).verticalScroll(rememberScrollState()).padding(horizontal = 16.dp, vertical = 14.dp),
+            verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
-            Icon(icon, contentDescription = null, tint = Color.White, modifier = Modifier.size(24.dp))
+            Text("Social Payments", color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.ExtraBold, fontFamily = Urbanist)
+            
+            // Actions
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                PingActionCard("Request Money", Icons.Default.Add, Teal, Modifier.weight(1f), onRequestMoneyClick)
+                PingActionCard("Ping Activity", Icons.Default.History, Royal, Modifier.weight(1f), onActivityClick)
+            }
+
+            SectionHeaderSmall("Suggested Friends")
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                PingFriendItem("VC", "Victor", true)
+                PingFriendItem("SH", "Sarah", false)
+                PingFriendItem("JD", "John", false)
+                PingFriendItem("MK", "Musa", false)
+            }
+
+            SectionHeaderSmall("Recent Requests")
+            Column(modifier = Modifier.fillMaxWidth().background(Card, RoundedCornerShape(16.dp)).border(1.dp, Border, RoundedCornerShape(16.dp))) {
+                RecentPingRow("Request from @victor", "₦5,000", "2h ago", true)
+                HorizontalDivider(color = Border, modifier = Modifier.padding(horizontal = 16.dp))
+                RecentPingRow("Sent to @sarah", "₦2,500", "Yesterday", false)
+            }
+            
+            Spacer(modifier = Modifier.height(40.dp))
         }
-        Column {
-            Text(title, color = Color.White, fontSize = 15.sp, fontWeight = FontWeight.Bold, fontFamily = Urbanist)
-            Text(sub, color = Muted, fontSize = 11.sp, fontFamily = Urbanist)
-        }
-        Spacer(modifier = Modifier.weight(1f))
-        Icon(Icons.Default.ChevronRight, contentDescription = null, tint = Muted)
     }
 }
 
 @Composable
-fun HubSmallCard(title: String, icon: ImageVector, color: Color, modifier: Modifier = Modifier) {
+fun PingActionCard(label: String, icon: ImageVector, color: Color, modifier: Modifier = Modifier, onClick: () -> Unit) {
     Column(
-        modifier = modifier
-            .clip(RoundedCornerShape(18.dp))
-            .background(Card)
-            .border(1.dp, Border, RoundedCornerShape(18.dp))
-            .padding(16.dp),
+        modifier = modifier.clip(RoundedCornerShape(16.dp)).background(Card).border(1.dp, Border, RoundedCornerShape(16.dp)).clickable { onClick() }.padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
-        Box(
-            modifier = Modifier
-                .size(36.dp)
-                .background(color.copy(alpha = 0.15f), RoundedCornerShape(10.dp)),
-            contentAlignment = Alignment.Center
-        ) {
-            Icon(icon, contentDescription = null, tint = color, modifier = Modifier.size(18.dp))
+        Box(modifier = Modifier.size(40.dp).background(color.copy(alpha = 0.12f), CircleShape), contentAlignment = Alignment.Center) {
+            Icon(icon, contentDescription = null, tint = color, modifier = Modifier.size(20.dp))
         }
-        Text(title, color = Color.White, fontSize = 13.sp, fontWeight = FontWeight.Bold, fontFamily = Urbanist)
+        Text(label, color = Color.White, fontSize = 12.sp, fontWeight = FontWeight.Bold, fontFamily = Urbanist)
     }
 }
 
-@Preview
 @Composable
-fun PingHubPreview() {
+fun PingFriendItem(initials: String, name: String, isOnline: Boolean) {
+    Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        Box(contentAlignment = Alignment.BottomEnd) {
+            Box(modifier = Modifier.size(52.dp).clip(CircleShape).background(Color.White.copy(alpha = 0.05f)).border(1.dp, Border, CircleShape), contentAlignment = Alignment.Center) {
+                Text(initials, color = Color.White, fontSize = 14.sp, fontWeight = FontWeight.Bold, fontFamily = Urbanist)
+            }
+            if (isOnline) {
+                Box(modifier = Modifier.size(12.dp).clip(CircleShape).background(SuccessGreen).border(2.dp, Base, CircleShape))
+            }
+        }
+        Text(name, color = Muted, fontSize = 10.sp, fontWeight = FontWeight.SemiBold, fontFamily = Urbanist)
+    }
+}
+
+@Composable
+fun RecentPingRow(title: String, amount: String, time: String, isIncoming: Boolean) {
+    Row(modifier = Modifier.fillMaxWidth().padding(16.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
+        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+            Box(modifier = Modifier.size(32.dp).background(if (isIncoming) Teal.copy(alpha = 0.12f) else Royal.copy(alpha = 0.12f), CircleShape), contentAlignment = Alignment.Center) {
+                Icon(if (isIncoming) Icons.AutoMirrored.Filled.CallReceived else Icons.AutoMirrored.Filled.CallMade, contentDescription = null, tint = if (isIncoming) Teal else Royal, modifier = Modifier.size(16.dp))
+            }
+            Column {
+                Text(title, color = Color.White, fontSize = 13.sp, fontWeight = FontWeight.Bold, fontFamily = Urbanist)
+                Text(time, color = Muted, fontSize = 10.sp, fontFamily = Urbanist)
+            }
+        }
+        Text(amount, color = Color.White, fontSize = 13.sp, fontWeight = FontWeight.ExtraBold, fontFamily = Urbanist)
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PingMeHubPreview() {
     VeltraTheme {
-        PingMeHubScreen({}, {})
+        PingMeHubScreen({}, {}, {})
     }
 }

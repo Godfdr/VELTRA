@@ -4,199 +4,172 @@ import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.veltra.payment.ui.theme.*
 
 @Composable
-fun CreateUsernameScreen(onBackClick: () -> Unit, onContinueClick: () -> Unit) {
-    var username by remember { mutableStateOf("alexveltra") }
+fun CreateUsernameScreen(
+    onBackClick: () -> Unit,
+    onContinueClick: () -> Unit,
+    viewModel: AuthViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
+) {
+    val state by viewModel.state.collectAsState()
 
+    CreateUsernameContent(
+        state = state,
+        onBackClick = onBackClick,
+        onContinueClick = {
+            viewModel.finalizeIdentity()
+            onContinueClick()
+        },
+        onUsernameChange = { viewModel.validateUsername(it) }
+    )
+}
+
+@Composable
+fun CreateUsernameContent(
+    state: AuthState,
+    onBackClick: () -> Unit,
+    onContinueClick: () -> Unit,
+    onUsernameChange: (String) -> Unit
+) {
     Scaffold(
         containerColor = Base,
         topBar = {
-            Column {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(30.dp)
-                        .background(HeaderStart)
-                )
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(Brush.verticalGradient(listOf(HeaderStart, Base)))
-                        .padding(horizontal = 20.dp, vertical = 6.dp),
-                    verticalAlignment = Alignment.CenterVertically
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 24.dp, vertical = 20.dp)
+                    .statusBarsPadding(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                IconButton(
+                    onClick = onBackClick,
+                    modifier = Modifier.size(34.dp).background(Color.White.copy(alpha = 0.08f), CircleShape).border(1.dp, Border, CircleShape)
                 ) {
-                    IconButton(
-                        onClick = onBackClick,
-                        modifier = Modifier
-                            .size(34.dp)
-                            .background(Color.White.copy(alpha = 0.08f), RoundedCornerShape(50.dp))
-                            .border(1.dp, Border, RoundedCornerShape(50.dp))
-                    ) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back", tint = Color.White, modifier = Modifier.size(16.dp))
-                    }
+                    Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back", tint = Color.White, modifier = Modifier.size(16.dp))
                 }
             }
         },
         bottomBar = {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(Base)
-                    .padding(16.dp)
-            ) {
+            Box(modifier = Modifier.fillMaxWidth().padding(24.dp)) {
+                val isButtonEnabled = state.username.length >= 5 && state.usernameError == null && !state.isProcessing
+                val buttonBrush = if (isButtonEnabled) PrimaryGradient else SolidColor(Sub)
+                
                 Button(
                     onClick = onContinueClick,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(56.dp)
-                        .shadow(elevation = 24.dp, shape = RoundedCornerShape(50.dp), ambientColor = Royal.copy(alpha = 0.35f), spotColor = Royal.copy(alpha = 0.35f)),
+                    modifier = Modifier.fillMaxWidth().height(56.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                     contentPadding = PaddingValues(),
-                    shape = RoundedCornerShape(50.dp)
+                    shape = RoundedCornerShape(50.dp),
+                    enabled = isButtonEnabled
                 ) {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .background(Brush.horizontalGradient(listOf(Royal, Teal))),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text("Continue", color = Color.White, fontSize = 15.sp, fontWeight = FontWeight.Bold, fontFamily = Urbanist)
+                    Box(modifier = Modifier.fillMaxSize().background(buttonBrush), contentAlignment = Alignment.Center) {
+                        if (state.isProcessing) {
+                            CircularProgressIndicator(color = Color.White, modifier = Modifier.size(20.dp), strokeWidth = 2.dp)
+                        } else {
+                            Text("Claim Veltra Tag", color = Color.White, fontSize = 15.sp, fontWeight = FontWeight.Bold, fontFamily = Urbanist)
+                        }
                     }
                 }
             }
         }
     ) { paddingValues ->
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues)
-                .verticalScroll(rememberScrollState()),
+            modifier = Modifier.fillMaxSize().padding(paddingValues).padding(horizontal = 24.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Spacer(modifier = Modifier.height(30.dp))
-
-            // Hero Icon
+            Spacer(modifier = Modifier.height(20.dp))
             Box(
-                modifier = Modifier
-                    .size(72.dp)
-                    .clip(RoundedCornerShape(22.dp))
-                    .background(Brush.linearGradient(listOf(Royal.copy(alpha = 0.25f), Teal.copy(alpha = 0.15f))))
-                    .border(1.dp, Royal.copy(alpha = 0.3f), RoundedCornerShape(22.dp)),
+                modifier = Modifier.size(72.dp).clip(RoundedCornerShape(22.dp)).background(PrimaryGradient),
                 contentAlignment = Alignment.Center
             ) {
-                Icon(Icons.Default.Person, contentDescription = null, tint = Teal, modifier = Modifier.size(32.dp))
+                Text("V", color = Color.White, fontSize = 32.sp, fontWeight = FontWeight.ExtraBold, fontFamily = Urbanist)
             }
-
-            Spacer(modifier = Modifier.height(18.dp))
-
-            Text("Claim your Veltra tag", color = Color.White, fontSize = 19.sp, fontWeight = FontWeight.ExtraBold, fontFamily = Urbanist)
+            
+            Spacer(modifier = Modifier.height(32.dp))
+            Text("Create your Veltra Tag", color = Color.White, fontSize = 22.sp, fontWeight = FontWeight.ExtraBold, fontFamily = Urbanist)
             Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                "This is how friends will find and pay you.\nChoose something memorable.",
-                color = Muted,
-                fontSize = 12.sp,
-                lineHeight = 19.sp,
-                textAlign = androidx.compose.ui.text.style.TextAlign.Center,
-                fontFamily = Urbanist,
-                fontWeight = FontWeight.Medium
-            )
+            Text("Your unique ID for receiving payments instantly", color = Muted, fontSize = 12.sp, fontFamily = Urbanist)
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(48.dp))
 
-            // Input Field
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 20.dp)
-                    .background(Card, RoundedCornerShape(14.dp))
-                    .border(1.5.dp, Teal.copy(alpha = 0.4f), RoundedCornerShape(14.dp))
-                    .padding(15.dp, 16.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text("@", color = Teal, fontSize = 15.sp, fontWeight = FontWeight.Bold, fontFamily = Urbanist)
-                Spacer(modifier = Modifier.width(4.dp))
-                Text(username, color = Color.White, fontSize = 15.sp, fontWeight = FontWeight.Bold, fontFamily = Urbanist)
-                Spacer(modifier = Modifier.weight(1f))
-                Box(
+            Column(modifier = Modifier.fillMaxWidth()) {
+                Text("Veltra Tag", color = Muted, fontSize = 11.sp, fontWeight = FontWeight.Bold, fontFamily = Urbanist)
+                Spacer(modifier = Modifier.height(12.dp))
+                
+                Row(
                     modifier = Modifier
-                        .size(22.dp)
-                        .clip(CircleShape)
-                        .background(Teal.copy(alpha = 0.15f)),
-                    contentAlignment = Alignment.Center
+                        .fillMaxWidth()
+                        .background(Card, RoundedCornerShape(16.dp))
+                        .border(1.dp, if (state.usernameError != null) ErrorRed else Border, RoundedCornerShape(16.dp))
+                        .padding(horizontal = 20.dp, vertical = 18.dp),
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text("✓", color = Teal, fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                    Text("@", color = Teal, fontSize = 18.sp, fontWeight = FontWeight.Bold, fontFamily = Urbanist)
+                    Spacer(modifier = Modifier.width(4.dp))
+                    BasicTextField(
+                        value = state.username,
+                        onValueChange = onUsernameChange,
+                        modifier = Modifier.weight(1f),
+                        textStyle = LocalTextStyle.current.copy(color = Color.White, fontSize = 18.sp, fontWeight = FontWeight.Bold, fontFamily = Urbanist),
+                        cursorBrush = SolidColor(Teal),
+                        singleLine = true,
+                        decorationBox = { innerTextField ->
+                            if (state.username.isEmpty()) Text("alexveltra", color = Muted, fontSize = 18.sp, fontFamily = Urbanist)
+                            innerTextField()
+                        }
+                    )
+                    if (state.username.length >= 5 && state.usernameError == null) {
+                        Icon(Icons.Default.CheckCircle, contentDescription = null, tint = SuccessGreen, modifier = Modifier.size(20.dp))
+                    }
                 }
-            }
-
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 20.dp, vertical = 8.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(5.dp)
-            ) {
-                Icon(Icons.Default.Check, contentDescription = null, tint = Teal, modifier = Modifier.size(12.dp))
-                Text("@$username is available", color = Teal, fontSize = 11.sp, fontWeight = FontWeight.Bold, fontFamily = Urbanist)
-            }
-
-            Spacer(modifier = Modifier.height(20.dp))
-
-            // Suggestions
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 20.dp)
-            ) {
-                Text("Or try one of these", color = Muted, fontSize = 11.sp, fontWeight = FontWeight.Bold, fontFamily = Urbanist)
-                Spacer(modifier = Modifier.height(8.dp))
-                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    SuggestionChip("@alex.veltra")
-                    SuggestionChip("@alexv_ng")
-                }
-                Spacer(modifier = Modifier.height(8.dp))
-                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    SuggestionChip("@therealalex")
-                    SuggestionChip("@alex2026")
+                
+                if (state.usernameError != null) {
+                    Text(
+                        text = state.usernameError!!,
+                        color = ErrorRed,
+                        fontSize = 11.sp,
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = Urbanist,
+                        modifier = Modifier.padding(top = 8.dp, start = 4.dp)
+                    )
+                } else {
+                    Text(
+                        text = "Username must be at least 5 characters",
+                        color = Muted,
+                        fontSize = 11.sp,
+                        fontFamily = Urbanist,
+                        modifier = Modifier.padding(top = 8.dp, start = 4.dp)
+                    )
                 }
             }
         }
     }
 }
 
-@Composable
-fun SuggestionChip(text: String) {
-    Box(
-        modifier = Modifier
-            .background(Card, RoundedCornerShape(20.dp))
-            .border(1.dp, Border, RoundedCornerShape(20.dp))
-            .padding(horizontal = 14.dp, vertical = 7.dp)
-            .clickable { }
-    ) {
-        Text(text, color = Muted, fontSize = 11.sp, fontWeight = FontWeight.SemiBold, fontFamily = Urbanist)
-    }
-}
-
-@Preview
+@androidx.compose.ui.tooling.preview.Preview
 @Composable
 fun CreateUsernamePreview() {
     VeltraTheme {
-        CreateUsernameScreen({}, {})
+        CreateUsernameContent(
+            state = AuthState(username = "alexveltra"),
+            onBackClick = {},
+            onContinueClick = {},
+            onUsernameChange = {}
+        )
     }
 }

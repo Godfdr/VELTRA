@@ -16,9 +16,9 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.veltra.payment.ui.SuccessDetailRow
 import com.veltra.payment.ui.theme.*
 
 @Composable
@@ -28,14 +28,13 @@ fun PingSentScreen(onCancelClick: () -> Unit) {
             .fillMaxSize()
             .background(Base)
     ) {
-        // Deep Warm Glow mixing
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .background(
                     Brush.verticalGradient(
-                        0f to HeaderStart.copy(alpha = 0.4f),
-                        0.4f to Base
+                        0f to HeaderStart.copy(alpha = 0.45f),
+                        0.5f to Base
                     )
                 )
         )
@@ -57,7 +56,7 @@ fun PingSentScreen(onCancelClick: () -> Unit) {
                         colors = ButtonDefaults.buttonColors(containerColor = Royal.copy(alpha = 0.15f)),
                         shape = RoundedCornerShape(50.dp)
                     ) {
-                        Text("Cancel Ping", color = Teal, fontSize = 15.sp, fontWeight = FontWeight.Bold, fontFamily = Urbanist)
+                        Text("Go Back to Hub", color = Teal, fontSize = 15.sp, fontWeight = FontWeight.Bold, fontFamily = Urbanist)
                     }
                 }
             }
@@ -70,9 +69,8 @@ fun PingSentScreen(onCancelClick: () -> Unit) {
                     .padding(horizontal = 24.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Spacer(modifier = Modifier.height(60.dp))
+                Spacer(modifier = Modifier.height(80.dp))
 
-                // Success Ring Visual - Precision mixing
                 Box(contentAlignment = Alignment.Center) {
                     Box(
                         modifier = Modifier
@@ -90,17 +88,17 @@ fun PingSentScreen(onCancelClick: () -> Unit) {
                             .size(56.dp)
                             .clip(CircleShape)
                             .background(Brush.linearGradient(listOf(InfoPurple, Royal)))
-                            .shadow(14.dp, CircleShape, spotColor = InfoPurple),
+                            .shadow(26.dp, CircleShape, spotColor = InfoPurple),
                         contentAlignment = Alignment.Center
                     ) {
                         Icon(Icons.Default.NotificationsActive, contentDescription = null, tint = Color.White, modifier = Modifier.size(24.dp))
                     }
                 }
 
-                Spacer(modifier = Modifier.height(24.dp))
+                Spacer(modifier = Modifier.height(28.dp))
 
-                Text("Ping Sent to Victoria", color = Color.White, fontSize = 18.sp, fontWeight = FontWeight.ExtraBold, fontFamily = Urbanist)
-                Spacer(modifier = Modifier.height(6.dp))
+                Text("Ping Sent to Victoria", color = Color.White, fontSize = 19.sp, fontWeight = FontWeight.ExtraBold, fontFamily = Urbanist)
+                Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     "She'll get a notification with\nPay & Reject options right away",
                     color = Muted,
@@ -111,11 +109,11 @@ fun PingSentScreen(onCancelClick: () -> Unit) {
                     fontWeight = FontWeight.Medium
                 )
 
-                Spacer(modifier = Modifier.height(18.dp))
+                Spacer(modifier = Modifier.height(24.dp))
 
-                Text("₦5,000.00", color = Color.White, fontSize = 28.sp, fontWeight = FontWeight.ExtraBold, fontFamily = Urbanist)
+                Text("₦5,000.00", color = Color.White, fontSize = 30.sp, fontWeight = FontWeight.ExtraBold, fontFamily = Urbanist)
 
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(14.dp))
 
                 Surface(
                     color = WarningOrange.copy(alpha = 0.12f),
@@ -132,9 +130,8 @@ fun PingSentScreen(onCancelClick: () -> Unit) {
                     }
                 }
 
-                Spacer(modifier = Modifier.height(32.dp))
+                Spacer(modifier = Modifier.height(40.dp))
 
-                // Details Card
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -153,13 +150,5 @@ fun PingSentScreen(onCancelClick: () -> Unit) {
                 Spacer(modifier = Modifier.height(40.dp))
             }
         }
-    }
-}
-
-@Preview
-@Composable
-fun PingSentPreview() {
-    VeltraTheme {
-        PingSentScreen({})
     }
 }

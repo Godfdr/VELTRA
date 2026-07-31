@@ -2,7 +2,9 @@ package com.veltra.payment.ui.auth
 
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.*
@@ -11,46 +13,54 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.veltra.payment.ui.VeltraTextField
 import com.veltra.payment.ui.theme.*
 
 @Composable
-fun SignUpScreen(onBackClick: () -> Unit, onSignInClick: () -> Unit) {
+fun SignUpScreen(
+    onBackClick: () -> Unit,
+    onSignInClick: () -> Unit,
+    onCreateAccountClick: () -> Unit = {},
+    viewModel: AuthViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
+) {
+    var firstName by remember { mutableStateOf("") }
+    var lastName by remember { mutableStateOf("") }
+    var email by remember { mutableStateOf("") }
+    var phoneNumber by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+    var agreedToTerms by remember { mutableStateOf(false) }
+
+    val isFormValid = firstName.isNotBlank() && email.isNotBlank() && password.length >= 6 && agreedToTerms
+
     Scaffold(
         containerColor = Base,
         topBar = {
-            Column {
-                Box(
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 24.dp, vertical = 20.dp)
+                    .statusBarsPadding(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                IconButton(
+                    onClick = onBackClick,
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .height(30.dp)
-                        .background(HeaderStart)
-                )
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(Brush.verticalGradient(listOf(HeaderStart, Base)))
-                        .padding(horizontal = 20.dp, vertical = 10.dp),
-                    verticalAlignment = Alignment.CenterVertically
+                        .size(34.dp)
+                        .background(Color.White.copy(alpha = 0.08f), CircleShape)
+                        .border(1.dp, Border, CircleShape)
                 ) {
-                    IconButton(
-                        onClick = onBackClick,
-                        modifier = Modifier
-                            .size(34.dp)
-                            .background(Color.White.copy(alpha = 0.08f), RoundedCornerShape(50.dp))
-                            .border(1.dp, Border, RoundedCornerShape(50.dp))
-                    ) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back", tint = Color.White, modifier = Modifier.size(16.dp))
-                    }
+                    Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back", tint = Color.White, modifier = Modifier.size(16.dp))
                 }
             }
         }
@@ -60,69 +70,64 @@ fun SignUpScreen(onBackClick: () -> Unit, onSignInClick: () -> Unit) {
                 .fillMaxSize()
                 .padding(paddingValues)
                 .verticalScroll(rememberScrollState())
-                .padding(horizontal = 20.dp),
+                .padding(horizontal = 24.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Spacer(modifier = Modifier.height(10.dp))
-
-            // Logo with Exact Gradient
             Box(
                 modifier = Modifier
                     .size(56.dp)
                     .clip(RoundedCornerShape(18.dp))
-                    .background(Brush.linearGradient(listOf(Royal, Teal))),
+                    .background(PrimaryGradient),
                 contentAlignment = Alignment.Center
             ) {
                 Text("V", color = Color.White, fontSize = 24.sp, fontWeight = FontWeight.ExtraBold, fontFamily = Urbanist)
             }
-
+            
             Spacer(modifier = Modifier.height(12.dp))
-
             Text("Create your account", color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.ExtraBold, fontFamily = Urbanist)
             Text("Join Veltra in under a minute", color = Muted, fontSize = 11.sp, fontFamily = Urbanist)
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // Auth Card - Matched padding and radius
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(Card, RoundedCornerShape(22.dp))
-                    .border(1.5.dp, Border, RoundedCornerShape(22.dp))
+                    .border(1.dp, Border, RoundedCornerShape(22.dp))
                     .padding(20.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                    AuthField(icon = Icons.Default.Person, label = "First name", modifier = Modifier.weight(1f))
-                    AuthField(icon = null, label = "Last name", modifier = Modifier.weight(1f))
+                    VeltraTextField(value = firstName, onValueChange = { firstName = it }, icon = Icons.Default.Person, placeholder = "First name", modifier = Modifier.weight(1f))
+                    VeltraTextField(value = lastName, onValueChange = { lastName = it }, icon = null, placeholder = "Last name", modifier = Modifier.weight(1f))
                 }
+                VeltraTextField(value = email, onValueChange = { email = it }, icon = Icons.Default.Email, placeholder = "Email address", keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email))
+                VeltraTextField(value = phoneNumber, onValueChange = { phoneNumber = it }, icon = Icons.Default.Phone, placeholder = "Phone number", keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone))
+                VeltraTextField(value = password, onValueChange = { password = it }, icon = Icons.Default.Lock, placeholder = "Create password", visualTransformation = PasswordVisualTransformation(), keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password))
 
-                AuthField(icon = Icons.Default.Email, label = "Email address")
-                AuthField(icon = Icons.Default.Phone, label = "Phone number")
-                AuthField(icon = Icons.Default.Lock, label = "Create password")
-
-                Spacer(modifier = Modifier.height(2.dp))
-
-                Row(verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                Row(
+                    modifier = Modifier.padding(top = 2.dp),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalAlignment = Alignment.Top
+                ) {
+                    val checkboxBrush = if (agreedToTerms) PrimaryGradient else SolidColor(Color.Transparent)
                     Box(
                         modifier = Modifier
                             .size(18.dp)
                             .clip(RoundedCornerShape(5.dp))
-                            .background(Brush.linearGradient(listOf(Royal, Teal)))
-                            .padding(2.dp),
+                            .background(checkboxBrush)
+                            .border(1.5.dp, Border, RoundedCornerShape(5.dp))
+                            .clickable { agreedToTerms = !agreedToTerms },
                         contentAlignment = Alignment.Center
                     ) {
-                        Text("✓", color = Color.White, fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                        if (agreedToTerms) Icon(Icons.Default.Check, contentDescription = null, tint = Color.White, modifier = Modifier.size(11.dp))
                     }
                     Text(
                         text = buildAnnotatedString {
                             append("I agree to Veltra's ")
-                            pushStyle(SpanStyle(color = Teal, fontWeight = FontWeight.Bold))
-                            append("Terms of Service")
-                            pop()
+                            withStyle(style = SpanStyle(color = Teal, fontWeight = FontWeight.Bold)) { append("Terms of Service") }
                             append(" and ")
-                            pushStyle(SpanStyle(color = Teal, fontWeight = FontWeight.Bold))
-                            append("Privacy Policy")
+                            withStyle(style = SpanStyle(color = Teal, fontWeight = FontWeight.Bold)) { append("Privacy Policy") }
                         },
                         color = Muted,
                         fontSize = 10.5.sp,
@@ -131,28 +136,26 @@ fun SignUpScreen(onBackClick: () -> Unit, onSignInClick: () -> Unit) {
                     )
                 }
 
-                Spacer(modifier = Modifier.height(4.dp))
-
-                // High-Fidelity Button with Shadow
+                val buttonBrush = if (isFormValid) PrimaryGradient else SolidColor(Sub)
                 Button(
-                    onClick = { },
+                    onClick = {
+                        viewModel.validateUsername("$firstName$lastName".lowercase())
+                        viewModel.updateRegistrationData(email, phoneNumber)
+                        onCreateAccountClick()
+                    },
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(56.dp)
-                        .shadow(
-                            elevation = 24.dp, 
-                            shape = RoundedCornerShape(50.dp), 
-                            ambientColor = Royal.copy(alpha = 0.5f), 
-                            spotColor = Royal.copy(alpha = 0.5f)
-                        ),
+                        .padding(top = 4.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                     contentPadding = PaddingValues(),
-                    shape = RoundedCornerShape(50.dp)
+                    shape = RoundedCornerShape(50.dp),
+                    enabled = isFormValid
                 ) {
                     Box(
                         modifier = Modifier
                             .fillMaxSize()
-                            .background(Brush.horizontalGradient(listOf(Royal, Teal))),
+                            .background(buttonBrush),
                         contentAlignment = Alignment.Center
                     ) {
                         Text("Create Account", color = Color.White, fontSize = 15.sp, fontWeight = FontWeight.Bold, fontFamily = Urbanist)
@@ -160,35 +163,19 @@ fun SignUpScreen(onBackClick: () -> Unit, onSignInClick: () -> Unit) {
                 }
             }
 
-            Spacer(modifier = Modifier.height(20.dp))
-
-            Row(modifier = Modifier.padding(bottom = 32.dp)) {
+            Spacer(modifier = Modifier.height(24.dp))
+            
+            Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.fillMaxWidth().clickable { onSignInClick() }) {
                 Text("Already have an account? ", color = Muted, fontSize = 12.sp, fontFamily = Urbanist)
-                Text("Sign in", color = Teal, fontSize = 12.sp, fontWeight = FontWeight.Bold, modifier = Modifier.clickable { onSignInClick() }, fontFamily = Urbanist)
+                Text("Sign in", color = Teal, fontSize = 12.sp, fontWeight = FontWeight.Bold, fontFamily = Urbanist)
             }
+            
+            Spacer(modifier = Modifier.height(40.dp))
         }
     }
 }
 
-@Composable
-fun AuthField(icon: ImageVector?, label: String, modifier: Modifier = Modifier) {
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .background(Card2, RoundedCornerShape(12.dp))
-            .border(1.dp, Border, RoundedCornerShape(12.dp))
-            .padding(horizontal = 14.dp, vertical = 12.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(10.dp)
-    ) {
-        if (icon != null) {
-            Icon(icon, contentDescription = null, tint = Muted, modifier = Modifier.size(15.dp))
-        }
-        Text(label, color = Muted, fontSize = 12.sp, fontFamily = Urbanist, fontWeight = FontWeight.Medium)
-    }
-}
-
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun SignUpPreview() {
     VeltraTheme {

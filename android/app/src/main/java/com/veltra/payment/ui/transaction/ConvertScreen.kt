@@ -4,32 +4,41 @@ import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.SyncAlt
+import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.veltra.payment.ui.*
 import com.veltra.payment.ui.theme.*
+import java.util.Locale
 
 @Composable
-fun ConvertScreen(onBackClick: () -> Unit) {
+fun ConvertScreen(
+    onBackClick: () -> Unit,
+    onSelectCurrency: (Boolean) -> Unit = {},
+    onConvertSuccess: () -> Unit = {},
+    viewModel: ConversionViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
+) {
+    val state by viewModel.state.collectAsState()
+
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(Base)
     ) {
-        // Deep Blue/Purple Header Glow - Matching the Insp exactly
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -72,18 +81,12 @@ fun ConvertScreen(onBackClick: () -> Unit) {
                 }
             },
             bottomBar = {
-                // Bottom Nav from Inspo (Icons only, active highlighted)
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(Card)
-                        .border(1.dp, Border)
-                        .padding(vertical = 12.dp),
-                    horizontalArrangement = Arrangement.SpaceAround,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    NavIcon(icon = Icons.Default.SyncAlt, isActive = true)
-                }
+                VeltraFooter(
+                    activeRoute = "convert",
+                    onDashboardClick = { }, 
+                    onPocketsClick = { },
+                    onProfileClick = { }
+                )
             }
         ) { paddingValues ->
             Column(
@@ -97,7 +100,6 @@ fun ConvertScreen(onBackClick: () -> Unit) {
                 Text("Add amount and select currency", color = Muted, fontSize = 13.sp, fontFamily = Urbanist)
                 Spacer(modifier = Modifier.height(20.dp))
 
-                // Unified Conversion Card - Exact replica of the Inspo container
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -105,7 +107,6 @@ fun ConvertScreen(onBackClick: () -> Unit) {
                         .border(1.dp, Border, RoundedCornerShape(24.dp))
                         .padding(20.dp)
                 ) {
-                    // From Section
                     Text("From", color = Muted, fontSize = 12.sp, fontFamily = Urbanist)
                     Spacer(modifier = Modifier.height(12.dp))
                     Row(
@@ -113,18 +114,32 @@ fun ConvertScreen(onBackClick: () -> Unit) {
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Text("$50,00.00", color = Color.White, fontSize = 26.sp, fontWeight = FontWeight.ExtraBold, fontFamily = Urbanist)
-                        CurrencyChip(flag = "🇺🇸", code = "USD")
+                        Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.weight(1f).horizontalScroll(rememberScrollState())) {
+                            Text(state.fromCurrency.symbol, color = Color.White, fontSize = 26.sp, fontWeight = FontWeight.ExtraBold, fontFamily = Urbanist)
+                            Spacer(modifier = Modifier.width(4.dp))
+                            BasicTextField(
+                                value = state.fromAmount,
+                                onValueChange = { viewModel.updateAmount(it) },
+                                textStyle = LocalTextStyle.current.copy(
+                                    color = Color.White, 
+                                    fontSize = 26.sp, 
+                                    fontWeight = FontWeight.ExtraBold, 
+                                    fontFamily = Urbanist
+                                ),
+                                singleLine = true,
+                                cursorBrush = SolidColor(Teal),
+                                modifier = Modifier.fillMaxWidth()
+                            )
+                        }
+                        CurrencyChipInteractive(flag = state.fromCurrency.flag, code = state.fromCurrency.code, onClick = { onSelectCurrency(true) })
                     }
 
-                    // Centered Swap Button overlapping the two sections
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(vertical = 4.dp),
                         contentAlignment = Alignment.Center
                     ) {
-                        // Deep glow behind the swap icon
                         Box(
                             modifier = Modifier
                                 .size(50.dp)
@@ -141,14 +156,13 @@ fun ConvertScreen(onBackClick: () -> Unit) {
                                 .clip(CircleShape)
                                 .background(Royal)
                                 .border(2.dp, Card, CircleShape)
-                                .clickable { },
+                                .clickable { viewModel.swapCurrencies() },
                             contentAlignment = Alignment.Center
                         ) {
                             Icon(Icons.Default.SyncAlt, contentDescription = "Swap", tint = Color.White, modifier = Modifier.size(20.dp))
                         }
                     }
 
-                    // To Section
                     Text("Amount you will receive", color = Muted, fontSize = 12.sp, fontFamily = Urbanist)
                     Spacer(modifier = Modifier.height(12.dp))
                     Row(
@@ -156,46 +170,49 @@ fun ConvertScreen(onBackClick: () -> Unit) {
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        // Value JD78,557.92 in Muted text as per inspo
-                        Text("JD78,557.92", color = Muted, fontSize = 26.sp, fontWeight = FontWeight.ExtraBold, fontFamily = Urbanist)
-                        CurrencyChip(flag = "🇲🇽", code = "MEX")
+                        Text(
+                            "${state.toCurrency.symbol}${String.format(Locale.US, "%,.2f", state.toAmount.toDouble())}", 
+                            color = Muted, 
+                            fontSize = 26.sp, 
+                            fontWeight = FontWeight.ExtraBold, 
+                            fontFamily = Urbanist,
+                            modifier = Modifier.weight(1f).horizontalScroll(rememberScrollState())
+                        )
+                        CurrencyChipInteractive(flag = state.toCurrency.flag, code = state.toCurrency.code, onClick = { onSelectCurrency(false) })
                     }
                 }
 
-                Spacer(modifier = Modifier.height(24.dp))
-
-                // Balance Row
+                Spacer(modifier = Modifier.height(18.dp))
+                
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(vertical = 4.dp),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Text("Current Balance ($)", color = Color.White, fontSize = 14.sp, fontFamily = Urbanist)
-                    Text("$50,00.00", color = Color.White, fontSize = 14.sp, fontWeight = FontWeight.SemiBold, fontFamily = Urbanist)
+                    Text("Current Balance (${state.fromCurrency.code})", color = Color.White, fontSize = 14.sp, fontFamily = Urbanist)
+                    Text("${state.fromCurrency.symbol}100,000.00", color = Color.White, fontSize = 14.sp, fontWeight = FontWeight.SemiBold, fontFamily = Urbanist)
                 }
 
                 Spacer(modifier = Modifier.height(12.dp))
 
-                // Detail Rows Card - Matches the list style in Inspo
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
                         .background(Card2, RoundedCornerShape(20.dp))
                         .border(1.dp, Border, RoundedCornerShape(20.dp))
                 ) {
-                    DetailRow(label = "Conversion fee", value = "JD 0.10")
-                    Divider(color = Border, modifier = Modifier.padding(horizontal = 16.dp))
-                    DetailRow(label = "Amount converted", value = "JD 78,557.82")
-                    Divider(color = Border, modifier = Modifier.padding(horizontal = 16.dp))
-                    DetailRow(label = "Today's rate", value = "JD = 1 $1.6")
+                    DetailRowInteractive(label = "Conversion fee", value = "${state.toCurrency.symbol}${String.format(Locale.US, "%,.2f", state.fee.toDouble())}")
+                    HorizontalDivider(color = Border, modifier = Modifier.padding(horizontal = 16.dp))
+                    DetailRowInteractive(label = "Amount converted", value = "${state.toCurrency.symbol}${String.format(Locale.US, "%,.2f", state.totalToAmount.toDouble())}")
+                    HorizontalDivider(color = Border, modifier = Modifier.padding(horizontal = 16.dp))
+                    DetailRowInteractive(label = "Today's rate", value = "${state.toCurrency.symbol}1 = ${state.fromCurrency.symbol}${String.format(Locale.US, "%.6f", state.conversionRate.toDouble())}")
                 }
 
                 Spacer(modifier = Modifier.height(48.dp))
 
-                // Exact Glassmorphism Convert Button
                 Button(
-                    onClick = { },
+                    onClick = onConvertSuccess,
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(60.dp)
@@ -229,51 +246,7 @@ fun ConvertScreen(onBackClick: () -> Unit) {
     }
 }
 
-@Composable
-fun CurrencyChip(flag: String, code: String) {
-    Row(
-        modifier = Modifier
-            .clip(RoundedCornerShape(50.dp))
-            .background(Color.White.copy(alpha = 0.08f))
-            .border(1.dp, Border, RoundedCornerShape(50.dp))
-            .padding(horizontal = 12.dp, vertical = 6.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Text(flag, fontSize = 18.sp)
-        Spacer(modifier = Modifier.width(6.dp))
-        Text(code, color = Color.White, fontSize = 13.sp, fontWeight = FontWeight.Bold, fontFamily = Urbanist)
-        Spacer(modifier = Modifier.width(4.dp))
-        Text("▾", color = Muted, fontSize = 10.sp)
-    }
-}
-
-@Composable
-fun DetailRow(label: String, value: String) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp, 14.dp),
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        Text(label, color = Muted, fontSize = 13.sp, fontFamily = Urbanist)
-        Text(value, color = Color.White, fontSize = 13.sp, fontWeight = FontWeight.SemiBold, fontFamily = Urbanist)
-    }
-}
-
-@Composable
-fun NavIcon(icon: ImageVector, isActive: Boolean = false) {
-    Box(
-        modifier = Modifier
-            .size(44.dp)
-            .clip(RoundedCornerShape(14.dp))
-            .background(if (isActive) Royal.copy(alpha = 0.18f) else Color.Transparent),
-        contentAlignment = Alignment.Center
-    ) {
-        Icon(icon, contentDescription = null, tint = if (isActive) Color.White else Muted, modifier = Modifier.size(22.dp))
-    }
-}
-
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun ConvertPreview() {
     VeltraTheme {

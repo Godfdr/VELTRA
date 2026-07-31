@@ -20,9 +20,11 @@ val HeaderStart = Color(0xFF1A2A5E)
 
 // Semantic Colors
 val SuccessGreen = Color(0xFF34C759)
-val ErrorRed = Color(0xFFEF4444)
+val ErrorRed = Color(0xFFF87171)
 val WarningOrange = Color(0xFFF59E0B)
+val Amber = Color(0xFFF59E0B)
 val InfoPurple = Color(0xFF9B6DFF)
+val Purple = Color(0xFF9B6DFF)
 
 // Production Gradients - Refined for mixing smoothness
 val PrimaryGradient = Brush.horizontalGradient(listOf(Royal, Teal))
@@ -43,3 +45,6 @@ val AnalyticsGradient = Brush.linearGradient(
 val InsightGradient = Brush.horizontalGradient(
     listOf(Royal.copy(alpha = 0.15f), Teal.copy(alpha = 0.12f))
 )
+
+// Face ID Glow
+val FaceIdGlow = Brush.radialGradient(listOf(Teal.copy(alpha = 0.15f), Color.Transparent))

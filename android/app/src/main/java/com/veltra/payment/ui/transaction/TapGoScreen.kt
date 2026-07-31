@@ -1,5 +1,6 @@
 package com.veltra.payment.ui.transaction
 
+import androidx.compose.animation.*
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -23,156 +24,151 @@ import androidx.compose.ui.unit.sp
 import com.veltra.payment.ui.theme.*
 
 @Composable
-fun TapGoScreen(onBackClick: () -> Unit) {
-    var selectedTab by remember { mutableStateOf("Phone") }
+fun TapGoScreen(onBackClick: () -> Unit, onStartTapClick: () -> Unit = {}) {
+    var selectedTabIndex by remember { mutableStateOf(0) }
+    val tabs = listOf("Phone", "Card", "Reader")
 
     Scaffold(
         containerColor = Base,
         topBar = {
-            Column {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(30.dp)
-                        .background(HeaderStart)
-                )
+            Column(modifier = Modifier.background(HeaderGradient)) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(HeaderGradient)
-                        .padding(horizontal = 20.dp, vertical = 10.dp),
+                        .padding(horizontal = 24.dp, vertical = 20.dp)
+                        .statusBarsPadding(),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     IconButton(
                         onClick = onBackClick,
-                        modifier = Modifier
-                            .size(34.dp)
-                            .background(Color.White.copy(alpha = 0.08f), CircleShape)
-                            .border(1.dp, Border, CircleShape)
+                        modifier = Modifier.size(36.dp).background(Color.White.copy(alpha = 0.08f), CircleShape).border(1.dp, Border, CircleShape)
                     ) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back", tint = Color.White, modifier = Modifier.size(16.dp))
                     }
-                    Spacer(modifier = Modifier.width(16.dp))
+                    Spacer(modifier = Modifier.weight(1f))
                     Text("Tap & Go", color = Color.White, fontSize = 16.sp, fontWeight = FontWeight.Bold, fontFamily = Urbanist)
+                    Spacer(modifier = Modifier.weight(1.2f))
                 }
-
-                // Tabs - Exact Reference
+                
+                // Tabs from veltra-master.html Screen 7
                 Row(
                     modifier = Modifier
+                        .padding(horizontal = 24.dp, vertical = 12.dp)
                         .fillMaxWidth()
-                        .padding(horizontal = 20.dp, vertical = 12.dp)
                         .background(Card, RoundedCornerShape(14.dp))
+                        .border(1.dp, Border, RoundedCornerShape(14.dp))
                         .padding(4.dp),
                     horizontalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
-                    TapTab("Phone", selectedTab == "Phone") { selectedTab = it }
-                    TapTab("Card", selectedTab == "Card") { selectedTab = it }
-                    TapTab("Reader", selectedTab == "Reader") { selectedTab = it }
+                    tabs.forEachIndexed { index, label ->
+                        Box(
+                            modifier = Modifier
+                                .weight(1f)
+                                .clip(RoundedCornerShape(10.dp))
+                                .background(if (selectedTabIndex == index) Royal else Color.Transparent)
+                                .clickable { selectedTabIndex = index }
+                                .padding(vertical = 9.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(label, color = if (selectedTabIndex == index) Color.White else Muted, fontSize = 11.sp, fontWeight = FontWeight.Bold, fontFamily = Urbanist)
+                        }
+                    }
                 }
             }
         }
     ) { paddingValues ->
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues)
-                .padding(horizontal = 24.dp),
+            modifier = Modifier.fillMaxSize().padding(paddingValues).padding(horizontal = 24.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Spacer(modifier = Modifier.height(40.dp))
-
-            // Pulsing Ring Animation Visual - Polished for warmth
-            Box(
-                modifier = Modifier.size(180.dp),
-                contentAlignment = Alignment.Center
-            ) {
-                // Outer Ring
+            Spacer(modifier = Modifier.height(32.dp))
+            
+            // Concentric Rings
+            Box(contentAlignment = Alignment.Center) {
+                Box(modifier = Modifier.size(180.dp).background(Royal.copy(alpha = 0.06f), CircleShape).border(1.dp, Royal.copy(alpha = 0.15f), CircleShape))
+                Box(modifier = Modifier.size(136.dp).background(Royal.copy(alpha = 0.1f), CircleShape).border(1.dp, Royal.copy(alpha = 0.25f), CircleShape))
+                
                 Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .clip(CircleShape)
-                        .background(Royal.copy(alpha = 0.06f))
-                        .border(1.dp, Royal.copy(alpha = 0.15f), CircleShape)
-                )
-                // Mid Ring
-                Box(
-                    modifier = Modifier
-                        .size(136.dp)
-                        .clip(CircleShape)
-                        .background(Royal.copy(alpha = 0.1f))
-                        .border(1.dp, Royal.copy(alpha = 0.25f), CircleShape)
-                )
-                // Core
-                Box(
-                    modifier = Modifier
-                        .size(76.dp)
-                        .clip(CircleShape)
-                        .background(PrimaryGradient)
-                        .border(2.dp, Border, CircleShape)
-                        .shadow(32.dp, CircleShape, spotColor = Royal),
+                    modifier = Modifier.size(76.dp).clip(CircleShape).background(PrimaryGradient).border(2.dp, Border, CircleShape),
                     contentAlignment = Alignment.Center
                 ) {
-                    Icon(Icons.Default.PhonelinkRing, contentDescription = null, tint = Color.White, modifier = Modifier.size(32.dp))
+                    Icon(
+                        imageVector = when(selectedTabIndex) {
+                            0 -> Icons.Default.PhoneAndroid
+                            1 -> Icons.Default.CreditCard
+                            else -> Icons.Default.Contactless
+                        }, 
+                        contentDescription = null, 
+                        tint = Color.White, 
+                        modifier = Modifier.size(32.dp)
+                    )
                 }
             }
 
-            Spacer(modifier = Modifier.height(28.dp))
-
-            Text("Phone to Phone", color = Color.White, fontSize = 18.sp, fontWeight = FontWeight.Bold, fontFamily = Urbanist)
+            Spacer(modifier = Modifier.height(32.dp))
+            Text(
+                text = when(selectedTabIndex) {
+                    0 -> "Phone to Phone"
+                    1 -> "Phone to Card"
+                    else -> "Phone to Reader"
+                }, 
+                color = Color.White, 
+                fontSize = 18.sp, 
+                fontWeight = FontWeight.Bold, 
+                fontFamily = Urbanist
+            )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                "Hold your phone near another\nVeltra user's phone to transfer",
+                text = when(selectedTabIndex) {
+                    0 -> "Hold your phone near another\nVeltra user's phone to transfer"
+                    1 -> "Tap your physical Veltra card\nbehind your phone to sync"
+                    else -> "Connect your Veltra Reader via\nBluetooth to accept payments"
+                },
                 color = Muted,
                 fontSize = 12.sp,
-                lineHeight = 18.sp,
                 textAlign = TextAlign.Center,
-                fontFamily = Urbanist,
-                fontWeight = FontWeight.Medium
+                lineHeight = 18.sp,
+                fontFamily = Urbanist
             )
 
             Spacer(modifier = Modifier.weight(1f))
 
-            // Wallet Pill - Matched to HTML
-            Box(
-                modifier = Modifier
-                    .clip(RoundedCornerShape(50.dp))
-                    .background(Card2)
-                    .border(1.dp, Border, RoundedCornerShape(50.dp))
-                    .padding(horizontal = 16.dp, vertical = 8.dp)
-                    .clickable { }
-            ) {
-                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                    Box(modifier = Modifier.size(32.dp).clip(CircleShape).background(Royal.copy(alpha = 0.15f)), contentAlignment = Alignment.Center) {
-                        Icon(Icons.Default.AccountBalanceWallet, contentDescription = null, tint = Royal, modifier = Modifier.size(15.dp))
-                    }
-                    Column {
-                        Text("Main Wallet", color = Color.White, fontSize = 12.sp, fontWeight = FontWeight.Bold, fontFamily = Urbanist)
-                        Text("$ 100,000.00", color = Muted, fontSize = 10.sp, fontFamily = Urbanist, fontWeight = FontWeight.Medium)
-                    }
-                    Icon(Icons.Default.KeyboardArrowDown, contentDescription = null, tint = Sub, modifier = Modifier.size(14.dp))
-                }
-            }
-
-            Spacer(modifier = Modifier.height(20.dp))
-
-            // Primary CTA
             Button(
-                onClick = { },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(56.dp)
-                    .shadow(elevation = 24.dp, shape = RoundedCornerShape(50.dp), ambientColor = Royal.copy(alpha = 0.35f), spotColor = Royal.copy(alpha = 0.35f)),
+                onClick = onStartTapClick,
+                modifier = Modifier.fillMaxWidth().height(56.dp).shadow(12.dp, RoundedCornerShape(50.dp), spotColor = Royal),
                 colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                 contentPadding = PaddingValues(),
                 shape = RoundedCornerShape(50.dp)
             ) {
+                Box(modifier = Modifier.fillMaxSize().background(PrimaryGradient), contentAlignment = Alignment.Center) {
+                    Text(
+                        text = when(selectedTabIndex) {
+                            0 -> "Start Tap & Go"
+                            1 -> "Sync My Card"
+                            else -> "Search for Reader"
+                        }, 
+                        color = Color.White, 
+                        fontSize = 15.sp, 
+                        fontWeight = FontWeight.Bold, 
+                        fontFamily = Urbanist
+                    )
+                }
+            }
+            
+            Spacer(modifier = Modifier.height(10.dp))
+            
+            OutlinedButton(
+                onClick = { },
+                modifier = Modifier.fillMaxWidth().height(56.dp),
+                border = BorderStroke(1.dp, Royal.copy(alpha = 0.3f)),
+                shape = RoundedCornerShape(50.dp),
+                colors = ButtonDefaults.outlinedButtonColors(contentColor = Teal)
+            ) {
                 Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(PrimaryGradient),
+                    modifier = Modifier.fillMaxSize().background(Brush.linearGradient(listOf(Royal.copy(alpha = 0.15f), Teal.copy(alpha = 0.15f)))),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text("Start Tap & Go", color = Color.White, fontSize = 15.sp, fontWeight = FontWeight.Bold, fontFamily = Urbanist)
+                    Text("Show My Tag to Receive", color = Teal, fontSize = 14.sp, fontWeight = FontWeight.Bold, fontFamily = Urbanist)
                 }
             }
             
@@ -181,22 +177,7 @@ fun TapGoScreen(onBackClick: () -> Unit) {
     }
 }
 
-@Composable
-fun RowScope.TapTab(label: String, isActive: Boolean, onClick: (String) -> Unit) {
-    Box(
-        modifier = Modifier
-            .weight(1f)
-            .clip(RoundedCornerShape(10.dp))
-            .background(if (isActive) Royal else Color.Transparent)
-            .clickable { onClick(label) }
-            .padding(vertical = 9.dp),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(label, color = if (isActive) Color.White else Muted, fontSize = 11.sp, fontWeight = FontWeight.Bold, fontFamily = Urbanist)
-    }
-}
-
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun TapGoPreview() {
     VeltraTheme {

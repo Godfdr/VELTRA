@@ -96,12 +96,18 @@ dependencies {
     // QR Code Generation
     implementation("com.google.zxing:core:3.5.3")
 
+    // Image Loading
+    implementation("io.coil-kt:coil-compose:2.7.0")
+
     // Lottie Animations
     implementation("com.airbnb.android:lottie:6.6.2")
 
     // Lifecycle
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.7")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7")
+
+    // DataStore Persistence
+    implementation("androidx.datastore:datastore-preferences:1.1.2")
 
     // Testing
     testImplementation("junit:junit:4.13.2")
